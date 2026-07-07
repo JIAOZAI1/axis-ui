@@ -153,6 +153,11 @@ function removeTag(tag: string) {
 /* ---- Tabs ---- */
 const activeTab = ref<string | number>('spec')
 
+/* ---- Menu ---- */
+const menuActive = ref<string | number>('dashboard')
+const menuCollapsed = ref(false)
+const topMenuActive = ref<string | number>('home')
+
 /* ---- Table + Pagination ---- */
 const columns: TableColumn[] = [
   { key: 'name', title: '项目', width: 200 },
@@ -586,6 +591,75 @@ function hideLoading() {
         </ax-card>
       </ax-col>
     </ax-row>
+
+    <!-- ============ Menu ============ -->
+    <h2 class="demo-section-title">Menu 菜单</h2>
+    <ax-card title="垂直菜单(侧边栏)">
+      <template #extra>
+        <ax-switch v-model="menuCollapsed" checked-text="已折叠" unchecked-text="展开中" />
+      </template>
+      <div style="display: flex; gap: var(--axis-space-6); align-items: flex-start">
+        <div
+          :style="{
+            width: menuCollapsed
+              ? 'var(--axis-layout-sider-collapsed-width)'
+              : 'var(--axis-layout-sider-width)',
+            border: '1px solid var(--axis-color-border-split)',
+            borderRadius: 'var(--axis-radius-lg)',
+            overflow: 'visible',
+            transition: 'width var(--axis-motion-duration-mid) var(--axis-motion-ease-in-out)'
+          }"
+        >
+          <ax-menu v-model="menuActive" :collapsed="menuCollapsed" :default-open-keys="['project']">
+            <ax-menu-item name="dashboard">
+              <template #icon>📊</template>
+              工作台
+            </ax-menu-item>
+            <ax-sub-menu name="project" title="项目管理">
+              <template #icon>📁</template>
+              <ax-menu-item name="project-list">项目列表</ax-menu-item>
+              <ax-menu-item name="project-archive">归档项目</ax-menu-item>
+              <ax-sub-menu name="project-settings" title="项目设置">
+                <ax-menu-item name="project-members">成员</ax-menu-item>
+                <ax-menu-item name="project-perms">权限</ax-menu-item>
+              </ax-sub-menu>
+            </ax-sub-menu>
+            <ax-sub-menu name="release" title="发布中心">
+              <template #icon>🚀</template>
+              <ax-menu-item name="release-pipeline">流水线</ax-menu-item>
+              <ax-menu-item name="release-history">发布历史</ax-menu-item>
+            </ax-sub-menu>
+            <ax-menu-item name="audit" disabled>
+              <template #icon>🔒</template>
+              审计日志(无权限)
+            </ax-menu-item>
+          </ax-menu>
+        </div>
+        <p style="flex: 1; color: var(--axis-color-text-secondary); margin: 0">
+          当前选中:<ax-tag type="primary">{{ menuActive }}</ax-tag><br /><br />
+          支持无限层级嵌套,内联模式按深度缩进;后代选中时全部祖先标题高亮品牌色;
+          折叠后仅显示图标(宽度取
+          <code style="font-family: var(--axis-font-family-code)">--axis-layout-sider-collapsed-width</code>),
+          悬浮子菜单以浮层弹出下级。
+        </p>
+      </div>
+    </ax-card>
+
+    <ax-card title="水平菜单(顶栏)" body-padding="0">
+      <ax-menu v-model="topMenuActive" mode="horizontal">
+        <ax-menu-item name="home">首页</ax-menu-item>
+        <ax-sub-menu name="products" title="产品">
+          <ax-menu-item name="ui">组件库</ax-menu-item>
+          <ax-menu-item name="tokens">设计 Token</ax-menu-item>
+          <ax-sub-menu name="solutions" title="解决方案">
+            <ax-menu-item name="admin">中后台</ax-menu-item>
+            <ax-menu-item name="portal">门户</ax-menu-item>
+          </ax-sub-menu>
+        </ax-sub-menu>
+        <ax-menu-item name="docs">文档</ax-menu-item>
+        <ax-menu-item name="about" disabled>关于(禁用)</ax-menu-item>
+      </ax-menu>
+    </ax-card>
 
     <!-- ============ Tabs ============ -->
     <h2 class="demo-section-title">Tabs 标签页</h2>

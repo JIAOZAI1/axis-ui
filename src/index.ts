@@ -38,6 +38,9 @@ import AxTable from './components/table/AxTable.vue'
 import AxPagination from './components/pagination/AxPagination.vue'
 import AxModal from './components/modal/AxModal.vue'
 import AxTooltip from './components/tooltip/AxTooltip.vue'
+import AxMenu from './components/menu/AxMenu.vue'
+import AxSubMenu from './components/menu/AxSubMenu.vue'
+import AxMenuItem from './components/menu/AxMenuItem.vue'
 
 export { AxMessage } from './components/message/message'
 export { setTheme, getTheme, toggleTheme, applyBrandTheme } from './theme'
@@ -79,7 +82,10 @@ export {
   AxTable,
   AxPagination,
   AxModal,
-  AxTooltip
+  AxTooltip,
+  AxMenu,
+  AxSubMenu,
+  AxMenuItem
 }
 
 const components = [
@@ -105,7 +111,10 @@ const components = [
   AxTable,
   AxPagination,
   AxModal,
-  AxTooltip
+  AxTooltip,
+  AxMenu,
+  AxSubMenu,
+  AxMenuItem
 ]
 
 const AxisUI: Plugin = {
