@@ -10,7 +10,7 @@
 - 🌙 **暗色模式** — 一行 `setTheme('dark')` 全局切换,基于语义 Token 重映射(海拔分层背景、品牌色降饱和、阴影弱化),组件零改动
 - 🏷 **品牌主题定制** — `applyBrandTheme()` 运行时覆盖语义 Token,即刻全站换肤
 - ♿ **无障碍** — 遵循 WCAG AA 对比度要求;所有动效响应 `prefers-reduced-motion` 自动降级;组件带 ARIA 角色
-- 📦 **22 个核心组件** — 覆盖通用、表单(含 Form 校验)、布局、数据展示、反馈五大类
+- 📦 **23 个核心组件** — 覆盖通用、表单(含 Form 校验)、布局、数据展示、反馈五大类
 - 🔌 **全量 / 按需两种引入方式**,支持 ESM 与 UMD
 
 ## 快速开始
@@ -55,13 +55,14 @@ npm run build:lib   # 构建组件库产物到 dist/
 npm run build       # 构建 Demo 静态站到 dist-demo/
 ```
 
-发布:在 GitHub 创建 Release 即自动发布到 GitHub Packages(内置 [publish 工作流](./.github/workflows/publish.yml)),或本地 `npm publish`。详见[发布指南](./docs/publishing.md)。
+发布:本地执行 `./scripts/release.sh patch|minor|major`(构建 → 版本提升 → publish → git 提交打 tag → 推送,先 `--dry-run` 预检),或在 GitHub 创建 Release 触发[自动发布工作流](./.github/workflows/publish.yml)。详见[发布指南](./docs/publishing.md)。
 
 ## 组件一览
 
 | 分类 | 组件 | 文档 |
 |------|------|------|
 | 通用 | Button 按钮 | [docs/components/button.md](./docs/components/button.md) |
+| 通用 | Link 链接 | [docs/components/link.md](./docs/components/link.md) |
 | 布局 | Grid 栅格(Row / Col) | [docs/components/grid.md](./docs/components/grid.md) |
 | 表单 | Form 表单(含 FormItem) | [docs/components/form.md](./docs/components/form.md) |
 | 表单 | Input 输入框 | [docs/components/input.md](./docs/components/input.md) |

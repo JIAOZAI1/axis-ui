@@ -16,6 +16,7 @@ import './styles/dark.css'
 import './styles/base.css'
 
 import AxButton from './components/button/AxButton.vue'
+import AxLink from './components/link/AxLink.vue'
 import AxInput from './components/input/AxInput.vue'
 import AxForm from './components/form/AxForm.vue'
 import AxFormItem from './components/form/AxFormItem.vue'
@@ -57,6 +58,7 @@ export type { FormRule, FormRules } from './components/form/context'
 
 export {
   AxButton,
+  AxLink,
   AxInput,
   AxForm,
   AxFormItem,
@@ -82,6 +84,7 @@ export {
 
 const components = [
   AxButton,
+  AxLink,
   AxInput,
   AxForm,
   AxFormItem,

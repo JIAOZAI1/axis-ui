@@ -341,6 +341,36 @@ function hideLoading() {
       </div>
     </ax-card>
 
+    <!-- ============ Link ============ -->
+    <h2 class="demo-section-title">Link 链接</h2>
+    <ax-card>
+      <div class="demo-block">
+        <span class="demo-block-label">语义色</span>
+        <ax-link href="#" type="default">默认</ax-link>
+        <ax-link href="#">品牌(默认值)</ax-link>
+        <ax-link href="#" type="success">成功</ax-link>
+        <ax-link href="#" type="warning">警告</ax-link>
+        <ax-link href="#" type="danger">危险</ax-link>
+        <ax-link disabled>禁用链接</ax-link>
+      </div>
+      <div class="demo-block">
+        <span class="demo-block-label">下划线策略 / 外链 / 动作链接</span>
+        <ax-link href="#" underline="always">始终下划线</ax-link>
+        <ax-link href="#" underline="hover">悬浮下划线</ax-link>
+        <ax-link href="#" underline="never">无下划线</ax-link>
+        <ax-link href="https://github.com/jiaozai1/axis-ui" target="_blank">外部仓库 ↗</ax-link>
+        <ax-link @click="AxMessage.info('打开重置密码流程')">忘记密码?(纯动作)</ax-link>
+      </div>
+      <div class="demo-block">
+        <span class="demo-block-label">嵌入文字流:字号随上下文继承</span>
+        <span style="color: var(--axis-color-text-secondary)">
+          登录即代表同意<ax-link href="#" underline="always">《用户协议》</ax-link>与
+          <ax-link href="#" underline="always">《隐私政策》</ax-link>,遇到问题可
+          <ax-link href="#">联系管理员</ax-link>。
+        </span>
+      </div>
+    </ax-card>
+
     <!-- ============ 表单 ============ -->
     <h2 class="demo-section-title">表单组件</h2>
     <ax-card>

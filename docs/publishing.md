@@ -29,20 +29,24 @@ GitHub Packages 要求包名必须带 **GitHub 用户名或组织名**作用域,
 
 也可在 Actions 页面手动触发(workflow_dispatch)补发。
 
-## 方式二:本地手动发布
+## 方式二:本地脚本发布(推荐)
 
-1. 创建 GitHub **Personal Access Token (classic)**,勾选 `write:packages` 权限;
-2. 在本机 `~/.npmrc`(不要提交到仓库)写入认证:
+仓库内置 [scripts/release.sh](../scripts/release.sh),一条命令完成「构建 → 版本号提升 → npm publish → git 提交 + 打 tag → 推送」:
 
-   ```
-   //npm.pkg.github.com/:_authToken=ghp_你的Token
-   ```
+```bash
+./scripts/release.sh --dry-run   # 预检:认证 + 构建 + 模拟打包,零副作用
+./scripts/release.sh patch       # 正式发布(patch / minor / major / x.y.z)
+```
 
-3. 发布(`prepublishOnly` 钩子会自动先执行 `build:lib`):
+安全设计:先 publish 后 commit——发布失败时自动还原 package.json 版本号,不会留下脏提交/脏 tag;未配置 origin 时跳过推送并给出提示。
 
-   ```bash
-   npm publish
-   ```
+前置条件:本机 `~/.npmrc`(不要提交到仓库)已写入认证,token 需勾选 `write:packages`:
+
+```
+//npm.pkg.github.com/:_authToken=ghp_你的Token
+```
+
+> 也可直接 `npm publish` 手动发布(`prepublishOnly` 会自动先构建),但不含版本号提升与 git 提交/打 tag,不推荐。
 
 ## 消费方安装
 
