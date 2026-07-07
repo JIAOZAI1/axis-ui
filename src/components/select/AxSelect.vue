@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
+import { computed, inject, onBeforeUnmount, onMounted, ref } from 'vue'
+import { formItemKey } from '../form/context'
 
 defineOptions({ name: 'AxSelect' })
 
@@ -29,6 +30,10 @@ const emit = defineEmits<{
 const open = ref(false)
 const rootRef = ref<HTMLElement>()
 
+/* 位于 AxFormItem 内时联动:校验失败自动进入 error 态 */
+const formItem = inject(formItemKey, null)
+const hasError = computed(() => !!formItem?.error.value)
+
 const selected = computed(() =>
   props.options.find((o) => o.value === props.modelValue)
 )
@@ -47,12 +52,14 @@ function pick(option: SelectOption) {
   emit('update:modelValue', option.value)
   emit('change', option.value)
   open.value = false
+  formItem?.onFieldBlur()
 }
 
 function clear(ev: MouseEvent) {
   ev.stopPropagation()
   emit('update:modelValue', undefined)
   emit('change', undefined)
+  formItem?.onFieldChange()
 }
 
 function onClickOutside(ev: MouseEvent) {
@@ -68,7 +75,7 @@ onBeforeUnmount(() => document.removeEventListener('click', onClickOutside))
 <template>
   <div
     ref="rootRef"
-    :class="['ax-select', `ax-select--${size}`, { 'is-open': open, 'is-disabled': disabled }]"
+    :class="['ax-select', `ax-select--${size}`, { 'is-open': open, 'is-disabled': disabled, 'is-error': hasError }]"
   >
     <div
       class="ax-select__trigger"
@@ -150,6 +157,12 @@ onBeforeUnmount(() => document.removeEventListener('click', onClickOutside))
 .ax-select.is-open .ax-select__trigger {
   border-color: var(--axis-color-primary);
   box-shadow: 0 0 0 2px var(--axis-color-primary-bg);
+}
+.ax-select.is-error .ax-select__trigger {
+  border-color: var(--axis-color-error);
+}
+.ax-select.is-error.is-open .ax-select__trigger {
+  box-shadow: 0 0 0 2px var(--axis-color-error-bg);
 }
 .ax-select.is-disabled .ax-select__trigger {
   background: var(--axis-color-fill-disabled);

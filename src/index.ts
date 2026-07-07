@@ -17,6 +17,8 @@ import './styles/base.css'
 
 import AxButton from './components/button/AxButton.vue'
 import AxInput from './components/input/AxInput.vue'
+import AxForm from './components/form/AxForm.vue'
+import AxFormItem from './components/form/AxFormItem.vue'
 import AxSwitch from './components/switch/AxSwitch.vue'
 import AxCheckbox from './components/checkbox/AxCheckbox.vue'
 import AxCheckboxGroup from './components/checkbox/AxCheckboxGroup.vue'
@@ -51,10 +53,13 @@ export {
 export type { Breakpoint } from './tokens'
 export type { SelectOption } from './components/select/AxSelect.vue'
 export type { TableColumn } from './components/table/AxTable.vue'
+export type { FormRule, FormRules } from './components/form/context'
 
 export {
   AxButton,
   AxInput,
+  AxForm,
+  AxFormItem,
   AxSwitch,
   AxCheckbox,
   AxCheckboxGroup,
@@ -78,6 +83,8 @@ export {
 const components = [
   AxButton,
   AxInput,
+  AxForm,
+  AxFormItem,
   AxSwitch,
   AxCheckbox,
   AxCheckboxGroup,

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { onBeforeUnmount, onMounted } from 'vue'
+import { onBeforeUnmount, onMounted, reactive } from 'vue'
+import type { FormRules } from 'axis-ui'
 import {
   AxMessage,
   applyBrandTheme,
@@ -113,6 +114,34 @@ const cityOptions: SelectOption[] = [
   { label: '深圳', value: 'shenzhen' },
   { label: '杭州(暂不可选)', value: 'hangzhou', disabled: true }
 ]
+
+/* ---- Form 表单校验 ---- */
+const formRef = ref()
+const formModel = reactive({
+  name: '',
+  email: '',
+  city: undefined as string | number | undefined,
+  agree: [] as (string | number)[]
+})
+const formRules: FormRules = {
+  name: [
+    { required: true, message: '请输入姓名' },
+    { min: 2, max: 10, message: '长度 2–10 个字符' }
+  ],
+  email: [
+    { required: true, message: '请输入邮箱' },
+    { pattern: /^[\w.+-]+@[\w-]+\.[\w.]+$/, message: '邮箱格式不正确' }
+  ],
+  city: [{ required: true, message: '请选择城市' }],
+  agree: [{ required: true, message: '请先同意用户协议' }]
+}
+async function submitForm() {
+  if (await formRef.value.validate()) {
+    AxMessage.success('校验通过,已提交')
+  } else {
+    AxMessage.error('存在校验不通过的字段')
+  }
+}
 
 /* ---- Tag 动态标签 ---- */
 const tags = ref(['设计 Token', '暗色模式', '主题定制', 'WCAG AA'])
@@ -388,6 +417,48 @@ function hideLoading() {
           <ax-radio value="never" disabled>从不(禁用)</ax-radio>
         </ax-radio-group>
       </div>
+    </ax-card>
+
+    <!-- ============ Form ============ -->
+    <h2 class="demo-section-title">Form 表单(label + 校验)</h2>
+    <ax-card>
+      <ax-row :gutter="48">
+        <ax-col :span="14">
+          <ax-form ref="formRef" :model="formModel" :rules="formRules" label-width="80px" @submit="submitForm">
+            <ax-form-item label="姓名" prop="name">
+              <ax-input v-model="formModel.name" placeholder="2–10 个字符" clearable />
+            </ax-form-item>
+            <ax-form-item label="邮箱" prop="email">
+              <ax-input v-model="formModel.email" placeholder="name@example.com" clearable />
+            </ax-form-item>
+            <ax-form-item label="城市" prop="city">
+              <ax-select v-model="formModel.city" :options="cityOptions" clearable placeholder="请选择城市" />
+            </ax-form-item>
+            <ax-form-item label="协议" prop="agree">
+              <ax-checkbox-group v-model="formModel.agree">
+                <ax-checkbox value="tos">已阅读并同意《用户协议》</ax-checkbox>
+              </ax-checkbox-group>
+            </ax-form-item>
+            <ax-form-item>
+              <div style="display: flex; gap: var(--axis-space-2)">
+                <ax-button type="primary" native-type="submit">提交</ax-button>
+                <ax-button @click="formRef.resetFields()">重置</ax-button>
+                <ax-button type="text" @click="formRef.clearValidate()">仅清除校验</ax-button>
+              </div>
+            </ax-form-item>
+          </ax-form>
+        </ax-col>
+        <ax-col :span="10">
+          <p style="color: var(--axis-color-text-secondary); margin-top: 0">
+            失焦即校验;字段校验过一次后,输入时即时重校验(改对了错误立即消失);
+            Input/Select 校验失败自动进入红色错误态,必填星号取
+            <code style="font-family: var(--axis-font-family-code)">color-error</code>。
+          </p>
+          <p style="color: var(--axis-color-text-tertiary); font-size: var(--axis-font-size-xs)">
+            当前 model:{{ JSON.stringify(formModel) }}
+          </p>
+        </ax-col>
+      </ax-row>
     </ax-card>
 
     <!-- ============ 展示 ============ -->

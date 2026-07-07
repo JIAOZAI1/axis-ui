@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, inject, ref } from 'vue'
+import { formItemKey } from '../form/context'
 
 defineOptions({ name: 'AxInput' })
 
@@ -32,13 +33,19 @@ const emit = defineEmits<{
 
 const focused = ref(false)
 
+/* 位于 AxFormItem 内时联动:校验失败自动进入 error 态 */
+const formItem = inject(formItemKey, null)
+const mergedStatus = computed(
+  () => props.status ?? (formItem?.error.value ? 'error' : undefined)
+)
+
 const classes = computed(() => [
   'ax-input',
   `ax-input--${props.size}`,
   {
     'is-disabled': props.disabled,
     'is-focused': focused.value,
-    [`is-status-${props.status}`]: props.status
+    [`is-status-${mergedStatus.value}`]: mergedStatus.value
   }
 ])
 
@@ -48,6 +55,7 @@ const showClear = computed(
 
 function onInput(ev: Event) {
   emit('update:modelValue', (ev.target as HTMLInputElement).value)
+  formItem?.onFieldChange()
 }
 function onChange(ev: Event) {
   emit('change', (ev.target as HTMLInputElement).value)
@@ -55,6 +63,12 @@ function onChange(ev: Event) {
 function onClear() {
   emit('update:modelValue', '')
   emit('clear')
+  formItem?.onFieldChange()
+}
+function onBlur(ev: FocusEvent) {
+  focused.value = false
+  emit('blur', ev)
+  formItem?.onFieldBlur()
 }
 </script>
 
@@ -71,7 +85,7 @@ function onClear() {
       @input="onInput"
       @change="onChange"
       @focus="focused = true; emit('focus', $event)"
-      @blur="focused = false; emit('blur', $event)"
+      @blur="onBlur"
     />
     <button
       v-if="showClear"
