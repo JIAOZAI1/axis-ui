@@ -15,6 +15,13 @@ const props = withDefaults(
     disabled?: boolean
     /** 原生 target,_blank 时自动补 rel 防钓鱼 */
     target?: '_self' | '_blank' | '_parent' | '_top'
+    /**
+     * 字号:预设档位取字号 Token(含配套行高),也接受任意 CSS 值(如 '18px');
+     * 不传则继承上下文(font-size: inherit)
+     */
+    size?: 'xs' | 'sm' | 'md' | 'lg' | (string & {})
+    /** 字重:取 font-weight Token,不传则继承 */
+    weight?: 'regular' | 'medium' | 'semibold'
   }>(),
   { type: 'primary', underline: 'hover' }
 )
@@ -32,6 +39,26 @@ const classes = computed(() => [
   { 'is-disabled': props.disabled }
 ])
 
+/* 预设档位 → 字号 Token 后缀(md 对应 base) */
+const presetSizes: Record<string, string> = { xs: 'xs', sm: 'sm', md: 'base', lg: 'lg' }
+
+const style = computed(() => {
+  const s: Record<string, string> = {}
+  if (props.size) {
+    const token = presetSizes[props.size]
+    if (token) {
+      s.fontSize = `var(--axis-font-size-${token})`
+      s.lineHeight = `var(--axis-line-height-${token})`
+    } else {
+      s.fontSize = props.size
+    }
+  }
+  if (props.weight) {
+    s.fontWeight = `var(--axis-font-weight-${props.weight})`
+  }
+  return Object.keys(s).length ? s : undefined
+})
+
 function onClick(ev: MouseEvent) {
   if (props.disabled) {
     ev.preventDefault()
@@ -44,6 +71,7 @@ function onClick(ev: MouseEvent) {
 <template>
   <a
     :class="classes"
+    :style="style"
     :href="disabled ? undefined : href"
     :target="disabled ? undefined : target"
     :rel="rel"

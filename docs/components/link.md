@@ -27,6 +27,20 @@
 <ax-link href="#" underline="never">从不下划线</ax-link>
 ```
 
+## 字号与字重
+
+默认继承上下文字号;需要独立控制时用 `size`(预设档位取字号 Token 并带配套行高,也接受任意 CSS 值)和 `weight`(字重 Token):
+
+```vue
+<ax-link href="#" size="xs">辅助说明 12px</ax-link>
+<ax-link href="#" size="sm">表格密集 13px</ax-link>
+<ax-link href="#" size="md">正文 14px</ax-link>
+<ax-link href="#" size="lg" weight="medium">强调 16px + Medium</ax-link>
+<ax-link href="#" size="20px" weight="semibold">自定义 20px + Semibold</ax-link>
+```
+
+> 优先使用预设档位(对应字号阶梯 Token);自定义 CSS 值仅在营销页等特殊场景使用,避免出现阶梯之外的字号。
+
 ## 外链与禁用
 
 ```vue
@@ -59,6 +73,8 @@
 | `underline` | 下划线策略 | `'always' \| 'hover' \| 'never'` | `'hover'` |
 | `disabled` | 禁用(阻止点击 + `aria-disabled`) | `boolean` | `false` |
 | `target` | 原生 target,`_blank` 时自动补 `rel="noopener noreferrer"` | `'_self' \| '_blank' \| '_parent' \| '_top'` | — |
+| `size` | 字号:预设档位取字号 Token(含配套行高),也接受任意 CSS 值 | `'xs' \| 'sm' \| 'md' \| 'lg' \| string` | 继承上下文 |
+| `weight` | 字重,取 `font-weight-*` Token | `'regular' \| 'medium' \| 'semibold'` | 继承上下文 |
 
 ### Events
 

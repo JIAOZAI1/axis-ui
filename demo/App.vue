@@ -366,6 +366,14 @@ function hideLoading() {
         <ax-link href="https://github.com/jiaozai1/axis-ui" target="_blank">外部仓库 ↗</ax-link>
         <ax-link @click="AxMessage.info('打开重置密码流程')">忘记密码?(纯动作)</ax-link>
       </div>
+      <div class="demo-block" style="align-items: baseline">
+        <span class="demo-block-label">字号与字重(size / weight)</span>
+        <ax-link href="#" size="xs">辅助 12px</ax-link>
+        <ax-link href="#" size="sm">密集 13px</ax-link>
+        <ax-link href="#" size="md">正文 14px</ax-link>
+        <ax-link href="#" size="lg" weight="medium">强调 16px·Medium</ax-link>
+        <ax-link href="#" size="20px" weight="semibold">自定义 20px·Semibold</ax-link>
+      </div>
       <div class="demo-block">
         <span class="demo-block-label">嵌入文字流:字号随上下文继承</span>
         <span style="color: var(--axis-color-text-secondary)">
