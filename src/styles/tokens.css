@@ -1,0 +1,170 @@
+/**
+ * axis-ui 设计 Token — 亮色主题(默认)
+ *
+ * 三层结构:
+ *   L1 全局 Token(primitive)  仅在本文件内部被引用,业务/组件禁止直接消费
+ *   L2 语义 Token(semantic)   组件与业务代码唯一允许消费的层
+ *   L3 组件 Token(component)  定义在各组件样式文件中,引用语义 Token
+ */
+
+:root {
+  /* ================================================================
+   * L1 全局 Token(Primitive)— 原始值池,不带语义
+   * ============================================================== */
+
+  /* 品牌蓝 10 级色阶(HSV 梯度) */
+  --axis-blue-1: #e6f4ff;
+  --axis-blue-2: #bae0ff;
+  --axis-blue-3: #91caff;
+  --axis-blue-4: #69b1ff;
+  --axis-blue-5: #4096ff;
+  --axis-blue-6: #1677ff;
+  --axis-blue-7: #0958d9;
+  --axis-blue-8: #003eb3;
+  --axis-blue-9: #002c8c;
+  --axis-blue-10: #001d66;
+
+  /* 功能色基准 */
+  --axis-green-6: #52c41a;
+  --axis-green-5: #73d13d;
+  --axis-green-7: #389e0d;
+  --axis-green-1: #f6ffed;
+  --axis-green-3: #b7eb8f;
+
+  --axis-orange-6: #faad14;
+  --axis-orange-5: #ffc53d;
+  --axis-orange-7: #d48806;
+  --axis-orange-1: #fffbe6;
+  --axis-orange-3: #ffe58f;
+
+  --axis-red-6: #ff4d4f;
+  --axis-red-5: #ff7875;
+  --axis-red-7: #d9363e;
+  --axis-red-1: #fff2f0;
+  --axis-red-3: #ffccc7;
+
+  /* ================================================================
+   * L2 语义 Token(Semantic)— 组件与业务代码消费此层
+   * ============================================================== */
+
+  /* ---- 品牌色 ---- */
+  --axis-color-primary: var(--axis-blue-6);
+  --axis-color-primary-hover: var(--axis-blue-5);
+  --axis-color-primary-active: var(--axis-blue-7);
+  --axis-color-primary-bg: var(--axis-blue-1);
+  --axis-color-primary-border: var(--axis-blue-3);
+
+  /* ---- 功能色(四态:默认/悬浮/激活/浅底) ---- */
+  --axis-color-success: var(--axis-green-6);
+  --axis-color-success-hover: var(--axis-green-5);
+  --axis-color-success-active: var(--axis-green-7);
+  --axis-color-success-bg: var(--axis-green-1);
+  --axis-color-success-border: var(--axis-green-3);
+
+  --axis-color-warning: var(--axis-orange-6);
+  --axis-color-warning-hover: var(--axis-orange-5);
+  --axis-color-warning-active: var(--axis-orange-7);
+  --axis-color-warning-bg: var(--axis-orange-1);
+  --axis-color-warning-border: var(--axis-orange-3);
+
+  --axis-color-error: var(--axis-red-6);
+  --axis-color-error-hover: var(--axis-red-5);
+  --axis-color-error-active: var(--axis-red-7);
+  --axis-color-error-bg: var(--axis-red-1);
+  --axis-color-error-border: var(--axis-red-3);
+
+  --axis-color-info: var(--axis-blue-6);
+  --axis-color-info-bg: var(--axis-blue-1);
+  --axis-color-info-border: var(--axis-blue-3);
+
+  /* ---- 中性色:带透明度方案,任意底色上层次正确 ---- */
+  --axis-color-text-primary: rgba(0, 0, 0, 0.88);
+  --axis-color-text-secondary: rgba(0, 0, 0, 0.65);
+  --axis-color-text-tertiary: rgba(0, 0, 0, 0.45);
+  --axis-color-text-disabled: rgba(0, 0, 0, 0.25);
+  --axis-color-text-inverse: #ffffff;
+
+  --axis-color-border-default: rgba(5, 5, 5, 0.15);
+  --axis-color-border-split: rgba(5, 5, 5, 0.06);
+
+  --axis-color-fill-default: rgba(0, 0, 0, 0.06);
+  --axis-color-fill-hover: rgba(0, 0, 0, 0.04);
+  --axis-color-fill-active: rgba(0, 0, 0, 0.1);
+  --axis-color-fill-disabled: rgba(0, 0, 0, 0.04);
+
+  --axis-color-bg-layout: #f5f5f5;
+  --axis-color-bg-container: #ffffff;
+  --axis-color-bg-elevated: #ffffff;
+  --axis-color-bg-mask: rgba(0, 0, 0, 0.45);
+
+  /* ---- 字体 ---- */
+  --axis-font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", sans-serif;
+  --axis-font-family-code: "SF Mono", Menlo, Consolas, "Courier New", monospace;
+
+  --axis-font-size-xs: 12px;
+  --axis-font-size-sm: 13px;
+  --axis-font-size-base: 14px;
+  --axis-font-size-lg: 16px;
+  --axis-font-size-h4: 20px;
+  --axis-font-size-h3: 24px;
+  --axis-font-size-h2: 30px;
+  --axis-font-size-h1: 38px;
+
+  --axis-line-height-xs: 20px;
+  --axis-line-height-sm: 22px;
+  --axis-line-height-base: 22px;
+  --axis-line-height-lg: 24px;
+  --axis-line-height-h4: 28px;
+  --axis-line-height-h3: 32px;
+  --axis-line-height-h2: 38px;
+  --axis-line-height-h1: 46px;
+
+  --axis-font-weight-regular: 400;
+  --axis-font-weight-medium: 500;
+  --axis-font-weight-semibold: 600;
+
+  /* ---- 间距:8px 网格 + 4px 半步长 ---- */
+  --axis-space-1: 4px;
+  --axis-space-2: 8px;
+  --axis-space-3: 12px;
+  --axis-space-4: 16px;
+  --axis-space-5: 20px;
+  --axis-space-6: 24px;
+  --axis-space-8: 32px;
+  --axis-space-10: 40px;
+  --axis-space-12: 48px;
+  --axis-space-16: 64px;
+
+  /* ---- 圆角 ---- */
+  --axis-radius-sm: 4px;
+  --axis-radius-md: 6px;
+  --axis-radius-lg: 8px;
+  --axis-radius-full: 9999px;
+
+  /* ---- 控件高度 ---- */
+  --axis-control-height-sm: 24px;
+  --axis-control-height-md: 32px;
+  --axis-control-height-lg: 40px;
+
+  /* ---- 阴影(与 z-index 层级绑定) ---- */
+  --axis-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
+  --axis-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --axis-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --axis-shadow-overlay: 0 12px 32px rgba(0, 0, 0, 0.16);
+
+  /* ---- z-index 收敛 ---- */
+  --axis-z-dropdown: 1000;
+  --axis-z-modal: 1010;
+  --axis-z-message: 1020;
+  --axis-z-tooltip: 1030;
+
+  /* ---- 动效 ---- */
+  --axis-motion-duration-fast: 0.1s;
+  --axis-motion-duration-mid: 0.2s;
+  --axis-motion-duration-slow: 0.3s;
+  --axis-motion-ease-out: cubic-bezier(0.215, 0.61, 0.355, 1);
+  --axis-motion-ease-in: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  --axis-motion-ease-in-out: cubic-bezier(0.645, 0.045, 0.355, 1);
+}

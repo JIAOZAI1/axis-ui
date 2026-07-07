@@ -1,0 +1,27 @@
+/**
+ * axis-ui 基础样式:字体继承、动效降级
+ */
+
+.axis-ui,
+[class^="ax-"],
+[class*=" ax-"] {
+  box-sizing: border-box;
+  font-family: var(--axis-font-family-base);
+}
+
+[class^="ax-"] *,
+[class*=" ax-"] * {
+  box-sizing: border-box;
+}
+
+/* 响应系统"减少动态效果"设置:装饰性动效降级为直接切换 */
+@media (prefers-reduced-motion: reduce) {
+  [class^="ax-"],
+  [class*=" ax-"],
+  [class^="ax-"] *,
+  [class*=" ax-"] * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

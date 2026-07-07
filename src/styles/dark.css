@@ -1,0 +1,67 @@
+/**
+ * axis-ui 暗色主题映射
+ *
+ * 不是简单反色,而是重建映射:
+ *  - 背景以 #141414 → #2a2a2a 分级表达海拔(海拔越高越亮)
+ *  - 品牌色降饱和一档(blue-6 → blue-5 明度)避免刺眼
+ *  - 阴影弱化,改用描边与背景亮度差表达层级
+ */
+
+[data-theme="dark"] {
+  /* ---- 品牌色:降一档明度 ---- */
+  --axis-color-primary: var(--axis-blue-5);
+  --axis-color-primary-hover: var(--axis-blue-4);
+  --axis-color-primary-active: var(--axis-blue-6);
+  --axis-color-primary-bg: rgba(22, 119, 255, 0.15);
+  --axis-color-primary-border: rgba(22, 119, 255, 0.4);
+
+  /* ---- 功能色 ---- */
+  --axis-color-success: var(--axis-green-5);
+  --axis-color-success-hover: #95de64;
+  --axis-color-success-active: var(--axis-green-6);
+  --axis-color-success-bg: rgba(82, 196, 26, 0.15);
+  --axis-color-success-border: rgba(82, 196, 26, 0.4);
+
+  --axis-color-warning: var(--axis-orange-5);
+  --axis-color-warning-hover: #ffd666;
+  --axis-color-warning-active: var(--axis-orange-6);
+  --axis-color-warning-bg: rgba(250, 173, 20, 0.15);
+  --axis-color-warning-border: rgba(250, 173, 20, 0.4);
+
+  --axis-color-error: var(--axis-red-5);
+  --axis-color-error-hover: #ffa39e;
+  --axis-color-error-active: var(--axis-red-6);
+  --axis-color-error-bg: rgba(255, 77, 79, 0.15);
+  --axis-color-error-border: rgba(255, 77, 79, 0.4);
+
+  --axis-color-info: var(--axis-blue-5);
+  --axis-color-info-bg: rgba(22, 119, 255, 0.15);
+  --axis-color-info-border: rgba(22, 119, 255, 0.4);
+
+  /* ---- 中性色 ---- */
+  --axis-color-text-primary: rgba(255, 255, 255, 0.85);
+  --axis-color-text-secondary: rgba(255, 255, 255, 0.65);
+  --axis-color-text-tertiary: rgba(255, 255, 255, 0.45);
+  --axis-color-text-disabled: rgba(255, 255, 255, 0.25);
+  --axis-color-text-inverse: rgba(0, 0, 0, 0.88);
+
+  --axis-color-border-default: rgba(253, 253, 253, 0.18);
+  --axis-color-border-split: rgba(253, 253, 253, 0.1);
+
+  --axis-color-fill-default: rgba(255, 255, 255, 0.1);
+  --axis-color-fill-hover: rgba(255, 255, 255, 0.06);
+  --axis-color-fill-active: rgba(255, 255, 255, 0.14);
+  --axis-color-fill-disabled: rgba(255, 255, 255, 0.06);
+
+  /* 背景 4 级海拔:layout < container < elevated */
+  --axis-color-bg-layout: #141414;
+  --axis-color-bg-container: #1f1f1f;
+  --axis-color-bg-elevated: #2a2a2a;
+  --axis-color-bg-mask: rgba(0, 0, 0, 0.6);
+
+  /* ---- 阴影弱化 ---- */
+  --axis-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.24);
+  --axis-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.32);
+  --axis-shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.48);
+  --axis-shadow-overlay: 0 12px 32px rgba(0, 0, 0, 0.6);
+}

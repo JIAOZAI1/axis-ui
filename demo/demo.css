@@ -1,0 +1,152 @@
+/* demo 站自身样式 — 同样只消费语义 Token */
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--axis-color-bg-layout);
+  color: var(--axis-color-text-primary);
+  font-family: var(--axis-font-family-base);
+  font-size: var(--axis-font-size-base);
+  line-height: var(--axis-line-height-base);
+  transition: background-color var(--axis-motion-duration-mid) var(--axis-motion-ease-in-out);
+}
+
+.demo-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--axis-space-3) var(--axis-space-8);
+  background: var(--axis-color-bg-container);
+  border-bottom: 1px solid var(--axis-color-border-split);
+}
+
+.demo-logo {
+  display: flex;
+  align-items: baseline;
+  gap: var(--axis-space-2);
+}
+.demo-logo strong {
+  font-size: var(--axis-font-size-h4);
+  font-weight: var(--axis-font-weight-semibold);
+  color: var(--axis-color-primary);
+}
+.demo-logo span {
+  font-size: var(--axis-font-size-xs);
+  color: var(--axis-color-text-tertiary);
+}
+
+.demo-header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--axis-space-4);
+}
+
+.demo-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--axis-space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--axis-space-6);
+}
+
+.demo-section-title {
+  margin: var(--axis-space-4) 0 0;
+  font-size: var(--axis-font-size-h3);
+  line-height: var(--axis-line-height-h3);
+  font-weight: var(--axis-font-weight-semibold);
+}
+
+.demo-block {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--axis-space-3);
+}
+
+.demo-block + .demo-block {
+  margin-top: var(--axis-space-4);
+}
+
+.demo-block-label {
+  width: 100%;
+  font-size: var(--axis-font-size-xs);
+  color: var(--axis-color-text-tertiary);
+}
+
+.demo-col-box {
+  padding: var(--axis-space-2);
+  border-radius: var(--axis-radius-sm);
+  background: var(--axis-color-primary-bg);
+  color: var(--axis-color-primary);
+  font-size: var(--axis-font-size-xs);
+  text-align: center;
+}
+
+.demo-footer {
+  padding: var(--axis-space-6);
+  text-align: center;
+  color: var(--axis-color-text-tertiary);
+  font-size: var(--axis-font-size-xs);
+}
+
+/* Token 可视化 */
+.demo-token-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--axis-space-2);
+}
+.demo-token-row {
+  display: flex;
+  align-items: center;
+  gap: var(--axis-space-3);
+}
+.demo-token-name {
+  width: 72px;
+  flex-shrink: 0;
+  font-family: var(--axis-font-family-code);
+  font-size: var(--axis-font-size-xs);
+  color: var(--axis-color-text-secondary);
+}
+.demo-space-bar {
+  height: 12px;
+  border-radius: 2px;
+  background: var(--axis-color-primary);
+  opacity: 0.75;
+}
+.demo-token-value {
+  font-size: var(--axis-font-size-xs);
+  color: var(--axis-color-text-tertiary);
+}
+.demo-radius-box {
+  padding: var(--axis-space-3) var(--axis-space-4);
+  background: var(--axis-color-primary-bg);
+  border: 1px solid var(--axis-color-primary-border);
+  color: var(--axis-color-primary);
+  font-size: var(--axis-font-size-xs);
+}
+.demo-shadow-box {
+  padding: var(--axis-space-3) var(--axis-space-4);
+  background: var(--axis-color-bg-container);
+  border-radius: var(--axis-radius-lg);
+  color: var(--axis-color-text-secondary);
+  font-size: var(--axis-font-size-xs);
+}
+
+.demo-swatches {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+  gap: var(--axis-space-2);
+}
+.demo-swatch {
+  height: 56px;
+  border-radius: var(--axis-radius-md);
+  display: flex;
+  align-items: flex-end;
+  padding: var(--axis-space-1) var(--axis-space-2);
+  font-size: var(--axis-font-size-xs);
+  color: #fff;
+}
