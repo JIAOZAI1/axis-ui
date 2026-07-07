@@ -39,6 +39,16 @@ import AxTooltip from './components/tooltip/AxTooltip.vue'
 export { AxMessage } from './components/message/message'
 export { setTheme, getTheme, toggleTheme, applyBrandTheme } from './theme'
 export type { ThemeMode } from './theme'
+export {
+  breakpoints,
+  containerWidths,
+  contentMinWidth,
+  layoutSizes,
+  mediaUp,
+  mediaDown,
+  matchBreakpoint
+} from './tokens'
+export type { Breakpoint } from './tokens'
 export type { SelectOption } from './components/select/AxSelect.vue'
 export type { TableColumn } from './components/table/AxTable.vue'
 

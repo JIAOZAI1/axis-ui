@@ -148,6 +148,36 @@
   --axis-control-height-md: 32px;
   --axis-control-height-lg: 40px;
 
+  /* ---- 图标尺寸 ---- */
+  --axis-icon-size-sm: 16px;
+  --axis-icon-size-md: 20px;
+  --axis-icon-size-lg: 24px;
+
+  /* ---- 断点(参考值)----
+   * 注意:CSS 变量不能用于 @media 条件,此处仅作速查与 JS 消费的唯一事实源;
+   * 媒体查询请使用 JS 常量 breakpoints(src/tokens.ts)或书写与此一致的字面量。 */
+  --axis-screen-xs: 480px;
+  --axis-screen-sm: 576px;
+  --axis-screen-md: 768px;
+  --axis-screen-lg: 992px;
+  --axis-screen-xl: 1200px;
+  --axis-screen-xxl: 1600px;
+
+  /* ---- 容器宽度:各断点下内容区最大宽度 ---- */
+  --axis-container-sm: 540px;
+  --axis-container-md: 720px;
+  --axis-container-lg: 960px;
+  --axis-container-xl: 1140px;
+  --axis-container-xxl: 1400px;
+  /* 中后台内容区最小适配宽度(设计基准 1440×900) */
+  --axis-content-min-width: 1200px;
+
+  /* ---- 布局框架尺寸(中后台 Layout) ---- */
+  --axis-layout-header-height: 56px;
+  --axis-layout-sider-width: 224px;
+  --axis-layout-sider-collapsed-width: 64px;
+  --axis-layout-footer-height: 48px;
+
   /* ---- 阴影(与 z-index 层级绑定) ---- */
   --axis-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
   --axis-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);

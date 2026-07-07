@@ -15,8 +15,10 @@
 
 ## 快速开始
 
+从 GitHub Packages 安装(需先在项目 `.npmrc` 配置 registry,详见[发布与安装指南](./docs/publishing.md)):
+
 ```bash
-npm install axis-ui vue
+npm install @jiaozai1/axis-ui vue
 ```
 
 ```ts
@@ -53,6 +55,8 @@ npm run build:lib   # 构建组件库产物到 dist/
 npm run build       # 构建 Demo 静态站到 dist-demo/
 ```
 
+发布:在 GitHub 创建 Release 即自动发布到 GitHub Packages(内置 [publish 工作流](./.github/workflows/publish.yml)),或本地 `npm publish`。详见[发布指南](./docs/publishing.md)。
+
 ## 组件一览
 
 | 分类 | 组件 | 文档 |
@@ -80,6 +84,7 @@ npm run build       # 构建 Demo 静态站到 dist-demo/
 - [快速上手](./docs/getting-started.md)
 - [设计 Token 速查表](./docs/design-tokens.md)
 - [主题定制(暗色模式 / 品牌主题)](./docs/theming.md)
+- [发布到 GitHub Packages](./docs/publishing.md)
 - [组件文档](./docs/components/)
 
 ## 设计原则(摘自设计规范)

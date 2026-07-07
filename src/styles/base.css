@@ -14,6 +14,39 @@
   box-sizing: border-box;
 }
 
+/**
+ * 响应式容器:水平居中,随断点提升最大宽度。
+ * @media 不支持 CSS 变量,以下字面量与 --axis-screen-* / --axis-container-* 一一对应,
+ * 修改断点时需同步维护(唯一事实源为 tokens.css 中的注释值与 src/tokens.ts)。
+ */
+.ax-container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--axis-space-4);
+  padding-right: var(--axis-space-4);
+}
+@media (min-width: 576px) {
+  .ax-container { max-width: var(--axis-container-sm); }
+}
+@media (min-width: 768px) {
+  .ax-container { max-width: var(--axis-container-md); }
+}
+@media (min-width: 992px) {
+  .ax-container { max-width: var(--axis-container-lg); }
+}
+@media (min-width: 1200px) {
+  .ax-container { max-width: var(--axis-container-xl); }
+}
+@media (min-width: 1600px) {
+  .ax-container { max-width: var(--axis-container-xxl); }
+}
+
+/* 流式容器:始终 100% 宽,仅保留左右内边距 */
+.ax-container--fluid {
+  max-width: none;
+}
+
 /* 响应系统"减少动态效果"设置:装饰性动效降级为直接切换 */
 @media (prefers-reduced-motion: reduce) {
   [class^="ax-"],

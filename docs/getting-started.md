@@ -2,11 +2,22 @@
 
 ## 安装
 
+axis-ui 发布在 GitHub Packages,先在项目根目录创建 `.npmrc` 指定该作用域的 registry:
+
+```
+@jiaozai1:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=ghp_只读Token
+```
+
+然后安装:
+
 ```bash
-npm install axis-ui vue
+npm install @jiaozai1/axis-ui vue
 ```
 
 > axis-ui 以 Vue `^3.4` 为 peer dependency,需要项目自行安装 Vue 3。
+> Token 配置与作用域替换说明见[发布与安装指南](./publishing.md)。
+> 下文示例中的导入名 `axis-ui` 在实际项目中替换为 `@jiaozai1/axis-ui`。
 
 ## 全量引入
 

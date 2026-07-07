@@ -39,15 +39,9 @@
 | `span` | 占据列数(1–24) | `number` | `24` |
 | `offset` | 左侧偏移列数 | `number` | `0` |
 
-### 断点参考(设计规范)
+### 断点与容器
 
-| Token | 视口宽度 | 典型设备 |
-|-------|---------|---------|
-| screen-xs | < 576px | 手机 |
-| screen-sm | ≥ 576px | 大屏手机 |
-| screen-md | ≥ 768px | 平板 |
-| screen-lg | ≥ 992px | 小尺寸笔记本 |
-| screen-xl | ≥ 1200px | 桌面(设计基准 1440px) |
-| screen-xxl | ≥ 1600px | 大屏显示器 |
+断点与容器宽度已收敛为 Token(`--axis-screen-*` / `--axis-container-*`)与 JS 常量(`breakpoints` / `mediaUp()` 等),
+并提供 `.ax-container` 响应式居中容器类,详见 [design-tokens.md 断点与容器宽度](../design-tokens.md#断点与容器宽度)。
 
-> 当前版本 `span/offset` 不含响应式断点属性,响应式布局可配合 CSS 媒体查询;断点属性在路线图中。
+> 当前版本 `span/offset` 不含响应式断点属性,响应式布局可配合 `mediaUp()/matchBreakpoint()` 或 CSS 媒体查询;断点属性在路线图中。

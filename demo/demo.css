@@ -116,7 +116,9 @@ body {
   border-radius: 2px;
   background: var(--axis-color-primary);
   opacity: 0.75;
+  transition: opacity var(--axis-motion-duration-mid) var(--axis-motion-ease-in-out);
 }
+.demo-space-bar.is-dim { opacity: 0.25; }
 .demo-token-value {
   font-size: var(--axis-font-size-xs);
   color: var(--axis-color-text-tertiary);

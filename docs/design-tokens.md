@@ -104,6 +104,75 @@ axis-ui 的所有视觉值均以 CSS Custom Properties 形式提供,前缀 `--ax
 | `--axis-control-height-sm` | 24px | 小号控件 |
 | `--axis-control-height-md` | 32px | 中号控件(默认) |
 | `--axis-control-height-lg` | 40px | 大号控件 |
+| `--axis-icon-size-sm` | 16px | 行内小图标 |
+| `--axis-icon-size-md` | 20px | 常规图标 |
+| `--axis-icon-size-lg` | 24px | 独立按钮图标(24×24 网格) |
+
+---
+
+## 断点与容器宽度
+
+### 断点(screen-*)
+
+| Token | 值 | 典型设备 |
+|-------|-----|---------|
+| `--axis-screen-xs` | 480px | 手机 |
+| `--axis-screen-sm` | 576px | 大屏手机 |
+| `--axis-screen-md` | 768px | 平板 |
+| `--axis-screen-lg` | 992px | 小尺寸笔记本 |
+| `--axis-screen-xl` | 1200px | 桌面(中后台设计基准 1440px) |
+| `--axis-screen-xxl` | 1600px | 大屏显示器 |
+
+> ⚠️ **CSS 变量不能出现在 `@media` 条件中**。断点 CSS 变量仅作速查参考;
+> 媒体查询请使用与之一一对应的 JS 常量(见下),或书写一致的字面量并注明来源。
+
+### 容器宽度(container-*)
+
+`.ax-container` 类实现「水平居中 + 随断点提升最大宽度」的响应式容器:
+
+| Token | 值 | 生效条件 |
+|-------|-----|---------|
+| `--axis-container-sm` | 540px | 视口 ≥ 576px |
+| `--axis-container-md` | 720px | 视口 ≥ 768px |
+| `--axis-container-lg` | 960px | 视口 ≥ 992px |
+| `--axis-container-xl` | 1140px | 视口 ≥ 1200px |
+| `--axis-container-xxl` | 1400px | 视口 ≥ 1600px |
+| `--axis-content-min-width` | 1200px | 中后台内容区最小适配宽度 |
+
+```html
+<div class="ax-container">随断点居中限宽</div>
+<div class="ax-container ax-container--fluid">始终 100% 宽</div>
+```
+
+### 布局框架尺寸(layout-*)
+
+中后台经典「顶栏 + 侧边栏 + 内容区」框架的统一尺寸:
+
+| Token | 值 | 用途 |
+|-------|-----|------|
+| `--axis-layout-header-height` | 56px | 顶栏高度 |
+| `--axis-layout-sider-width` | 224px | 侧边栏展开宽度 |
+| `--axis-layout-sider-collapsed-width` | 64px | 侧边栏折叠宽度 |
+| `--axis-layout-footer-height` | 48px | 页脚高度 |
+
+### JS 常量侧
+
+断点相关值同时以 TS 常量导出,作为媒体查询与窗口判断的唯一事实源:
+
+```ts
+import {
+  breakpoints,        // { xs: 480, sm: 576, md: 768, lg: 992, xl: 1200, xxl: 1600 }
+  containerWidths,    // { sm: 540, md: 720, lg: 960, xl: 1140, xxl: 1400 }
+  contentMinWidth,    // 1200
+  layoutSizes,        // { headerHeight: 56, siderWidth: 224, ... }
+  mediaUp, mediaDown, // 生成媒体查询条件字符串
+  matchBreakpoint     // 判断当前视口是否达到某断点
+} from 'axis-ui'
+
+mediaUp('md')            // '(min-width: 768px)'
+mediaDown('lg')          // '(max-width: 991.98px)'
+matchBreakpoint('xl')    // 当前视口 ≥ 1200px ?
+```
 
 ---
 

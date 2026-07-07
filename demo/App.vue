@@ -1,9 +1,15 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { onBeforeUnmount, onMounted } from 'vue'
 import {
   AxMessage,
   applyBrandTheme,
+  breakpoints,
+  containerWidths,
+  layoutSizes,
+  matchBreakpoint,
   setTheme,
+  type Breakpoint,
   type SelectOption,
   type TableColumn
 } from 'axis-ui'
@@ -71,6 +77,18 @@ const shadows = [
   { token: 'lg', label: 'shadow-lg · Modal' },
   { token: 'overlay', label: 'shadow-overlay · 通知' }
 ]
+/* 断点与容器:实时高亮当前视口所处档位 */
+const bpNames = Object.keys(breakpoints) as Breakpoint[]
+const currentBp = ref<Breakpoint>('xs')
+function updateBp() {
+  currentBp.value = [...bpNames].reverse().find((bp) => matchBreakpoint(bp)) ?? 'xs'
+}
+onMounted(() => {
+  updateBp()
+  window.addEventListener('resize', updateBp)
+})
+onBeforeUnmount(() => window.removeEventListener('resize', updateBp))
+
 const fontSizes = [
   { token: 'xs', label: 'font-size-xs 12px · 辅助说明' },
   { token: 'base', label: 'font-size-base 14px · 正文默认' },
@@ -231,6 +249,35 @@ function hideLoading() {
         </ax-card>
       </ax-col>
     </ax-row>
+
+    <ax-card title="断点与容器宽度">
+      <template #extra>
+        <ax-tag type="primary" round>当前视口:{{ currentBp }}(改变窗口宽度试试)</ax-tag>
+      </template>
+      <div class="demo-token-list">
+        <div v-for="bp in bpNames" :key="bp" class="demo-token-row">
+          <span class="demo-token-name">screen-{{ bp }}</span>
+          <span
+            class="demo-space-bar"
+            :class="{ 'is-dim': bp !== currentBp }"
+            :style="{ width: `${breakpoints[bp] / 12}px` }"
+          />
+          <span class="demo-token-value">
+            ≥ {{ breakpoints[bp] }}px
+            <template v-if="bp in containerWidths">
+              · 容器 {{ containerWidths[bp as keyof typeof containerWidths] }}px
+            </template>
+          </span>
+        </div>
+      </div>
+      <p style="color: var(--axis-color-text-secondary); margin: var(--axis-space-4) 0 0">
+        <code style="font-family: var(--axis-font-family-code)">.ax-container</code>
+        随断点居中限宽;布局框架尺寸:顶栏 {{ layoutSizes.headerHeight }}px、
+        侧边栏 {{ layoutSizes.siderWidth }}px(折叠 {{ layoutSizes.siderCollapsedWidth }}px)。
+        断点同时以 JS 常量导出(<code style="font-family: var(--axis-font-family-code)">mediaUp('md')</code> /
+        <code style="font-family: var(--axis-font-family-code)">matchBreakpoint('xl')</code>)。
+      </p>
+    </ax-card>
 
     <!-- ============ Button ============ -->
     <h2 class="demo-section-title">Button 按钮</h2>
