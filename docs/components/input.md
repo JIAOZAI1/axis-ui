@@ -2,6 +2,10 @@
 
 单行文本输入。聚焦态使用 `color-primary` 描边 + `color-primary-bg` 光晕,占位符取 `color-text-tertiary`。
 
+> **浏览器自动填充**:WebKit/Blink 内核对命中自动填充的输入框会强制涂 UA 浅色背景(`:-webkit-autofill`),
+> 组件已内置适配——以 inset box-shadow 恢复主题背景、`-webkit-text-fill-color` 恢复文字色,
+> 亮色/暗色/品牌主题下均自动正确,业务无需处理。
+
 ## 基础用法
 
 ```vue

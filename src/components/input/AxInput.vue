@@ -153,6 +153,23 @@ function onBlur(ev: FocusEvent) {
   padding: 0;
 }
 .ax-input__inner::placeholder { color: var(--axis-color-text-tertiary); }
+
+/**
+ * 浏览器自动填充适配(WebKit/Blink):
+ * UA 会以 -internal-autofill-selected 强制涂浅色背景与深色文字,
+ * 常规 background/color(含 !important)均无法覆盖;
+ * 但 UA 不禁止内阴影渲染——用超大 inset box-shadow 把主题背景"涂"回去,
+ * 文字/光标色经 -webkit-text-fill-color / caret-color 恢复。
+ * 全部取语义 Token,亮色/暗色/品牌主题零改动自动正确。
+ */
+.ax-input__inner:-webkit-autofill,
+.ax-input__inner:-webkit-autofill:hover,
+.ax-input__inner:-webkit-autofill:focus {
+  -webkit-box-shadow: inset 0 0 0 1000px var(--axis-color-bg-container);
+  box-shadow: inset 0 0 0 1000px var(--axis-color-bg-container);
+  -webkit-text-fill-color: var(--axis-color-text-primary);
+  caret-color: var(--axis-color-text-primary);
+}
 .ax-input.is-disabled .ax-input__inner {
   color: var(--axis-color-text-disabled);
   cursor: not-allowed;
