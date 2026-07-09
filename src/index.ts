@@ -41,6 +41,11 @@ import AxTooltip from './components/tooltip/AxTooltip.vue'
 import AxMenu from './components/menu/AxMenu.vue'
 import AxSubMenu from './components/menu/AxSubMenu.vue'
 import AxMenuItem from './components/menu/AxMenuItem.vue'
+import AxSpace from './components/space/AxSpace.vue'
+import AxText from './components/typography/AxText.vue'
+import AxTitle from './components/typography/AxTitle.vue'
+import AxDescriptions from './components/descriptions/AxDescriptions.vue'
+import AxDescriptionsItem from './components/descriptions/AxDescriptionsItem.vue'
 
 export { AxMessage } from './components/message/message'
 export { setTheme, getTheme, toggleTheme, applyBrandTheme } from './theme'
@@ -58,6 +63,10 @@ export type { Breakpoint } from './tokens'
 export type { SelectOption } from './components/select/AxSelect.vue'
 export type { TableColumn } from './components/table/AxTable.vue'
 export type { FormRule, FormRules } from './components/form/context'
+export type {
+  DescriptionsLayout,
+  DescriptionsSize
+} from './components/descriptions/context'
 
 export {
   AxButton,
@@ -85,7 +94,14 @@ export {
   AxTooltip,
   AxMenu,
   AxSubMenu,
-  AxMenuItem
+  AxMenuItem,
+  AxSpace,
+  AxText,
+  AxTitle,
+  AxText as AxTypographyText,
+  AxTitle as AxTypographyTitle,
+  AxDescriptions,
+  AxDescriptionsItem
 }
 
 const components = [
@@ -114,7 +130,12 @@ const components = [
   AxTooltip,
   AxMenu,
   AxSubMenu,
-  AxMenuItem
+  AxMenuItem,
+  AxSpace,
+  AxText,
+  AxTitle,
+  AxDescriptions,
+  AxDescriptionsItem
 ]
 
 const AxisUI: Plugin = {

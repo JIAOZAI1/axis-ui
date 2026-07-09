@@ -10,7 +10,7 @@
 - 🌙 **暗色模式** — 一行 `setTheme('dark')` 全局切换,基于语义 Token 重映射(海拔分层背景、品牌色降饱和、阴影弱化),组件零改动
 - 🏷 **品牌主题定制** — `applyBrandTheme()` 运行时覆盖语义 Token,即刻全站换肤
 - ♿ **无障碍** — 遵循 WCAG AA 对比度要求;所有动效响应 `prefers-reduced-motion` 自动降级;组件带 ARIA 角色
-- 📦 **26 个核心组件** — 覆盖通用、表单(含 Form 校验)、布局、数据展示、反馈五大类
+- 📦 **31 个核心组件** — 覆盖通用、表单(含 Form 校验)、布局、数据展示、反馈五大类
 - 🔌 **全量 / 按需两种引入方式**,支持 ESM 与 UMD
 
 ## 快速开始
@@ -64,6 +64,7 @@ npm run build       # 构建 Demo 静态站到 dist-demo/
 | 通用 | Button 按钮 | [docs/components/button.md](./docs/components/button.md) |
 | 通用 | Link 链接 | [docs/components/link.md](./docs/components/link.md) |
 | 布局 | Grid 栅格(Row / Col) | [docs/components/grid.md](./docs/components/grid.md) |
+| 布局 | Space 间距 | [docs/components/space.md](./docs/components/space.md) |
 | 表单 | Form 表单(含 FormItem) | [docs/components/form.md](./docs/components/form.md) |
 | 表单 | Input 输入框 | [docs/components/input.md](./docs/components/input.md) |
 | 表单 | Select 选择器 | [docs/components/select.md](./docs/components/select.md) |
@@ -71,6 +72,8 @@ npm run build       # 构建 Demo 静态站到 dist-demo/
 | 表单 | Radio 单选框(含 Group) | [docs/components/radio.md](./docs/components/radio.md) |
 | 表单 | Switch 开关 | [docs/components/switch.md](./docs/components/switch.md) |
 | 展示 | Card 卡片 | [docs/components/card.md](./docs/components/card.md) |
+| 展示 | Typography 排版(Text / Title) | [docs/components/typography.md](./docs/components/typography.md) |
+| 展示 | Descriptions 描述列表(含 Item) | [docs/components/descriptions.md](./docs/components/descriptions.md) |
 | 展示 | Tag 标签 | [docs/components/tag.md](./docs/components/tag.md) |
 | 展示 | Badge 徽标 | [docs/components/badge.md](./docs/components/badge.md) |
 | 展示 | Table 表格 | [docs/components/table.md](./docs/components/table.md) |

@@ -619,6 +619,97 @@ function hideLoading() {
       </ax-col>
     </ax-row>
 
+    <!-- ============ Space / Typography / Descriptions ============ -->
+    <h2 class="demo-section-title">Space 间距 / Typography 排版 / Descriptions 描述列表</h2>
+    <ax-card title="工具栏示例">
+      <ax-space justify="space-between" wrap block>
+        <ax-space wrap>
+          <ax-input placeholder="输入作业 ID 添加" style="width: 220px" />
+          <ax-button>添加</ax-button>
+          <ax-text type="secondary" size="sm">状态每 5 秒自动刷新</ax-text>
+        </ax-space>
+
+        <ax-space>
+          <ax-button>刷新</ax-button>
+          <ax-button type="primary">新建作业</ax-button>
+        </ax-space>
+      </ax-space>
+      <div style="margin-top: var(--axis-space-4)">
+        <ax-space split="/" wrap>
+          <ax-link>详情</ax-link>
+          <ax-link>日志</ax-link>
+          <ax-link>重试</ax-link>
+          <ax-link type="danger">停止</ax-link>
+        </ax-space>
+      </div>
+    </ax-card>
+
+    <ax-card title="排版示例">
+      <ax-space direction="vertical" align="start" block>
+        <ax-title :level="4">作业执行摘要</ax-title>
+        <ax-text type="secondary" size="sm">辅助说明、状态文案、错误提示和代码值统一由 AxText 承接。</ax-text>
+        <ax-space wrap align="baseline">
+          <ax-text type="success" weight="medium">运行正常</ax-text>
+          <ax-text type="warning">队列等待 12 个任务</ax-text>
+          <ax-text type="error">最近一次回调失败</ax-text>
+        </ax-space>
+        <ax-text
+          code
+          ellipsis
+          copyable
+          text="SamplePlugin.EchoTaskHandler"
+          style="max-width: 260px"
+          @copy="AxMessage.success('已复制处理器名称')"
+        />
+        <ax-text
+          type="secondary"
+          block
+          :line-clamp="2"
+          text="较长说明文本会在两行后省略,用于列表备注、详情页描述和审计日志摘要。"
+        >
+          较长说明文本会在两行后省略,用于列表备注、详情页描述和审计日志摘要。
+        </ax-text>
+      </ax-space>
+    </ax-card>
+
+    <ax-card title="详情页信息展示">
+      <ax-descriptions title="作业信息" :column="4" size="sm" label-width="88px">
+        <template #extra>
+          <ax-space size="sm">
+            <ax-button size="sm">编辑</ax-button>
+            <ax-button size="sm" type="primary">立即执行</ax-button>
+          </ax-space>
+        </template>
+        <ax-descriptions-item label="作业 ID">
+          <ax-text code copyable text="job_20260710001" @copy="AxMessage.success('已复制作业 ID')" />
+        </ax-descriptions-item>
+        <ax-descriptions-item label="调度方式">
+          <ax-tag type="primary">Cron 周期</ax-tag>
+        </ax-descriptions-item>
+        <ax-descriptions-item label="负责人">张三</ax-descriptions-item>
+        <ax-descriptions-item label="下次执行">2026-07-10 12:00</ax-descriptions-item>
+        <ax-descriptions-item label="回调地址" :span="2">
+          <ax-text ellipsis text="https://example.com/hooks/job-result" style="max-width: 100%" />
+        </ax-descriptions-item>
+        <ax-descriptions-item label="备注" />
+      </ax-descriptions>
+
+      <div style="height: var(--axis-space-6)" />
+
+      <ax-descriptions title="账户信息" bordered :column="3" layout="vertical">
+        <ax-descriptions-item label="客户名称">Acme Inc.</ax-descriptions-item>
+        <ax-descriptions-item label="状态">
+          <ax-tag type="success">正常</ax-tag>
+        </ax-descriptions-item>
+        <ax-descriptions-item label="套餐">Enterprise</ax-descriptions-item>
+        <ax-descriptions-item label="账户 ID">
+          <ax-text code copyable text="acct_1024" @copy="AxMessage.success('已复制账户 ID')" />
+        </ax-descriptions-item>
+        <ax-descriptions-item label="创建时间">2026-07-10 12:00</ax-descriptions-item>
+        <ax-descriptions-item label="审计策略">保留 180 天</ax-descriptions-item>
+      </ax-descriptions>
+    </ax-card>
+
     <!-- ============ Menu ============ -->
     <h2 class="demo-section-title">Menu 菜单</h2>
     <ax-card title="垂直菜单(侧边栏)">
