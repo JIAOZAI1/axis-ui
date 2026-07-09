@@ -1,21 +1,41 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+
 defineOptions({ name: 'AxTable' })
+
+export type TableSortOrder = 'asc' | 'desc' | null
 
 export interface TableColumn {
   /** 数据字段名 */
   key: string
   /** 列标题 */
   title: string
+  /** 特殊列类型 */
+  type?: 'index'
+  /** 可点击排序 */
+  sortable?: boolean
   /** 列宽 */
   width?: number | string
   /** 对齐方式 */
   align?: 'left' | 'center' | 'right'
 }
 
-withDefaults(
+export interface TableSortChangePayload {
+  key: string
+  order: TableSortOrder
+  column: TableColumn
+}
+
+const props = withDefaults(
   defineProps<{
     columns?: TableColumn[]
     data?: Record<string, unknown>[]
+    /** 当前排序字段,v-model:sort-key */
+    sortKey?: string
+    /** 当前排序方向,v-model:sort-order */
+    sortOrder?: TableSortOrder
+    /** 序号列偏移量,分页场景传 (page - 1) * pageSize */
+    indexOffset?: number
     /** 斑马纹 */
     striped?: boolean
     /** 外描边 + 单元格竖线 */
@@ -25,8 +45,51 @@ withDefaults(
     /** 空数据文案 */
     emptyText?: string
   }>(),
-  { columns: () => [], data: () => [], size: 'md', emptyText: '暂无数据' }
+  {
+    columns: () => [],
+    data: () => [],
+    sortKey: '',
+    sortOrder: null,
+    indexOffset: 0,
+    size: 'md',
+    emptyText: '暂无数据'
+  }
 )
+
+const emit = defineEmits<{
+  (e: 'update:sortKey', value: string): void
+  (e: 'update:sortOrder', value: TableSortOrder): void
+  (e: 'sort-change', payload: TableSortChangePayload): void
+}>()
+
+const normalizedSortOrder = computed<TableSortOrder>(() =>
+  props.sortOrder === 'asc' || props.sortOrder === 'desc' ? props.sortOrder : null
+)
+
+function getCellValue(row: Record<string, unknown>, col: TableColumn, index: number) {
+  if (col.type === 'index') return props.indexOffset + index + 1
+  return row[col.key]
+}
+
+function getNextSortOrder(col: TableColumn): TableSortOrder {
+  if (props.sortKey !== col.key) return 'asc'
+  if (normalizedSortOrder.value === null) return 'asc'
+  if (normalizedSortOrder.value === 'asc') return 'desc'
+  return null
+}
+
+function onSort(col: TableColumn) {
+  if (!col.sortable) return
+  const nextOrder = getNextSortOrder(col)
+  const nextKey = nextOrder ? col.key : ''
+  emit('update:sortKey', nextKey)
+  emit('update:sortOrder', nextOrder)
+  emit('sort-change', {
+    key: col.key,
+    order: nextOrder,
+    column: col
+  })
+}
 </script>
 
 <template>
@@ -40,9 +103,29 @@ withDefaults(
           <th
             v-for="col in columns"
             :key="col.key"
+            :class="[
+              {
+                'is-sortable': col.sortable,
+                'is-sort-active': col.sortable && sortKey === col.key && normalizedSortOrder
+              }
+            ]"
             :style="col.align ? { textAlign: col.align } : undefined"
           >
-            {{ col.title }}
+            <button
+              v-if="col.sortable"
+              class="ax-table__sorter"
+              type="button"
+              :aria-label="`按${col.title}排序`"
+              :aria-sort="sortKey === col.key && normalizedSortOrder ? (normalizedSortOrder === 'asc' ? 'ascending' : 'descending') : 'none'"
+              @click="onSort(col)"
+            >
+              <span class="ax-table__sort-title">{{ col.title }}</span>
+              <span class="ax-table__sort-icons" aria-hidden="true">
+                <span :class="['ax-table__sort-icon', 'ax-table__sort-icon--asc', { 'is-active': sortKey === col.key && normalizedSortOrder === 'asc' }]" />
+                <span :class="['ax-table__sort-icon', 'ax-table__sort-icon--desc', { 'is-active': sortKey === col.key && normalizedSortOrder === 'desc' }]" />
+              </span>
+            </button>
+            <template v-else>{{ col.title }}</template>
           </th>
         </tr>
       </thead>
@@ -54,8 +137,14 @@ withDefaults(
             :style="col.align ? { textAlign: col.align } : undefined"
           >
             <!-- 单元格插槽:#cell-[key]="{ row, value, index }" -->
-            <slot :name="`cell-${col.key}`" :row="row" :value="row[col.key]" :index="index">
-              {{ row[col.key] }}
+            <slot
+              :name="`cell-${col.key}`"
+              :row="row"
+              :value="getCellValue(row, col, index)"
+              :index="index"
+              :column="col"
+            >
+              {{ getCellValue(row, col, index) }}
             </slot>
           </td>
         </tr>
@@ -99,6 +188,66 @@ withDefaults(
   color: var(--axis-color-text-secondary);
   text-align: left;
   white-space: nowrap;
+  transition:
+    background-color var(--axis-motion-duration-fast) var(--axis-motion-ease-in-out),
+    color var(--axis-motion-duration-fast) var(--axis-motion-ease-in-out);
+}
+.ax-table__inner th.is-sortable { padding: 0; }
+.ax-table__inner th.is-sortable:hover { background: var(--axis-color-fill-default); }
+.ax-table__inner th.is-sort-active {
+  background: var(--axis-color-primary-bg);
+  color: var(--axis-color-primary);
+}
+
+.ax-table__sorter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: inherit;
+  gap: var(--axis-space-1);
+  width: 100%;
+  min-height: var(--axis-control-height-md);
+  padding: var(--ax-table-cell-padding);
+  border: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: inherit;
+  text-align: inherit;
+  cursor: pointer;
+}
+
+.ax-table__sort-title {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ax-table__sort-icons {
+  display: inline-flex;
+  flex: none;
+  flex-direction: column;
+  gap: var(--axis-space-1);
+}
+
+.ax-table__sort-icon {
+  width: 0;
+  height: 0;
+  border-right: var(--axis-space-1) solid transparent;
+  border-left: var(--axis-space-1) solid transparent;
+  color: var(--axis-color-text-disabled);
+  transition: color var(--axis-motion-duration-fast) var(--axis-motion-ease-in-out);
+}
+
+.ax-table__sort-icon--asc {
+  border-bottom: var(--axis-space-1) solid currentColor;
+}
+
+.ax-table__sort-icon--desc {
+  border-top: var(--axis-space-1) solid currentColor;
+}
+
+.ax-table__sort-icon.is-active {
+  color: var(--axis-color-primary);
 }
 
 .ax-table__inner td {

@@ -61,7 +61,11 @@ export {
 } from './tokens'
 export type { Breakpoint } from './tokens'
 export type { SelectOption } from './components/select/AxSelect.vue'
-export type { TableColumn } from './components/table/AxTable.vue'
+export type {
+  TableColumn,
+  TableSortChangePayload,
+  TableSortOrder
+} from './components/table/AxTable.vue'
 export type { FormRule, FormRules } from './components/form/context'
 export type {
   DescriptionsLayout,

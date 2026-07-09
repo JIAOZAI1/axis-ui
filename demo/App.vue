@@ -12,7 +12,8 @@ import {
   setTheme,
   type Breakpoint,
   type SelectOption,
-  type TableColumn
+  type TableColumn,
+  type TableSortOrder
 } from 'axis-ui'
 
 /* ---- 主题 ---- */
@@ -161,21 +162,28 @@ const topMenuActive = ref<string | number>('home')
 
 /* ---- Table + Pagination ---- */
 const columns: TableColumn[] = [
-  { key: 'name', title: '项目', width: 200 },
+  { key: 'index', title: '序号', type: 'index', width: 72, align: 'center' },
+  { key: 'id', title: 'ID', sortable: true, width: 120 },
+  { key: 'name', title: '项目', sortable: true, width: 200 },
   { key: 'owner', title: '负责人', width: 120 },
-  { key: 'coverage', title: 'Token 覆盖率', align: 'right', width: 140 },
+  { key: 'createdAt', title: '创建时间', sortable: true, width: 180 },
+  { key: 'coverage', title: 'Token 覆盖率', sortable: true, align: 'right', width: 140 },
   { key: 'status', title: '状态', align: 'center', width: 100 }
 ]
 const tableData = [
-  { name: '交易中台 Web', owner: '张三', coverage: '98.2%', status: 'success' },
-  { name: '运营后台', owner: '李四', coverage: '91.7%', status: 'success' },
-  { name: '数据大屏', owner: '王五', coverage: '76.4%', status: 'warning' },
-  { name: '门户官网', owner: '赵六', coverage: '43.1%', status: 'error' }
+  { id: 'JOB-1001', name: '交易中台 Web', owner: '张三', createdAt: '2026-07-10 09:12', coverage: '98.2%', status: 'success' },
+  { id: 'JOB-1002', name: '运营后台', owner: '李四', createdAt: '2026-07-10 10:24', coverage: '91.7%', status: 'success' },
+  { id: 'JOB-1003', name: '数据大屏', owner: '王五', createdAt: '2026-07-10 11:08', coverage: '76.4%', status: 'warning' },
+  { id: 'JOB-1004', name: '门户官网', owner: '赵六', createdAt: '2026-07-10 11:42', coverage: '43.1%', status: 'error' }
 ]
 const statusText: Record<string, string> = { success: '达标', warning: '整改中', error: '未达标' }
 const page = ref(1)
 const pageSize = ref(10)
+const sort = reactive<{ key: string; order: TableSortOrder }>({ key: '', order: null })
 const showEmpty = ref(false)
+function loadTableData() {
+  AxMessage.info(`服务端排序参数:sortKey=${sort.key || '无'},sortOrder=${sort.order || '无'}`)
+}
 
 /* ---- Modal ---- */
 const modalOpen = ref(false)
@@ -827,7 +835,15 @@ function hideLoading() {
           <ax-tag type="primary" round>季度目标 &lt; 5% 硬编码</ax-tag>
         </div>
       </template>
-      <ax-table :columns="columns" :data="showEmpty ? [] : tableData" striped>
+      <ax-table
+        v-model:sort-key="sort.key"
+        v-model:sort-order="sort.order"
+        :columns="columns"
+        :data="showEmpty ? [] : tableData"
+        :index-offset="(page - 1) * pageSize"
+        striped
+        @sort-change="loadTableData"
+      >
         <template #cell-status="{ value }">
           <ax-tag :type="(value as 'success' | 'warning' | 'error')">
             {{ statusText[value as string] }}
@@ -846,7 +862,13 @@ function hideLoading() {
     </ax-card>
 
     <ax-card title="bordered + size=sm 密集模式">
-      <ax-table :columns="columns" :data="tableData" bordered size="sm">
+      <ax-table
+        :columns="columns"
+        :data="tableData"
+        :index-offset="(page - 1) * pageSize"
+        bordered
+        size="sm"
+      >
         <template #cell-status="{ value }">
           <ax-tag :type="(value as 'success' | 'warning' | 'error')">
             {{ statusText[value as string] }}

@@ -32,6 +32,53 @@ const data = [
 <ax-table :columns="columns" :data="data" size="sm" />
 ```
 
+## 服务端分页 + 排序 + 序号列
+
+`AxTable` 只展示排序状态并触发事件,不会在组件内部重排 `data`,适合服务端分页/排序。
+
+```vue
+<script setup lang="ts">
+import { reactive } from 'vue'
+import type { TableColumn, TableSortOrder } from 'axis-ui'
+
+const columns: TableColumn[] = [
+  { key: 'index', title: '序号', type: 'index', width: 72, align: 'center' },
+  { key: 'id', title: 'ID', sortable: true },
+  { key: 'createdAt', title: '创建时间', sortable: true },
+  { key: 'nextRunAt', title: '下次执行时间', sortable: true }
+]
+
+const pagination = reactive({ page: 1, pageSize: 20 })
+const sort = reactive<{ key: string; order: TableSortOrder }>({
+  key: '',
+  order: null
+})
+
+function loadJobs() {
+  // 请求参数示例:
+  // page=pagination.page&pageSize=pagination.pageSize&sortKey=sort.key&sortOrder=sort.order
+}
+</script>
+
+<template>
+  <ax-table
+    v-model:sort-key="sort.key"
+    v-model:sort-order="sort.order"
+    :columns="columns"
+    :data="jobs"
+    :index-offset="(pagination.page - 1) * pagination.pageSize"
+    @sort-change="loadJobs"
+  />
+  <ax-pagination
+    v-model:current="pagination.page"
+    v-model:page-size="pagination.pageSize"
+    :total="total"
+    show-total
+    show-size-changer
+  />
+</template>
+```
+
 ## 自定义单元格
 
 用 `#cell-[key]` 具名插槽自定义某列渲染:
@@ -52,10 +99,21 @@ const data = [
 |------|------|------|--------|
 | `columns` | 列定义 | `TableColumn[]` | `[]` |
 | `data` | 行数据 | `Record<string, unknown>[]` | `[]` |
+| `sortKey` (v-model:sort-key) | 当前排序字段 | `string` | `''` |
+| `sortOrder` (v-model:sort-order) | 当前排序方向 | `'asc' \| 'desc' \| null` | `null` |
+| `indexOffset` | 序号列偏移量 | `number` | `0` |
 | `striped` | 斑马纹 | `boolean` | `false` |
 | `bordered` | 外描边 + 单元格竖线 | `boolean` | `false` |
 | `size` | 行高密度 | `'sm' \| 'md'` | `'md'` |
 | `emptyText` | 空数据文案 | `string` | `'暂无数据'` |
+
+### Events
+
+| 事件 | 说明 | 回调参数 |
+|------|------|----------|
+| `update:sortKey` | 排序字段变化 | `(key:string)` |
+| `update:sortOrder` | 排序方向变化 | `(order:'asc' \| 'desc' \| null)` |
+| `sort-change` | 点击可排序表头后触发 | `{ key, order, column }` |
 
 ### TableColumn 类型
 
@@ -63,6 +121,8 @@ const data = [
 interface TableColumn {
   key: string                          // 数据字段名
   title: string                        // 列标题
+  type?: 'index'                       // 特殊列类型:序号列
+  sortable?: boolean                   // 是否可点击排序
   width?: number | string              // 列宽
   align?: 'left' | 'center' | 'right'  // 对齐
 }
@@ -72,7 +132,7 @@ interface TableColumn {
 
 | 插槽 | 说明 | 作用域参数 |
 |------|------|-----------|
-| `cell-[key]` | 自定义某列单元格 | `{ row, value, index }` |
+| `cell-[key]` | 自定义某列单元格 | `{ row, value, index, column }` |
 | `empty` | 自定义空数据内容 | — |
 
 ### 组件 Token
