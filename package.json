@@ -1,6 +1,6 @@
 {
   "name": "@jiaozai1/axis-ui",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "企业级 Vue 3 组件库,基于设计 Token 体系构建,支持暗色模式与主题定制",
   "type": "module",
   "repository": {

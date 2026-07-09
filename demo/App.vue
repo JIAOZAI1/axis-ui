@@ -174,6 +174,7 @@ const tableData = [
 ]
 const statusText: Record<string, string> = { success: '达标', warning: '整改中', error: '未达标' }
 const page = ref(1)
+const pageSize = ref(10)
 const showEmpty = ref(false)
 
 /* ---- Modal ---- */
@@ -834,7 +835,13 @@ function hideLoading() {
         </template>
       </ax-table>
       <div style="display: flex; justify-content: flex-end; margin-top: var(--axis-space-4)">
-        <ax-pagination v-model:current="page" :total="86" :page-size="10" show-total />
+        <ax-pagination
+          v-model:current="page"
+          v-model:page-size="pageSize"
+          :total="86"
+          show-total
+          show-size-changer
+        />
       </div>
     </ax-card>
 
