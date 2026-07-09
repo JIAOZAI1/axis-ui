@@ -53,6 +53,29 @@ async function submit() {
 - **提交校验**:`formRef.validate()` 校验全部字段,返回 `Promise<boolean>`;
 - 其他控件(Checkbox/Radio/Switch)的值变化同样被「输入自愈」监听覆盖。
 
+## 标签宽度与超宽策略
+
+标签列宽度的取值优先级:`FormItem.labelWidth` > `Form.labelWidth` > 组件 Token `--ax-form-label-width`(默认 96px,可全局/局部覆盖):
+
+```css
+/* 全局把标签列调宽 */
+.ax-form { --ax-form-label-width: 128px; }
+```
+
+标签超出宽度时**默认显示省略号**,悬浮经原生 `title` 显示全文;需要按内容自动撑开时传 `label-width="auto"`(注意各行标签宽度将不再对齐)。
+
+## 标签位置(label-position)
+
+弹窗等窄容器里的长标签表单,建议 `label-position="top"`:标签移到控件上方、自然宽度、允许折行,不再挤压控件:
+
+```vue
+<ax-form :model="model" :rules="rules" label-position="top">
+  <ax-form-item label="通知接收邮箱地址(工作日 9:00–18:00 生效)" prop="email">
+    <ax-input v-model="model.email" />
+  </ax-form-item>
+</ax-form>
+```
+
 ## 自定义校验器
 
 ```ts
@@ -77,8 +100,9 @@ const rules: FormRules = {
 |------|------|------|--------|
 | `model` | 表单数据对象(响应式) | `Record<string, unknown>` | — |
 | `rules` | 校验规则,按字段名分组 | `FormRules` | — |
-| `labelWidth` | 标签宽度 | `string` | `'96px'` |
-| `labelAlign` | 标签对齐 | `'left' \| 'right'` | `'right'` |
+| `labelWidth` | 标签宽度;`'auto'` 为自然宽度(自动撑开) | `string` | 组件 Token `--ax-form-label-width`(96px) |
+| `labelAlign` | 标签对齐(仅 `labelPosition="left"` 生效) | `'left' \| 'right'` | `'right'` |
+| `labelPosition` | 标签位置:同行左侧 / 控件上方 | `'left' \| 'top'` | `'left'` |
 
 ### Form Events
 
@@ -102,7 +126,7 @@ const rules: FormRules = {
 | `prop` | 对应 `model` 的字段名,参与校验必填 | `string` | — |
 | `required` | 强制显示必填星号(不传则按规则推断) | `boolean` | — |
 | `rules` | 字段级规则,与 `Form.rules[prop]` 合并 | `FormRule[]` | — |
-| `labelWidth` | 覆盖 Form 的标签宽度 | `string` | — |
+| `labelWidth` | 覆盖 Form 的标签宽度(含 `'auto'`) | `string` | — |
 
 ### FormItem 方法(通过 ref 调用)
 

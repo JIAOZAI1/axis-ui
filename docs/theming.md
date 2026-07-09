@@ -103,6 +103,7 @@ applyBrandTheme({
 | 组件 | 可覆盖的组件 Token |
 |------|--------------------|
 | Button | `--ax-button-height` / `--ax-button-font-size` / `--ax-button-padding-x` |
+| Form | `--ax-form-label-width`(标签列宽度,默认 96px) |
 | Input | `--ax-input-height` / `--ax-input-font-size` |
 | Select | `--ax-select-height` / `--ax-select-font-size` |
 | Table | `--ax-table-header-bg` / `--ax-table-cell-padding` |

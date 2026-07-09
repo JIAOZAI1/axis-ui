@@ -10,12 +10,17 @@ const props = withDefaults(
     model?: Record<string, unknown>
     /** 校验规则,按字段名分组 */
     rules?: FormRules
-    /** 标签宽度 */
+    /**
+     * 标签宽度:'auto' 为自然宽度(自动撑开);
+     * 不传时回落到组件 Token --ax-form-label-width(默认 96px)
+     */
     labelWidth?: string
-    /** 标签对齐 */
+    /** 标签对齐(仅 labelPosition="left" 时生效) */
     labelAlign?: 'left' | 'right'
+    /** 标签位置:left 同行左侧 / top 控件上方(适合弹窗内长标签表单) */
+    labelPosition?: 'left' | 'top'
   }>(),
-  { labelWidth: '96px', labelAlign: 'right' }
+  { labelAlign: 'right', labelPosition: 'left' }
 )
 
 const emit = defineEmits<{ (e: 'submit'): void }>()
@@ -33,6 +38,7 @@ provide(formKey, {
   rules: computed(() => props.rules),
   labelWidth: computed(() => props.labelWidth),
   labelAlign: computed(() => props.labelAlign),
+  labelPosition: computed(() => props.labelPosition),
   registerItem: (item) => items.add(item),
   unregisterItem: (item) => items.delete(item)
 })
@@ -64,15 +70,25 @@ defineExpose({ validate, clearValidate, resetFields })
 </script>
 
 <template>
-  <form class="ax-form" novalidate @submit.prevent="emit('submit')">
+  <form
+    :class="['ax-form', `ax-form--label-${labelPosition}`]"
+    novalidate
+    @submit.prevent="emit('submit')"
+  >
     <slot />
   </form>
 </template>
 
 <style>
 .ax-form {
+  /* L3 组件 Token:标签列宽度(96px = 12×8,落在 8px 网格上) */
+  --ax-form-label-width: 96px;
+
   display: flex;
   flex-direction: column;
   gap: var(--axis-space-5);
+}
+.ax-form--label-top {
+  gap: var(--axis-space-4);
 }
 </style>

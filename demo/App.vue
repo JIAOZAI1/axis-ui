@@ -117,6 +117,7 @@ const cityOptions: SelectOption[] = [
 
 /* ---- Form 表单校验 ---- */
 const formRef = ref()
+const formLabelPos = ref<string | number>('left')
 const formModel = reactive({
   name: '',
   email: '',
@@ -465,13 +466,25 @@ function hideLoading() {
     <!-- ============ Form ============ -->
     <h2 class="demo-section-title">Form 表单(label + 校验)</h2>
     <ax-card>
+      <template #extra>
+        <ax-radio-group v-model="formLabelPos">
+          <ax-radio value="left">标签在左</ax-radio>
+          <ax-radio value="top">标签在上</ax-radio>
+        </ax-radio-group>
+      </template>
       <ax-row :gutter="48">
         <ax-col :span="14">
-          <ax-form ref="formRef" :model="formModel" :rules="formRules" label-width="80px" @submit="submitForm">
+          <ax-form
+            ref="formRef"
+            :model="formModel"
+            :rules="formRules"
+            :label-position="(formLabelPos as 'left' | 'top')"
+            @submit="submitForm"
+          >
             <ax-form-item label="姓名" prop="name">
               <ax-input v-model="formModel.name" placeholder="2–10 个字符" clearable />
             </ax-form-item>
-            <ax-form-item label="邮箱" prop="email">
+            <ax-form-item label="通知接收邮箱地址(工作日生效)" prop="email">
               <ax-input v-model="formModel.email" placeholder="name@example.com" clearable />
             </ax-form-item>
             <ax-form-item label="城市" prop="city">
@@ -496,6 +509,12 @@ function hideLoading() {
             失焦即校验;字段校验过一次后,输入时即时重校验(改对了错误立即消失);
             Input/Select 校验失败自动进入红色错误态,必填星号取
             <code style="font-family: var(--axis-font-family-code)">color-error</code>。
+          </p>
+          <p style="color: var(--axis-color-text-secondary)">
+            标签宽度默认取组件 Token
+            <code style="font-family: var(--axis-font-family-code)">--ax-form-label-width</code>(96px);
+            超宽标签省略号收尾(悬浮「通知接收邮箱…」标签看 title 全文);
+            切到「标签在上」适合弹窗内的长标签表单。
           </p>
           <p style="color: var(--axis-color-text-tertiary); font-size: var(--axis-font-size-xs)">
             当前 model:{{ JSON.stringify(formModel) }}

@@ -21,8 +21,10 @@ export type FormRules = Record<string, FormRule[]>
 export interface FormContext {
   model: ComputedRef<Record<string, unknown> | undefined>
   rules: ComputedRef<FormRules | undefined>
-  labelWidth: ComputedRef<string>
+  /** 未显式传入时为 undefined,回落到组件 Token --ax-form-label-width */
+  labelWidth: ComputedRef<string | undefined>
   labelAlign: ComputedRef<'left' | 'right'>
+  labelPosition: ComputedRef<'left' | 'top'>
   registerItem: (item: FormItemInstance) => void
   unregisterItem: (item: FormItemInstance) => void
 }

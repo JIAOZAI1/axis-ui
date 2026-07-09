@@ -32,10 +32,17 @@ const isRequired = computed(
   () => props.required || mergedRules.value.some((r) => r.required)
 )
 
-const labelStyle = computed(() => ({
-  width: props.labelWidth ?? form?.labelWidth.value,
-  textAlign: form?.labelAlign.value ?? 'right'
-}))
+const labelPosition = computed(() => form?.labelPosition.value ?? 'left')
+
+const labelStyle = computed(() => {
+  /* top 布局:自然宽度、左对齐,交给 CSS 类处理 */
+  if (labelPosition.value === 'top') return undefined
+  return {
+    /* 未显式指定时为 undefined,回落到 CSS 的 var(--ax-form-label-width) */
+    width: props.labelWidth ?? form?.labelWidth.value,
+    textAlign: form?.labelAlign.value ?? 'right'
+  }
+})
 
 const fieldValue = computed(() =>
   props.prop ? form?.model.value?.[props.prop] : undefined
@@ -107,8 +114,19 @@ defineExpose({ validate, clearValidate })
 </script>
 
 <template>
-  <div :class="['ax-form-item', { 'is-error': !!error, 'is-required': isRequired }]">
-    <label v-if="label || $slots.label" class="ax-form-item__label" :style="labelStyle">
+  <div
+    :class="['ax-form-item', `ax-form-item--label-${labelPosition}`, {
+      'is-error': !!error,
+      'is-required': isRequired
+    }]"
+  >
+    <!-- title:侧边布局下标签超宽省略时,悬浮可见全文 -->
+    <label
+      v-if="label || $slots.label"
+      class="ax-form-item__label"
+      :style="labelStyle"
+      :title="labelPosition === 'left' ? label : undefined"
+    >
       <slot name="label">{{ label }}</slot>
     </label>
     <div class="ax-form-item__content">
@@ -129,10 +147,32 @@ defineExpose({ validate, clearValidate })
 
 .ax-form-item__label {
   flex-shrink: 0;
+  /* 未显式传 labelWidth 时的默认宽度,来自 AxForm 的组件 Token */
+  width: var(--ax-form-label-width, 96px);
   padding-top: calc((var(--axis-control-height-md) - var(--axis-line-height-base)) / 2);
   font-size: var(--axis-font-size-base);
   line-height: var(--axis-line-height-base);
   color: var(--axis-color-text-primary);
+  /* 超宽策略:省略号(悬浮经 title 显示全文);labelWidth="auto" 时自动撑开 */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* top 布局:标签在控件上方,自然宽度、左对齐、允许折行 */
+.ax-form-item--label-top {
+  flex-direction: column;
+  gap: var(--axis-space-1);
+}
+.ax-form-item--label-top .ax-form-item__label {
+  width: auto;
+  padding-top: 0;
+  text-align: left;
+  white-space: normal;
+  overflow: visible;
+}
+.ax-form-item--label-top .ax-form-item__content {
+  width: 100%;
 }
 
 /* 必填星号:使用 color-error(规范:必填标记属于 Error 语义) */
