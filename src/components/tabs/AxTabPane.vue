@@ -4,14 +4,18 @@ import { tabsKey } from './context'
 
 defineOptions({ name: 'AxTabPane' })
 
-const props = defineProps<{
-  /** 唯一标识,与 AxTabs 的 v-model 对应 */
-  name: string | number
-  /** 页签文字 */
-  label: string
-  /** 覆盖 Tabs 的 closable(如固定首页设为 false) */
-  closable?: boolean
-}>()
+const props = withDefaults(
+  defineProps<{
+    /** 唯一标识,与 AxTabs 的 v-model 对应 */
+    name: string | number
+    /** 页签文字 */
+    label: string
+    /** 覆盖 Tabs 的 closable(如固定首页设为 false) */
+    closable?: boolean
+  }>(),
+  /* closable 默认必须是 undefined 而不是 Boolean 缺省的 false,否则「未设置时继承 Tabs 级 closable」永远不生效 */
+  { closable: undefined }
+)
 
 const tabs = inject(tabsKey, null)
 tabs?.registerPane(props.name, {

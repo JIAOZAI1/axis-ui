@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, provide, reactive } from 'vue'
+import { computed, provide, shallowReactive } from 'vue'
 import { tabsKey, type TabsPane } from './context'
 
 defineOptions({ name: 'AxTabs' })
@@ -20,7 +20,9 @@ const emit = defineEmits<{
   (e: 'close', name: string | number): void
 }>()
 
-const panes = reactive(new Map<string | number, TabsPane>())
+/* 必须是 shallowReactive:深层 reactive 的 Map 取值时会自动解包 pane 里的 label/closable ref,
+   导致模板里 pane.label.value 读到 undefined(页签文字与关闭按钮全部失效) */
+const panes = shallowReactive(new Map<string | number, TabsPane>())
 
 provide(tabsKey, {
   active: computed(() => props.modelValue),
