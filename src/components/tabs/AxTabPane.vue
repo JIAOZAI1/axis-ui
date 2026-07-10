@@ -9,10 +9,15 @@ const props = defineProps<{
   name: string | number
   /** 页签文字 */
   label: string
+  /** 覆盖 Tabs 的 closable(如固定首页设为 false) */
+  closable?: boolean
 }>()
 
 const tabs = inject(tabsKey, null)
-tabs?.registerPane(props.name, toRef(props, 'label'))
+tabs?.registerPane(props.name, {
+  label: toRef(props, 'label'),
+  closable: toRef(props, 'closable')
+})
 onBeforeUnmount(() => tabs?.unregisterPane(props.name))
 
 const active = computed(() => tabs?.active.value === props.name)

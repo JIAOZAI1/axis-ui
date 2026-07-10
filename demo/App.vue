@@ -160,6 +160,25 @@ const menuActive = ref<string | number>('dashboard')
 const menuCollapsed = ref(false)
 const topMenuActive = ref<string | number>('home')
 
+/* ---- 多页签工作区(Menu + Tabs 联动) ---- */
+const wsPages: Record<string, { label: string; desc: string }> = {
+  home: { label: '工作台', desc: '固定首页,不可关闭。左侧菜单打开的页面会以页签形式聚合在这里。' },
+  users: { label: '用户管理', desc: '用户列表、启停用、重置密码。' },
+  roles: { label: '角色权限', desc: '角色与资源点的绑定关系。' },
+  logs: { label: '操作日志', desc: '全量审计流水,支持按操作人/时间检索。' },
+  settings: { label: '系统设置', desc: '站点参数、通知渠道、安全策略。' }
+}
+const wsOpen = ref<string[]>(['home'])
+const wsActive = ref<string | number>('home')
+function wsOpenPage(name: string | number) {
+  if (!wsOpen.value.includes(name as string)) wsOpen.value.push(name as string)
+  wsActive.value = name
+}
+function wsClosePage(name: string | number) {
+  /* 组件只通知;移除后若关的是激活页,Tabs 自动切到相邻页签 */
+  wsOpen.value = wsOpen.value.filter((n) => n !== name)
+}
+
 /* ---- Table + Pagination ---- */
 const columns: TableColumn[] = [
   { key: 'index', title: '序号', type: 'index', width: 72, align: 'center' },
@@ -802,6 +821,40 @@ function hideLoading() {
           正文对比度 ≥ 4.5:1(WCAG AA);所有动效响应 prefers-reduced-motion 自动降级。
         </ax-tab-pane>
       </ax-tabs>
+    </ax-card>
+
+    <!-- ============ 多页签工作区 ============ -->
+    <h2 class="demo-section-title">多页签工作区(Menu + Tabs 联动)</h2>
+    <ax-card body-padding="0">
+      <div style="display: flex; align-items: stretch; min-height: 320px">
+        <div style="width: var(--axis-layout-sider-width); border-right: 1px solid var(--axis-color-border-split); flex-shrink: 0">
+          <ax-menu :model-value="wsActive" @select="wsOpenPage">
+            <ax-menu-item name="home"><template #icon>🏠</template>工作台</ax-menu-item>
+            <ax-menu-item name="users"><template #icon>👥</template>用户管理</ax-menu-item>
+            <ax-menu-item name="roles"><template #icon>🛡️</template>角色权限</ax-menu-item>
+            <ax-menu-item name="logs"><template #icon>📋</template>操作日志</ax-menu-item>
+            <ax-menu-item name="settings"><template #icon>⚙️</template>系统设置</ax-menu-item>
+          </ax-menu>
+        </div>
+        <div style="flex: 1; min-width: 0; padding: var(--axis-space-4) var(--axis-space-6)">
+          <ax-tabs v-model="wsActive" closable @close="wsClosePage">
+            <ax-tab-pane
+              v-for="name in wsOpen"
+              :key="name"
+              :name="name"
+              :label="wsPages[name].label"
+              :closable="name === 'home' ? false : undefined"
+            >
+              <p style="margin: 0 0 var(--axis-space-2); font-weight: var(--axis-font-weight-medium)">
+                {{ wsPages[name].label }}
+              </p>
+              <p style="margin: 0; color: var(--axis-color-text-secondary)">
+                {{ wsPages[name].desc }}
+              </p>
+            </ax-tab-pane>
+          </ax-tabs>
+        </div>
+      </div>
     </ax-card>
 
     <!-- ============ Grid ============ -->
