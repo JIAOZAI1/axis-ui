@@ -837,7 +837,7 @@ function hideLoading() {
           </ax-menu>
         </div>
         <div style="flex: 1; min-width: 0; padding: var(--axis-space-4) var(--axis-space-6)">
-          <ax-tabs v-model="wsActive" closable @close="wsClosePage">
+          <ax-tabs v-model="wsActive" type="card" closable @close="wsClosePage">
             <ax-tab-pane
               v-for="name in wsOpen"
               :key="name"

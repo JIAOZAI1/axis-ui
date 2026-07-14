@@ -19,6 +19,18 @@ const active = ref('spec')
 </template>
 ```
 
+## 卡片式页签(type="card")
+
+页签多、或带关闭按钮时,线型风格的相邻页签缺少分割感;`type="card"` 让每个页签有独立的背景块、描边与上圆角,激活页签白底并与内容区无缝相连,是多页签工作区的推荐形态:
+
+```vue
+<ax-tabs v-model="active" type="card" closable @close="onClose">
+  <ax-tab-pane v-for="t in tabs" :key="t.name" :name="t.name" :label="t.label" />
+</ax-tabs>
+```
+
+样式全部取语义 Token(`fill-hover` 灰底 / `bg-container` 激活底 / `border-split` 描边),暗色与品牌主题自动适配。
+
 ## 可关闭页签
 
 `closable` 开启后页签带 ✕ 按钮。**组件只发出 `close` 事件、不自己删数据**(与 AxTag 的 close 语义一致),由业务从数组中移除对应面板;若关闭的是激活页签,Tabs 自动切换到相邻页签(先右后左):
@@ -85,7 +97,7 @@ function closePage(name: string | number) {
       </ax-menu-item>
     </ax-menu>
     <div style="flex: 1">
-      <ax-tabs v-model="active" closable @close="closePage">
+      <ax-tabs v-model="active" type="card" closable @close="closePage">
         <ax-tab-pane
           v-for="name in open"
           :key="name"
@@ -110,6 +122,7 @@ function closePage(name: string | number) {
 | 属性 | 说明 | 类型 | 默认值 |
 |------|------|------|--------|
 | `modelValue` (v-model) | 当前激活页签的 `name` | `string \| number` | — |
+| `type` | 页签风格:`line` 下划线 / `card` 卡片 | `'line' \| 'card'` | `'line'` |
 | `closable` | 页签可关闭(可被 TabPane 覆盖) | `boolean` | `false` |
 
 ### Tabs Events

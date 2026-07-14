@@ -9,8 +9,10 @@ const props = withDefaults(
     modelValue?: string | number
     /** 页签可关闭(可被单个 TabPane 的 closable 覆盖) */
     closable?: boolean
+    /** 页签风格:line 下划线 / card 卡片(多页签工作区推荐) */
+    type?: 'line' | 'card'
   }>(),
-  { closable: false }
+  { closable: false, type: 'line' }
 )
 
 const emit = defineEmits<{
@@ -60,7 +62,7 @@ function close(name: string | number) {
 </script>
 
 <template>
-  <div class="ax-tabs">
+  <div :class="['ax-tabs', `ax-tabs--${type}`]">
     <div class="ax-tabs__nav" role="tablist">
       <button
         v-for="[name, pane] in panes"
@@ -150,5 +152,37 @@ function close(name: string | number) {
   color: var(--axis-color-text-primary);
   font-size: var(--axis-font-size-base);
   line-height: var(--axis-line-height-base);
+}
+
+/* ---- card 卡片风格:独立背景块 + 描边 + 上圆角,激活页签与内容区连成一体 ---- */
+.ax-tabs--card .ax-tabs__nav {
+  gap: var(--axis-space-1);
+}
+.ax-tabs--card .ax-tabs__tab {
+  padding: var(--axis-space-2) var(--axis-space-4);
+  background: var(--axis-color-fill-hover);
+  border: 1px solid var(--axis-color-border-split);
+  border-bottom: none;
+  border-radius: var(--axis-radius-md) var(--axis-radius-md) 0 0;
+  transition:
+    color var(--axis-motion-duration-mid) var(--axis-motion-ease-in-out),
+    background-color var(--axis-motion-duration-mid) var(--axis-motion-ease-in-out);
+}
+.ax-tabs--card .ax-tabs__tab:hover:not(.is-active) {
+  background: var(--axis-color-fill-default);
+}
+.ax-tabs--card .ax-tabs__tab.is-active {
+  background: var(--axis-color-bg-container);
+}
+/* 复用 ::after 作为「缝隙遮盖条」:盖住 nav 底线,让激活页签与内容区无缝相连 */
+.ax-tabs--card .ax-tabs__tab::after {
+  height: 1px;
+  background: var(--axis-color-bg-container);
+  transform: none;
+  transition: none;
+  opacity: 0;
+}
+.ax-tabs--card .ax-tabs__tab.is-active::after {
+  opacity: 1;
 }
 </style>
