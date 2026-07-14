@@ -66,6 +66,16 @@ const normalizedSortOrder = computed<TableSortOrder>(() =>
   props.sortOrder === 'asc' || props.sortOrder === 'desc' ? props.sortOrder : null
 )
 
+/**
+ * 可排序表头的内容在 flex 按钮内,th 的 text-align 传导不到 flex 布局;
+ * 需把 align 映射为 justify-content 直接作用在排序按钮上
+ */
+const alignToJustify: Record<NonNullable<TableColumn['align']>, string> = {
+  left: 'flex-start',
+  center: 'center',
+  right: 'flex-end'
+}
+
 function getCellValue(row: Record<string, unknown>, col: TableColumn, index: number) {
   if (col.type === 'index') return props.indexOffset + index + 1
   return row[col.key]
@@ -115,6 +125,7 @@ function onSort(col: TableColumn) {
               v-if="col.sortable"
               class="ax-table__sorter"
               type="button"
+              :style="col.align ? { justifyContent: alignToJustify[col.align] } : undefined"
               :aria-label="`按${col.title}排序`"
               :aria-sort="sortKey === col.key && normalizedSortOrder ? (normalizedSortOrder === 'asc' ? 'ascending' : 'descending') : 'none'"
               @click="onSort(col)"
@@ -202,7 +213,8 @@ function onSort(col: TableColumn) {
 .ax-table__sorter {
   display: inline-flex;
   align-items: center;
-  justify-content: inherit;
+  /* 默认靠左;align 列经内联 justify-content 覆盖(text-align 传导不进 flex) */
+  justify-content: flex-start;
   gap: var(--axis-space-1);
   width: 100%;
   min-height: var(--axis-control-height-md);
