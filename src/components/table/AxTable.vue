@@ -211,14 +211,16 @@ function onSort(col: TableColumn) {
 }
 
 .ax-table__sorter {
+  position: relative;
   display: inline-flex;
   align-items: center;
   /* 默认靠左;align 列经内联 justify-content 覆盖(text-align 传导不进 flex) */
   justify-content: flex-start;
-  gap: var(--axis-space-1);
   width: 100%;
   min-height: var(--axis-control-height-md);
   padding: var(--ax-table-cell-padding);
+  /* 排序图标绝对定位在右侧,预留其空间(图标 8px + 右距 8px + 间隙 4px) */
+  padding-right: var(--axis-space-5);
   border: none;
   background: transparent;
   color: inherit;
@@ -234,9 +236,17 @@ function onSort(col: TableColumn) {
   text-overflow: ellipsis;
 }
 
+/**
+ * 图标脱离文档流固定在按钮右侧:
+ * 标题因此独立参与 justify-content 对齐,居中列的文字是真正的列宽正中,
+ * 不再被图标宽度挤出左偏(0.5.1 遗留的视觉偏移)
+ */
 .ax-table__sort-icons {
+  position: absolute;
+  right: var(--axis-space-2);
+  top: 50%;
+  transform: translateY(-50%);
   display: inline-flex;
-  flex: none;
   flex-direction: column;
   gap: var(--axis-space-1);
 }
