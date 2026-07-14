@@ -46,6 +46,8 @@ import AxText from './components/typography/AxText.vue'
 import AxTitle from './components/typography/AxTitle.vue'
 import AxDescriptions from './components/descriptions/AxDescriptions.vue'
 import AxDescriptionsItem from './components/descriptions/AxDescriptionsItem.vue'
+import AxSteps from './components/steps/AxSteps.vue'
+import AxWizardModal from './components/wizard-modal/AxWizardModal.vue'
 
 export { AxMessage } from './components/message/message'
 export { setTheme, getTheme, toggleTheme, applyBrandTheme } from './theme'
@@ -67,6 +69,7 @@ export type {
   TableSortOrder
 } from './components/table/AxTable.vue'
 export type { FormRule, FormRules } from './components/form/context'
+export type { StepItem } from './components/steps/AxSteps.vue'
 export type {
   DescriptionsLayout,
   DescriptionsSize
@@ -105,7 +108,9 @@ export {
   AxText as AxTypographyText,
   AxTitle as AxTypographyTitle,
   AxDescriptions,
-  AxDescriptionsItem
+  AxDescriptionsItem,
+  AxSteps,
+  AxWizardModal
 }
 
 const components = [
@@ -139,7 +144,9 @@ const components = [
   AxText,
   AxTitle,
   AxDescriptions,
-  AxDescriptionsItem
+  AxDescriptionsItem,
+  AxSteps,
+  AxWizardModal
 ]
 
 const AxisUI: Plugin = {

@@ -208,6 +208,36 @@ function loadTableData() {
 const modalOpen = ref(false)
 const dangerModalOpen = ref(false)
 
+/* ---- WizardModal 向导弹窗 ---- */
+const wizardOpen = ref(false)
+const wizardSteps = [
+  { title: '基本信息', description: '任务名称' },
+  { title: '参数配置', description: '运行环境' },
+  { title: '确认发布', description: '核对并提交' }
+]
+const wizardForm = reactive({ name: '', env: undefined as string | number | undefined })
+const envOptions: SelectOption[] = [
+  { label: '预发环境', value: 'staging' },
+  { label: '生产环境', value: 'prod' }
+]
+async function wizardBeforeNext(step: number) {
+  if (step === 0 && !wizardForm.name.trim()) {
+    AxMessage.error('请先填写任务名称')
+    return false
+  }
+  if (step === 1 && !wizardForm.env) {
+    AxMessage.error('请选择运行环境')
+    return false
+  }
+  if (step === 2) {
+    /* 模拟最后一步的异步提交:按钮进入加载态 */
+    await new Promise((resolve) => setTimeout(resolve, 800))
+  }
+  return true
+}
+/* 独立 Steps 演示 */
+const stepsDemo = ref(1)
+
 /* ---- Message 手动关闭 ---- */
 let closeLoading: (() => void) | null = null
 function showLoading() {
@@ -950,7 +980,48 @@ function hideLoading() {
         <ax-button type="primary" @click="modalOpen = true">发布确认</ax-button>
         <ax-button type="danger" plain @click="dangerModalOpen = true">危险操作(自定义底部)</ax-button>
       </div>
+      <div class="demo-block">
+        <span class="demo-block-label">WizardModal 向导弹窗(链式确认:下一步 → 完成,带异步校验)</span>
+        <ax-button type="primary" plain @click="wizardOpen = true">打开发布向导</ax-button>
+      </div>
+      <div class="demo-block" style="flex-direction: column; align-items: stretch">
+        <span class="demo-block-label">Steps 步骤条(独立使用,current={{ stepsDemo }})</span>
+        <ax-steps :steps="wizardSteps" :current="stepsDemo" />
+        <div style="display: flex; gap: var(--axis-space-2)">
+          <ax-button size="sm" :disabled="stepsDemo <= 0" @click="stepsDemo--">后退</ax-button>
+          <ax-button size="sm" type="primary" :disabled="stepsDemo >= 3" @click="stepsDemo++">推进</ax-button>
+        </div>
+      </div>
     </ax-card>
+
+    <ax-wizard-modal
+      v-model="wizardOpen"
+      title="发布向导"
+      :steps="wizardSteps"
+      :before-next="wizardBeforeNext"
+      @finish="AxMessage.success(`「${wizardForm.name}」已发布到 ${wizardForm.env}`)"
+      @cancel="AxMessage.info('已退出向导')"
+    >
+      <template #step-0>
+        <ax-form-item label="任务名称" required>
+          <ax-input v-model="wizardForm.name" placeholder="如:tokens v2.5.0 发布" clearable />
+        </ax-form-item>
+      </template>
+      <template #step-1>
+        <ax-form-item label="运行环境" required>
+          <ax-select v-model="wizardForm.env" :options="envOptions" placeholder="请选择" />
+        </ax-form-item>
+      </template>
+      <template #step-2>
+        <p style="margin: 0 0 var(--axis-space-2)">
+          即将发布 <strong>{{ wizardForm.name || '—' }}</strong> 到
+          <ax-tag type="primary">{{ wizardForm.env || '—' }}</ax-tag>
+        </p>
+        <p style="margin: 0; color: var(--axis-color-text-secondary)">
+          点击「完成」将模拟一次异步提交(按钮加载 0.8s),体验 before-next 的拦截与加载态。
+        </p>
+      </template>
+    </ax-wizard-modal>
 
     <ax-modal
       v-model="modalOpen"

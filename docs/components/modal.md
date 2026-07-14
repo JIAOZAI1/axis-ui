@@ -70,3 +70,5 @@ const open = ref(false)
 - 面板经 `<teleport to="body">` 渲染,不受父容器 `overflow/transform` 影响;
 - 打开时 `body` 滚动锁定,关闭自动恢复;
 - 带 `role="dialog" aria-modal="true"`。
+
+> 需要「下一步 → 完成」的分步链式确认时,使用 [WizardModal 向导弹窗](./wizard-modal.md)。
