@@ -79,6 +79,16 @@ function loadJobs() {
 </template>
 ```
 
+## 表头与内容分开对齐
+
+统一诉求「表头居中、内容按数据类型对齐」时,用 `headerAlign` 单独控制表头;不传则表头跟随 `align`,现有代码零改动:
+
+```js
+{ key: 'id', title: 'ID', align: 'center', sortable: true },               // 表头/内容都居中
+{ key: 'name', title: '实例名称', headerAlign: 'center', sortable: true }, // 表头居中,内容仍靠左
+{ key: 'amount', title: '金额', align: 'right', headerAlign: 'center' },   // 表头居中,内容靠右
+```
+
 ## 自定义单元格
 
 用 `#cell-[key]` 具名插槽自定义某列渲染:
@@ -124,7 +134,8 @@ interface TableColumn {
   type?: 'index'                       // 特殊列类型:序号列
   sortable?: boolean                   // 是否可点击排序
   width?: number | string              // 列宽
-  align?: 'left' | 'center' | 'right'  // 对齐
+  align?: 'left' | 'center' | 'right'  // 内容对齐(不传 headerAlign 时兼作表头对齐)
+  headerAlign?: 'left' | 'center' | 'right'  // 表头对齐,独立于内容;不传回落到 align
 }
 ```
 

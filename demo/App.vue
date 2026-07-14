@@ -183,7 +183,8 @@ function wsClosePage(name: string | number) {
 const columns: TableColumn[] = [
   { key: 'index', title: '序号', type: 'index', width: 72, align: 'center' },
   { key: 'id', title: 'ID', sortable: true, width: 120 },
-  { key: 'name', title: '项目', sortable: true, width: 200 },
+  /* headerAlign:表头居中、内容仍靠左(长文本列的推荐排法) */
+  { key: 'name', title: '项目', sortable: true, headerAlign: 'center', width: 200 },
   { key: 'owner', title: '负责人', width: 120 },
   { key: 'createdAt', title: '创建时间', sortable: true, width: 180 },
   { key: 'coverage', title: 'Token 覆盖率', sortable: true, align: 'right', width: 140 },

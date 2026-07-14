@@ -16,8 +16,10 @@ export interface TableColumn {
   sortable?: boolean
   /** 列宽 */
   width?: number | string
-  /** 对齐方式 */
+  /** 内容对齐方式(不传 headerAlign 时同时作为表头对齐) */
   align?: 'left' | 'center' | 'right'
+  /** 表头对齐方式,独立于内容;不传回落到 align */
+  headerAlign?: 'left' | 'center' | 'right'
 }
 
 export interface TableSortChangePayload {
@@ -76,6 +78,11 @@ const alignToJustify: Record<NonNullable<TableColumn['align']>, string> = {
   right: 'flex-end'
 }
 
+/** 表头对齐:headerAlign 优先,回落到 align(与内容一致) */
+function headerAlignOf(col: TableColumn) {
+  return col.headerAlign ?? col.align
+}
+
 function getCellValue(row: Record<string, unknown>, col: TableColumn, index: number) {
   if (col.type === 'index') return props.indexOffset + index + 1
   return row[col.key]
@@ -119,13 +126,13 @@ function onSort(col: TableColumn) {
                 'is-sort-active': col.sortable && sortKey === col.key && normalizedSortOrder
               }
             ]"
-            :style="col.align ? { textAlign: col.align } : undefined"
+            :style="headerAlignOf(col) ? { textAlign: headerAlignOf(col) } : undefined"
           >
             <button
               v-if="col.sortable"
               class="ax-table__sorter"
               type="button"
-              :style="col.align ? { justifyContent: alignToJustify[col.align] } : undefined"
+              :style="headerAlignOf(col) ? { justifyContent: alignToJustify[headerAlignOf(col)!] } : undefined"
               :aria-label="`按${col.title}排序`"
               :aria-sort="sortKey === col.key && normalizedSortOrder ? (normalizedSortOrder === 'asc' ? 'ascending' : 'descending') : 'none'"
               @click="onSort(col)"
