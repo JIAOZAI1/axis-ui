@@ -43,7 +43,7 @@ deploy/                # Docker/K8s 部署文件(Demo 站)
 
 ### 组件清单(34)
 
-- 通用:Icon(内置 29 图标)、Button、Link
+- 通用:Icon(内置 75 图标)、Button、Link
 - 布局:Row/Col(24 列栅格)、Space
 - 表单:Form/FormItem(校验)、Input、Select、Checkbox(+Group)、Radio(+Group)、Switch
 - 展示:Card、Descriptions(+Item)、Typography(Text/Title)、Tag、Badge、Table、Tabs(+TabPane)、Steps

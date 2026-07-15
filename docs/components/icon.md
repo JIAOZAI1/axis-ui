@@ -56,14 +56,15 @@
 </ax-icon>
 ```
 
-## 内置图标清单(29)
+## 内置图标清单(75)
 
 | 分类 | 图标名 |
 |------|--------|
-| 操作 | `search` `plus` `minus` `close` `check` `edit` `delete` `refresh` `download` `upload` `filter` `more` `loading` |
-| 方向 | `chevron-up` `chevron-down` `chevron-left` `chevron-right` |
-| 语义状态 | `info` `success` `warning` `error` |
-| 对象 | `user` `home` `settings` `eye` `calendar` `folder` `lock` `shield` |
+| 操作 | `search` `plus` `minus` `close` `check` `edit` `delete` `copy` `save` `refresh` `download` `upload` `send` `share` `print` `link` `external-link` `filter` `more` `loading` `fullscreen` `fullscreen-exit` `logout` |
+| 任务控制 | `play` `pause` `stop` |
+| 方向 | `chevron-up/down/left/right` `chevrons-left/right`(折叠侧边栏) `arrow-up/down/left/right`(返回/移动) |
+| 语义状态与提示 | `info` `success` `warning` `error` `question` `bell` `clock` `star` |
+| 对象 | `user` `users` `home` `settings` `eye` `eye-off`(密码可见切换) `calendar` `folder` `file` `image` `paperclip` `lock` `unlock` `key` `shield` `mail` `phone` `map-pin` `tag` `database` `server` `cloud` `grid` `list` `menu` `inbox`(空状态) `bar-chart` `code` `globe`(国际化) `moon` `sun`(暗色切换) |
 
 JS 侧可获取全量清单与原始片段:
 
