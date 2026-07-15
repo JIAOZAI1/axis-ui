@@ -43,7 +43,7 @@ axis-ui 的所有视觉值均以 CSS Custom Properties 形式提供,前缀 `--ax
 | `--axis-color-text-secondary` | `rgba(0,0,0,.65)` | 二级文字 |
 | `--axis-color-text-tertiary` | `rgba(0,0,0,.45)` | 三级文字 / 占位符 |
 | `--axis-color-text-disabled` | `rgba(0,0,0,.25)` | 禁用文字 |
-| `--axis-color-text-inverse` | `#ffffff` | 深色底上的反色文字 |
+| `--axis-color-text-inverse` | `#ffffff` | **钉死 Token**:饱和实心底(品牌/功能色按钮等)上的文字;背景不随主题反转,暗色下保持白色,禁止重映射 |
 | `--axis-color-border-default` | `rgba(5,5,5,.15)` | 默认描边 |
 | `--axis-color-border-split` | `rgba(5,5,5,.06)` | 分割线 |
 | `--axis-color-fill-default` | `rgba(0,0,0,.06)` | 默认填充 |

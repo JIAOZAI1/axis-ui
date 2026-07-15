@@ -82,6 +82,8 @@
   --axis-color-text-secondary: rgba(0, 0, 0, 0.65);
   --axis-color-text-tertiary: rgba(0, 0, 0, 0.45);
   --axis-color-text-disabled: rgba(0, 0, 0, 0.25);
+  /* 钉死 Token:用于品牌色/功能色等饱和实心背景上的文字;
+     这类背景不随主题反转,因此本 Token 在暗色下也保持白色,禁止重映射 */
   --axis-color-text-inverse: #ffffff;
 
   --axis-color-border-default: rgba(5, 5, 5, 0.15);

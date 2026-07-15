@@ -61,7 +61,7 @@ npm run build       # 构建 Demo 静态站到 dist-demo/
 
 | 分类 | 组件 | 文档 |
 |------|------|------|
-| 通用 | Icon 图标(内置 75 个线性图标) | [docs/components/icon.md](./docs/components/icon.md) |
+| 通用 | Icon 图标(内置 76 个线性图标) | [docs/components/icon.md](./docs/components/icon.md) |
 | 通用 | Button 按钮 | [docs/components/button.md](./docs/components/button.md) |
 | 通用 | Link 链接 | [docs/components/link.md](./docs/components/link.md) |
 | 布局 | Grid 栅格(Row / Col) | [docs/components/grid.md](./docs/components/grid.md) |
