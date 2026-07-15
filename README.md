@@ -10,7 +10,7 @@
 - 🌙 **暗色模式** — 一行 `setTheme('dark')` 全局切换,基于语义 Token 重映射(海拔分层背景、品牌色降饱和、阴影弱化),组件零改动
 - 🏷 **品牌主题定制** — `applyBrandTheme()` 运行时覆盖语义 Token,即刻全站换肤
 - ♿ **无障碍** — 遵循 WCAG AA 对比度要求;所有动效响应 `prefers-reduced-motion` 自动降级;组件带 ARIA 角色
-- 📦 **33 个核心组件** — 覆盖通用、表单(含 Form 校验)、布局、数据展示、反馈五大类
+- 📦 **34 个核心组件** — 覆盖通用、表单(含 Form 校验)、布局、数据展示、反馈五大类
 - 🔌 **全量 / 按需两种引入方式**,支持 ESM 与 UMD
 
 ## 快速开始
@@ -61,6 +61,7 @@ npm run build       # 构建 Demo 静态站到 dist-demo/
 
 | 分类 | 组件 | 文档 |
 |------|------|------|
+| 通用 | Icon 图标(内置 29 个线性图标) | [docs/components/icon.md](./docs/components/icon.md) |
 | 通用 | Button 按钮 | [docs/components/button.md](./docs/components/button.md) |
 | 通用 | Link 链接 | [docs/components/link.md](./docs/components/link.md) |
 | 布局 | Grid 栅格(Row / Col) | [docs/components/grid.md](./docs/components/grid.md) |

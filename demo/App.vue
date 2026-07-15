@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { onBeforeUnmount, onMounted, reactive } from 'vue'
+import { iconNames } from 'axis-ui'
 import type { FormRules } from 'axis-ui'
 import {
   AxMessage,
@@ -142,6 +143,16 @@ async function submitForm() {
     AxMessage.success('校验通过,已提交')
   } else {
     AxMessage.error('存在校验不通过的字段')
+  }
+}
+
+/* ---- Icon 图标墙 ---- */
+async function copyIconName(name: string) {
+  try {
+    await navigator.clipboard.writeText(`<ax-icon name="${name}" />`)
+    AxMessage.success(`已复制 <ax-icon name="${name}" />`)
+  } catch {
+    AxMessage.info(name)
   }
 }
 
@@ -371,6 +382,38 @@ function hideLoading() {
         断点同时以 JS 常量导出(<code style="font-family: var(--axis-font-family-code)">mediaUp('md')</code> /
         <code style="font-family: var(--axis-font-family-code)">matchBreakpoint('xl')</code>)。
       </p>
+    </ax-card>
+
+    <!-- ============ Icon ============ -->
+    <h2 class="demo-section-title">Icon 图标</h2>
+    <ax-card>
+      <div class="demo-block">
+        <span class="demo-block-label">内置线性图标库(24×24 网格 / 2px 描边 / currentColor,点击复制用法)</span>
+        <div class="demo-icon-wall">
+          <button
+            v-for="iconName in iconNames"
+            :key="iconName"
+            class="demo-icon-cell"
+            type="button"
+            @click="copyIconName(iconName)"
+          >
+            <ax-icon :name="iconName" size="lg" />
+            <span class="demo-icon-name">{{ iconName }}</span>
+          </button>
+        </div>
+      </div>
+      <div class="demo-block">
+        <span class="demo-block-label">尺寸 / 旋转 / 随文字色</span>
+        <ax-icon name="home" size="sm" />
+        <ax-icon name="home" />
+        <ax-icon name="home" size="lg" />
+        <ax-icon name="home" :size="32" />
+        <ax-icon name="loading" spin />
+        <span style="color: var(--axis-color-error); display: inline-flex; align-items: center; gap: var(--axis-space-1)">
+          <ax-icon name="delete" size="sm" /> 危险操作(图标随文字同色)
+        </span>
+        <ax-button type="primary"><ax-icon name="plus" size="sm" /> 新建</ax-button>
+      </div>
     </ax-card>
 
     <!-- ============ Button ============ -->
@@ -789,11 +832,11 @@ function hideLoading() {
         >
           <ax-menu v-model="menuActive" :collapsed="menuCollapsed" :default-open-keys="['project']">
             <ax-menu-item name="dashboard">
-              <template #icon>📊</template>
+              <template #icon><ax-icon name="home" /></template>
               工作台
             </ax-menu-item>
             <ax-sub-menu name="project" title="项目管理">
-              <template #icon>📁</template>
+              <template #icon><ax-icon name="folder" /></template>
               <ax-menu-item name="project-list">项目列表</ax-menu-item>
               <ax-menu-item name="project-archive">归档项目</ax-menu-item>
               <ax-sub-menu name="project-settings" title="项目设置">
@@ -802,12 +845,12 @@ function hideLoading() {
               </ax-sub-menu>
             </ax-sub-menu>
             <ax-sub-menu name="release" title="发布中心">
-              <template #icon>🚀</template>
+              <template #icon><ax-icon name="upload" /></template>
               <ax-menu-item name="release-pipeline">流水线</ax-menu-item>
               <ax-menu-item name="release-history">发布历史</ax-menu-item>
             </ax-sub-menu>
             <ax-menu-item name="audit" disabled>
-              <template #icon>🔒</template>
+              <template #icon><ax-icon name="lock" /></template>
               审计日志(无权限)
             </ax-menu-item>
           </ax-menu>
@@ -860,11 +903,11 @@ function hideLoading() {
       <div style="display: flex; align-items: stretch; min-height: 320px">
         <div style="width: var(--axis-layout-sider-width); border-right: 1px solid var(--axis-color-border-split); flex-shrink: 0">
           <ax-menu :model-value="wsActive" @select="wsOpenPage">
-            <ax-menu-item name="home"><template #icon>🏠</template>工作台</ax-menu-item>
-            <ax-menu-item name="users"><template #icon>👥</template>用户管理</ax-menu-item>
-            <ax-menu-item name="roles"><template #icon>🛡️</template>角色权限</ax-menu-item>
-            <ax-menu-item name="logs"><template #icon>📋</template>操作日志</ax-menu-item>
-            <ax-menu-item name="settings"><template #icon>⚙️</template>系统设置</ax-menu-item>
+            <ax-menu-item name="home"><template #icon><ax-icon name="home" /></template>工作台</ax-menu-item>
+            <ax-menu-item name="users"><template #icon><ax-icon name="user" /></template>用户管理</ax-menu-item>
+            <ax-menu-item name="roles"><template #icon><ax-icon name="shield" /></template>角色权限</ax-menu-item>
+            <ax-menu-item name="logs"><template #icon><ax-icon name="calendar" /></template>操作日志</ax-menu-item>
+            <ax-menu-item name="settings"><template #icon><ax-icon name="settings" /></template>系统设置</ax-menu-item>
           </ax-menu>
         </div>
         <div style="flex: 1; min-width: 0; padding: var(--axis-space-4) var(--axis-space-6)">

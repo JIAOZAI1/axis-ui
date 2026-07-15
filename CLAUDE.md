@@ -6,7 +6,7 @@
 
 1. 以**设计 Token** 为唯一事实源,组件样式零硬编码;
 2. 暗色模式与品牌主题**零组件改动**切换(仅替换语义 Token 映射);
-3. 提供中后台开发所需的核心组件(当前 33 个)+ 完整 Markdown 文档 + Demo 演示站;
+3. 提供中后台开发所需的核心组件(当前 34 个)+ 完整 Markdown 文档 + Demo 演示站;
 4. 以 npm 包发布到 **GitHub Packages**(`@jiaozai1/axis-ui`)。
 
 设计规范原文在会话末尾自动导入(见下方 import),它是所有视觉/交互决策的最高依据。
@@ -41,9 +41,9 @@ scripts/release.sh     # 唯一发布入口
 deploy/                # Docker/K8s 部署文件(Demo 站)
 ```
 
-### 组件清单(33)
+### 组件清单(34)
 
-- 通用:Button、Link
+- 通用:Icon(内置 29 图标)、Button、Link
 - 布局:Row/Col(24 列栅格)、Space
 - 表单:Form/FormItem(校验)、Input、Select、Checkbox(+Group)、Radio(+Group)、Switch
 - 展示:Card、Descriptions(+Item)、Typography(Text/Title)、Tag、Badge、Table、Tabs(+TabPane)、Steps

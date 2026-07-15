@@ -15,6 +15,7 @@ import './styles/tokens.css'
 import './styles/dark.css'
 import './styles/base.css'
 
+import AxIcon from './components/icon/AxIcon.vue'
 import AxButton from './components/button/AxButton.vue'
 import AxLink from './components/link/AxLink.vue'
 import AxInput from './components/input/AxInput.vue'
@@ -70,12 +71,15 @@ export type {
 } from './components/table/AxTable.vue'
 export type { FormRule, FormRules } from './components/form/context'
 export type { StepItem } from './components/steps/AxSteps.vue'
+export { icons, iconNames } from './components/icon/icons'
+export type { IconName } from './components/icon/icons'
 export type {
   DescriptionsLayout,
   DescriptionsSize
 } from './components/descriptions/context'
 
 export {
+  AxIcon,
   AxButton,
   AxLink,
   AxInput,
@@ -114,6 +118,7 @@ export {
 }
 
 const components = [
+  AxIcon,
   AxButton,
   AxLink,
   AxInput,
