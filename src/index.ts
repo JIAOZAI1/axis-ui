@@ -63,7 +63,7 @@ export {
   matchBreakpoint
 } from './tokens'
 export type { Breakpoint } from './tokens'
-export type { SelectOption } from './components/select/AxSelect.vue'
+export type { SelectOption, SelectValue } from './components/select/AxSelect.vue'
 export type {
   TableColumn,
   TableSortChangePayload,

@@ -109,6 +109,7 @@ const switchSm = ref(false)
 const checks = ref<(string | number)[]>(['read'])
 const radioValue = ref<string | number>('daily')
 const selectValue = ref<string | number | undefined>()
+const selectMultiple = ref<(string | number)[]>(['beijing', 'shanghai', 'shenzhen'])
 const selectSized = ref<string | number | undefined>('shanghai')
 const cityOptions: SelectOption[] = [
   { label: '北京', value: 'beijing' },
@@ -522,6 +523,17 @@ function hideLoading() {
           <div class="demo-block">
             <span class="demo-block-label">Select 选择器(可清空 / 禁用选项)</span>
             <ax-select v-model="selectValue" :options="cityOptions" clearable placeholder="请选择城市" />
+          </div>
+          <div class="demo-block">
+            <span class="demo-block-label">多选(multiple + max-tag-count=2,超出折叠为 +N)</span>
+            <ax-select
+              v-model="selectMultiple"
+              :options="cityOptions"
+              multiple
+              clearable
+              :max-tag-count="2"
+              placeholder="可选多个城市"
+            />
           </div>
           <div class="demo-block">
             <span class="demo-block-label">Select 尺寸 / 整体禁用</span>
