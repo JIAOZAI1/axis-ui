@@ -49,6 +49,7 @@ import AxDescriptions from './components/descriptions/AxDescriptions.vue'
 import AxDescriptionsItem from './components/descriptions/AxDescriptionsItem.vue'
 import AxSteps from './components/steps/AxSteps.vue'
 import AxWizardModal from './components/wizard-modal/AxWizardModal.vue'
+import AxMarkdown from './components/markdown/AxMarkdown.vue'
 
 export { AxMessage } from './components/message/message'
 export { setTheme, getTheme, toggleTheme, applyBrandTheme } from './theme'
@@ -114,7 +115,8 @@ export {
   AxDescriptions,
   AxDescriptionsItem,
   AxSteps,
-  AxWizardModal
+  AxWizardModal,
+  AxMarkdown
 }
 
 const components = [
@@ -151,7 +153,8 @@ const components = [
   AxDescriptions,
   AxDescriptionsItem,
   AxSteps,
-  AxWizardModal
+  AxWizardModal,
+  AxMarkdown
 ]
 
 const AxisUI: Plugin = {

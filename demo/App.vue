@@ -17,6 +17,39 @@ import {
   type TableSortOrder
 } from 'axis-ui'
 
+/* ---- Markdown 混合渲染 ---- */
+const markdownDemo = `## AI 回复示例
+
+这是一段**混合内容**演示:普通文本走 Markdown 排版,代码块拆分为独立组件并高亮。
+
+\`\`\`go
+func quickSort(arr []int) []int {
+    if len(arr) <= 1 {
+        return arr
+    }
+    pivot := arr[0]
+    var left, right []int
+    for _, v := range arr[1:] {
+        if v < pivot {
+            left = append(left, v)
+        } else {
+            right = append(right, v)
+        }
+    }
+    return append(append(quickSort(left), pivot), quickSort(right)...)
+}
+\`\`\`
+
+时间复杂度平均为 \`O(n log n)\`,最坏情况 \`O(n²)\`。
+
+- 支持列表
+- 支持**加粗**与 \`行内代码\`
+
+\`\`\`json
+{ "name": "axis-ui", "version": "0.7.2" }
+\`\`\`
+`
+
 /* ---- 主题 ---- */
 const dark = ref(false)
 function onThemeChange(value: boolean) {
@@ -1047,6 +1080,17 @@ function hideLoading() {
           <ax-button size="sm" :disabled="stepsDemo <= 0" @click="stepsDemo--">后退</ax-button>
           <ax-button size="sm" type="primary" :disabled="stepsDemo >= 3" @click="stepsDemo++">推进</ax-button>
         </div>
+      </div>
+    </ax-card>
+
+    <h2 class="demo-section-title">Markdown 混合渲染</h2>
+    <ax-card>
+      <div class="demo-block" style="flex-direction: column; align-items: stretch">
+        <span class="demo-block-label">AxMarkdown(正文走 Markdown 排版,代码块独立高亮 + 复制)</span>
+        <ax-markdown
+          :content="markdownDemo"
+          @copy="({ language }) => AxMessage.success(`已复制 ${language} 代码`)"
+        />
       </div>
     </ax-card>
 
