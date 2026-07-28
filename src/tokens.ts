@@ -38,6 +38,17 @@ export const layoutSizes = {
   footerHeight: 48
 } as const
 
+/**
+ * 功能性面板宽度(会话列表、工具面板、详情抽屉等,非全局导航)。
+ * 与 layoutSizes.siderWidth 语义不同:后者是页面唯一的全局导航侧栏,
+ * 这里是页面内任意位置可重复出现的功能面板宽度阶梯。
+ */
+export const panelWidths = {
+  sm: 240, // 会话列表、快捷面板:容纳文本截断 + 图标 + 小按钮
+  md: 300, // 工具面板、属性面板:容纳更多文本行、缩略图
+  lg: 360 // 可容实交互、嵌套内容的宽面板
+} as const
+
 /** 生成 min-width 媒体查询条件,如 mediaUp('md') → '(min-width: 768px)' */
 export function mediaUp(bp: Breakpoint): string {
   return `(min-width: ${breakpoints[bp]}px)`

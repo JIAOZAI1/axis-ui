@@ -155,6 +155,27 @@ axis-ui 的所有视觉值均以 CSS Custom Properties 形式提供,前缀 `--ax
 | `--axis-layout-sider-collapsed-width` | 64px | 侧边栏折叠宽度 |
 | `--axis-layout-footer-height` | 48px | 页脚高度 |
 
+### 功能性面板宽度(panel-width-*)
+
+会话列表、工具面板、属性面板、详情抽屉等**页面内可重复出现的功能面板**的宽度阶梯。
+
+> ⚠️ 与 `--axis-layout-sider-width` 语义不同:后者是**页面唯一的全局导航侧栏**(224px 固定值);
+> `panel-width-*` 用于导航侧栏之外、页面任意位置都可能出现的功能性面板,不要混用。
+
+| Token | 值 | 用途 |
+|-------|-----|------|
+| `--axis-panel-width-sm` | 240px | 会话列表、快捷面板——容纳单行文本截断 + 图标 + 小按钮 |
+| `--axis-panel-width-md` | 300px | 工具面板、属性面板——容纳更多文本行、缩略图 |
+| `--axis-panel-width-lg` | 360px | 可容纳丰富交互、嵌套内容的宽面板 |
+
+```css
+.ai-assistant-sidebar {
+  width: var(--axis-panel-width-md);
+}
+```
+
+JS 侧对应 `panelWidths`(见下方 JS 常量侧)。
+
 ### JS 常量侧
 
 断点相关值同时以 TS 常量导出,作为媒体查询与窗口判断的唯一事实源:
@@ -165,6 +186,7 @@ import {
   containerWidths,    // { sm: 540, md: 720, lg: 960, xl: 1140, xxl: 1400 }
   contentMinWidth,    // 1200
   layoutSizes,        // { headerHeight: 56, siderWidth: 224, ... }
+  panelWidths,        // { sm: 240, md: 300, lg: 360 }
   mediaUp, mediaDown, // 生成媒体查询条件字符串
   matchBreakpoint     // 判断当前视口是否达到某断点
 } from 'axis-ui'

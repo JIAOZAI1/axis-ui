@@ -130,6 +130,26 @@ body {
   color: var(--axis-color-primary);
   font-size: var(--axis-font-size-xs);
 }
+.demo-panel-swatch {
+  display: flex;
+  flex-direction: column;
+  gap: var(--axis-space-1);
+  padding: var(--axis-space-3);
+  background: var(--axis-color-fill-hover);
+  border: 1px dashed var(--axis-color-border-default);
+  border-radius: var(--axis-radius-md);
+}
+.demo-panel-swatch__value {
+  font-family: var(--axis-font-family-code);
+  font-size: var(--axis-font-size-sm);
+  color: var(--axis-color-primary);
+  font-weight: var(--axis-font-weight-medium);
+}
+.demo-panel-swatch__label {
+  font-size: var(--axis-font-size-xs);
+  color: var(--axis-color-text-tertiary);
+}
+
 .demo-shadow-box {
   padding: var(--axis-space-3) var(--axis-space-4);
   background: var(--axis-color-bg-container);

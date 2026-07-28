@@ -9,6 +9,7 @@ import {
   breakpoints,
   containerWidths,
   layoutSizes,
+  panelWidths,
   matchBreakpoint,
   setTheme,
   type Breakpoint,
@@ -124,6 +125,12 @@ onMounted(() => {
   window.addEventListener('resize', updateBp)
 })
 onBeforeUnmount(() => window.removeEventListener('resize', updateBp))
+
+const panelWidthDemos: { token: keyof typeof panelWidths; label: string }[] = [
+  { token: 'sm', label: '会话列表 / 快捷面板' },
+  { token: 'md', label: '工具面板 / 属性面板' },
+  { token: 'lg', label: '宽面板 / 详情抽屉' }
+]
 
 const fontSizes = [
   { token: 'xs', label: 'font-size-xs 12px · 辅助说明' },
@@ -416,6 +423,25 @@ function hideLoading() {
         断点同时以 JS 常量导出(<code style="font-family: var(--axis-font-family-code)">mediaUp('md')</code> /
         <code style="font-family: var(--axis-font-family-code)">matchBreakpoint('xl')</code>)。
       </p>
+    </ax-card>
+
+    <ax-card title="功能性面板宽度(panel-width-*)">
+      <p style="color: var(--axis-color-text-secondary); margin-top: 0">
+        会话列表、工具面板、属性面板等<strong>页面内可重复出现的功能面板</strong>宽度阶梯,
+        与 <code style="font-family: var(--axis-font-family-code)">--axis-layout-sider-width</code>
+        (页面唯一的全局导航侧栏,224px)语义不同,不要混用。
+      </p>
+      <div class="demo-block" style="align-items: flex-end">
+        <div
+          v-for="p in panelWidthDemos"
+          :key="p.token"
+          class="demo-panel-swatch"
+          :style="{ width: `${panelWidths[p.token] / 3}px` }"
+        >
+          <div class="demo-panel-swatch__value">{{ panelWidths[p.token] }}px</div>
+          <div class="demo-panel-swatch__label">{{ p.label }}</div>
+        </div>
+      </div>
     </ax-card>
 
     <!-- ============ Icon ============ -->

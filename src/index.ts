@@ -59,6 +59,7 @@ export {
   containerWidths,
   contentMinWidth,
   layoutSizes,
+  panelWidths,
   mediaUp,
   mediaDown,
   matchBreakpoint

@@ -180,6 +180,13 @@
   --axis-layout-sider-collapsed-width: 64px;
   --axis-layout-footer-height: 48px;
 
+  /* ---- 功能性面板宽度(会话列表/工具面板/详情抽屉等,非全局导航) ----
+   * 与 layout-sider-width 语义不同:后者是页面唯一的全局导航侧栏,
+   * 这里是页面内任意位置可重复出现的功能面板/抽屉宽度阶梯。 */
+  --axis-panel-width-sm: 240px;
+  --axis-panel-width-md: 300px;
+  --axis-panel-width-lg: 360px;
+
   /* ---- 阴影(与 z-index 层级绑定) ---- */
   --axis-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
   --axis-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
