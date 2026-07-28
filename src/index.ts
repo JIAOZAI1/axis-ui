@@ -50,6 +50,11 @@ import AxDescriptionsItem from './components/descriptions/AxDescriptionsItem.vue
 import AxSteps from './components/steps/AxSteps.vue'
 import AxWizardModal from './components/wizard-modal/AxWizardModal.vue'
 import AxMarkdown from './components/markdown/AxMarkdown.vue'
+import AxLayout from './components/layout/AxLayout.vue'
+import AxLayoutSider from './components/layout/AxLayoutSider.vue'
+import AxLayoutHeader from './components/layout/AxLayoutHeader.vue'
+import AxLayoutContent from './components/layout/AxLayoutContent.vue'
+import AxDrawer from './components/drawer/AxDrawer.vue'
 
 export { AxMessage } from './components/message/message'
 export { setTheme, getTheme, toggleTheme, applyBrandTheme } from './theme'
@@ -117,7 +122,12 @@ export {
   AxDescriptionsItem,
   AxSteps,
   AxWizardModal,
-  AxMarkdown
+  AxMarkdown,
+  AxLayout,
+  AxLayoutSider,
+  AxLayoutHeader,
+  AxLayoutContent,
+  AxDrawer
 }
 
 const components = [
@@ -155,7 +165,12 @@ const components = [
   AxDescriptionsItem,
   AxSteps,
   AxWizardModal,
-  AxMarkdown
+  AxMarkdown,
+  AxLayout,
+  AxLayoutSider,
+  AxLayoutHeader,
+  AxLayoutContent,
+  AxDrawer
 ]
 
 const AxisUI: Plugin = {

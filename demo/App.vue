@@ -132,6 +132,12 @@ const panelWidthDemos: { token: keyof typeof panelWidths; label: string }[] = [
   { token: 'lg', label: '宽面板 / 详情抽屉' }
 ]
 
+/* ---- Drawer ---- */
+const drawerOpen = ref(false)
+const drawerLeftOpen = ref(false)
+const drawerMasklessOpen = ref(false)
+const drawerOwners = ref<(string | number)[]>([])
+
 const fontSizes = [
   { token: 'xs', label: 'font-size-xs 12px · 辅助说明' },
   { token: 'base', label: 'font-size-base 14px · 正文默认' },
@@ -443,6 +449,58 @@ function hideLoading() {
         </div>
       </div>
     </ax-card>
+
+    <!-- ============ Layout + Drawer ============ -->
+    <h2 class="demo-section-title">Layout 布局容器 + Drawer 抽屉</h2>
+    <ax-card title="AxLayout:导航侧栏 + 功能面板 + 内容区(三栏)">
+      <ax-layout style="height: 280px; border: 1px solid var(--axis-color-border-split); border-radius: var(--axis-radius-lg); overflow: hidden">
+        <ax-layout-sider width="nav">
+          <ax-menu model-value="chats">
+            <ax-menu-item name="chats"><template #icon><ax-icon name="mail" /></template>会话</ax-menu-item>
+            <ax-menu-item name="tools"><template #icon><ax-icon name="settings" /></template>工具</ax-menu-item>
+          </ax-menu>
+        </ax-layout-sider>
+        <ax-layout-sider width="sm" body-padding="var(--axis-space-3)">
+          <p style="margin: 0 0 var(--axis-space-2); font-weight: var(--axis-font-weight-medium)">会话列表(sm 240px)</p>
+          <p style="margin: 0; color: var(--axis-color-text-tertiary); font-size: var(--axis-font-size-xs)">panel-width-sm</p>
+        </ax-layout-sider>
+        <ax-layout-content>
+          <p style="margin: 0; color: var(--axis-color-text-secondary)">主内容区(AxLayoutContent)</p>
+        </ax-layout-content>
+      </ax-layout>
+    </ax-card>
+
+    <ax-card title="AxDrawer:侧边抽屉(交互同 Modal,方向不同)">
+      <div class="demo-block">
+        <ax-button type="primary" @click="drawerOpen = true">打开工具面板(md · 右滑入)</ax-button>
+        <ax-button @click="drawerLeftOpen = true">从左滑入(sm)</ax-button>
+        <ax-button @click="drawerMasklessOpen = true">无遮罩常驻面板</ax-button>
+      </div>
+    </ax-card>
+
+    <ax-drawer v-model="drawerOpen" title="工具面板" width="md" @close="AxMessage.info('已关闭')">
+      <p style="margin: 0 0 var(--axis-space-2)">通知人</p>
+      <ax-select v-model="drawerOwners" :options="cityOptions" multiple placeholder="选择通知人" />
+      <p style="color: var(--axis-color-text-secondary); margin-top: var(--axis-space-4)">宽度取 panel-width-md(300px)。</p>
+      <template #footer>
+        <ax-button @click="drawerOpen = false">取消</ax-button>
+        <ax-button type="primary" @click="drawerOpen = false; AxMessage.success('已保存')">保存</ax-button>
+      </template>
+    </ax-drawer>
+
+    <ax-drawer v-model="drawerLeftOpen" title="从左滑入" placement="left" width="sm">
+      panel-width-sm(240px),placement="left"。
+    </ax-drawer>
+
+    <ax-drawer
+      v-model="drawerMasklessOpen"
+      title="常驻提示"
+      width="sm"
+      :mask="false"
+      :mask-closable="false"
+    >
+      无遮罩、不锁定页面滚动,适合"常驻但可关闭"的辅助面板。
+    </ax-drawer>
 
     <!-- ============ Icon ============ -->
     <h2 class="demo-section-title">Icon 图标</h2>
