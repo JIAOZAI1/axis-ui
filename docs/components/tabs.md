@@ -65,6 +65,18 @@ function onClose(name: string | number) {
 <ax-tab-pane name="home" label="工作台" :closable="false" />
 ```
 
+## 快捷键关闭(keyboardClosable)
+
+开启后,当焦点落在 Tabs 容器内(点击过页签、或代码调用过 `.focus()`)时,按 `Ctrl+W`(Windows/Linux)或 `Cmd+W`(macOS)关闭当前激活页签,行为与点击 ✕ 按钮完全一致(同样只发 `close` 事件、同样受面板级 `closable` 约束、同样触发自动切换相邻页签):
+
+```vue
+<ax-tabs v-model="active" type="card" closable keyboard-closable @close="onClose">
+  <ax-tab-pane v-for="t in tabs" :key="t.name" :name="t.name" :label="t.label" />
+</ax-tabs>
+```
+
+**默认关闭**,原因是 `Ctrl/Cmd+W` 在部分浏览器中是关闭标签页的保留快捷键,`preventDefault()` 不一定能拦截成功(取决于浏览器/系统策略),开启前请确认这一限制对业务场景可接受。
+
 ## 多页签工作区(配合 Menu)
 
 中后台经典形态:点击左侧菜单打开页面页签,页签可关闭、可切换,首页固定:
@@ -124,6 +136,7 @@ function closePage(name: string | number) {
 | `modelValue` (v-model) | 当前激活页签的 `name` | `string \| number` | — |
 | `type` | 页签风格:`line` 下划线 / `card` 卡片 | `'line' \| 'card'` | `'line'` |
 | `closable` | 页签可关闭(可被 TabPane 覆盖) | `boolean` | `false` |
+| `keyboardClosable` | 焦点在容器内时 `Ctrl/Cmd+W` 关闭当前激活页签 | `boolean` | `false` |
 
 ### Tabs Events
 

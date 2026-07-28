@@ -11,8 +11,10 @@ const props = withDefaults(
     closable?: boolean
     /** 页签风格:line 下划线 / card 卡片(多页签工作区推荐) */
     type?: 'line' | 'card'
+    /** Ctrl/Cmd+W 关闭当前激活页签(容器需获得焦点)。默认关闭:该组合在部分浏览器是保留快捷键,不能保证 preventDefault 生效,需业务显式确认后开启 */
+    keyboardClosable?: boolean
   }>(),
-  { closable: false, type: 'line' }
+  { closable: false, type: 'line', keyboardClosable: false }
 )
 
 const emit = defineEmits<{
@@ -59,10 +61,26 @@ function isClosable(pane: TabsPane): boolean {
 function close(name: string | number) {
   emit('close', name)
 }
+
+function handleKeydown(event: KeyboardEvent) {
+  if (!props.keyboardClosable) return
+  if (event.key.toLowerCase() !== 'w' || !(event.metaKey || event.ctrlKey)) return
+  if (props.modelValue === undefined) return
+
+  const pane = panes.get(props.modelValue)
+  if (!pane || !isClosable(pane)) return
+
+  event.preventDefault()
+  close(props.modelValue)
+}
 </script>
 
 <template>
-  <div :class="['ax-tabs', `ax-tabs--${type}`]">
+  <div
+    :class="['ax-tabs', `ax-tabs--${type}`]"
+    :tabindex="keyboardClosable ? -1 : undefined"
+    @keydown="handleKeydown"
+  >
     <div class="ax-tabs__nav" role="tablist">
       <button
         v-for="[name, pane] in panes"
@@ -71,6 +89,7 @@ function close(name: string | number) {
         type="button"
         role="tab"
         :aria-selected="name === modelValue"
+        :aria-keyshortcuts="keyboardClosable && name === modelValue && isClosable(pane) ? 'Control+W Meta+W' : undefined"
         @click="select(name)"
       >
         {{ pane.label.value }}
