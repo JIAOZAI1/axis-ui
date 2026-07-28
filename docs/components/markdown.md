@@ -76,4 +76,5 @@ func quickSort(arr []int) []int {
 
 - 组件内部对 Markdown 结果使用 `v-html` 渲染,**不要**将不可信的第三方 HTML 拼进 `content`(marked 默认不转义原始 HTML 标签,若来源不可控请自行做 sanitize);
 - 代码块配色是组件级 Token(`--ax-markdown-code-*`),随 `[data-theme="dark"]` 自动重映射,零组件改动切换暗色;
-- 复制按钮使用 `navigator.clipboard`,非安全上下文(非 HTTPS/localhost)下可能不可用。
+- 复制按钮使用 `navigator.clipboard`,非安全上下文(非 HTTPS/localhost)下可能不可用;
+- **流式场景**:每次 `content` 变化都会重新解析整个 Markdown。当检测到内容以未闭合的围栏(` ``` `)结尾时,该代码块会跳过 highlight.js 高亮、以纯文本渲染并追加一个闪烁光标(`.ax-markdown__stream-cursor`),复制按钮暂不显示;围栏闭合后自动补上高亮与复制按钮。逐 token 追加 `content` 即可获得打字机式的渐进渲染效果,无需额外处理。

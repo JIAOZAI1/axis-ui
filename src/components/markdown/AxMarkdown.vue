@@ -24,7 +24,14 @@ const props = withDefaults(
 const emit = defineEmits<{ (e: 'copy', payload: { code: string; language: string }): void }>()
 
 let blockIndex = 0
+let pendingBlockId = -1
 const codeBlocks = new Map<number, { code: string; language: string }>()
+
+/** 围栏计数为奇数时,最后一个代码块处于未闭合(仍在流式生成)状态 */
+function isUnclosedFence(raw: string): boolean {
+  const fences = raw.match(/^ {0,3}(`{3,}|~{3,})/gm)
+  return !!fences && fences.length % 2 === 1
+}
 
 const marked = new Marked({
   gfm: true,
@@ -32,18 +39,23 @@ const marked = new Marked({
   renderer: {
     code({ text, lang }) {
       const id = blockIndex++
-      const { html, language } = highlightCode(text, lang)
+      const streaming = id === pendingBlockId
+      const { html, language } = streaming
+        ? { html: escapeHtml(text), language: lang?.trim().toLowerCase() || 'text' }
+        : highlightCode(text, lang)
       codeBlocks.set(id, { code: text, language })
       const label = escapeHtml(lang?.trim() || language || 'text')
+      const cursor = streaming ? '<span class="ax-markdown__stream-cursor"></span>' : ''
+      const codeClass = streaming ? 'ax-markdown__code-plain' : `hljs language-${escapeHtml(language)}`
       return (
         `<div class="ax-markdown__code-block" data-block-id="${id}">` +
         `<div class="ax-markdown__code-header">` +
         `<span class="ax-markdown__code-lang">${label}</span>` +
-        (props.copyable
+        (props.copyable && !streaming
           ? `<button type="button" class="ax-markdown__code-copy" data-copy-id="${id}" aria-label="复制代码">复制</button>`
           : '') +
         `</div>` +
-        `<pre class="ax-markdown__pre"><code class="hljs language-${escapeHtml(language)}">${html}</code></pre>` +
+        `<pre class="ax-markdown__pre"><code class="${codeClass}">${html}${cursor}</code></pre>` +
         `</div>`
       )
     },
@@ -58,8 +70,20 @@ const copiedId = ref<number | null>(null)
 
 const html = computed(() => {
   blockIndex = 0
+  pendingBlockId = -1
   codeBlocks.clear()
-  return marked.parse(props.content ?? '', { async: false }) as string
+
+  const source = props.content ?? ''
+  if (isUnclosedFence(source)) {
+    const tokens = marked.lexer(source)
+    const lastCode = [...tokens].reverse().find((t) => t.type === 'code')
+    if (lastCode) {
+      // lexer 与 parse 各跑一次,token 顺序一致,code 类型出现次序即最终 blockIndex
+      pendingBlockId = tokens.filter((t) => t.type === 'code').indexOf(lastCode)
+    }
+  }
+
+  return marked.parse(source, { async: false }) as string
 })
 
 async function handleClick(event: MouseEvent) {
@@ -238,7 +262,8 @@ async function handleClick(event: MouseEvent) {
   overflow-x: auto;
 }
 
-.ax-markdown__pre code.hljs {
+.ax-markdown__pre code.hljs,
+.ax-markdown__pre code.ax-markdown__code-plain {
   display: block;
   color: var(--ax-markdown-code-text);
   background: transparent;
@@ -246,6 +271,21 @@ async function handleClick(event: MouseEvent) {
   font-size: var(--axis-font-size-sm);
   line-height: var(--axis-line-height-sm);
   white-space: pre;
+}
+
+.ax-markdown__stream-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  margin-left: 1px;
+  vertical-align: text-bottom;
+  background: var(--ax-markdown-code-text);
+  animation: ax-markdown-blink var(--axis-motion-duration-slow) var(--axis-motion-ease-in-out) infinite;
+}
+
+@keyframes ax-markdown-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
 /* ---- 组件 Token:代码块配色(亮色默认值) ---- */
