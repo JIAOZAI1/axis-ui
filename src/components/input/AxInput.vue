@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, inject, ref } from 'vue'
+import { computed, inject, nextTick, ref } from 'vue'
 import { formItemKey } from '../form/context'
 
 defineOptions({ name: 'AxInput' })
@@ -32,6 +32,7 @@ const emit = defineEmits<{
 }>()
 
 const focused = ref(false)
+const inputEl = ref<HTMLInputElement>(null)
 
 /* 位于 AxFormItem 内时联动:校验失败自动进入 error 态 */
 const formItem = inject(formItemKey, null)
@@ -70,12 +71,20 @@ function onBlur(ev: FocusEvent) {
   emit('blur', ev)
   formItem?.onFieldBlur()
 }
+
+defineExpose({
+  focus: async () => {
+    await nextTick()
+    inputEl.value?.focus()
+  }
+})
 </script>
 
 <template>
   <span :class="classes">
     <span v-if="$slots.prefix" class="ax-input__affix"><slot name="prefix" /></span>
     <input
+      ref="inputEl"
       class="ax-input__inner"
       :type="type"
       :value="modelValue"
@@ -91,6 +100,7 @@ function onBlur(ev: FocusEvent) {
       v-if="showClear"
       class="ax-input__clear"
       type="button"
+      tabindex="-1"
       aria-label="清空"
       @click="onClear"
     >✕</button>

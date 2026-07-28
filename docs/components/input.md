@@ -5,6 +5,9 @@
 > **浏览器自动填充**:WebKit/Blink 内核对命中自动填充的输入框会强制涂 UA 浅色背景(`:-webkit-autofill`),
 > 组件已内置适配——以 inset box-shadow 恢复主题背景、`-webkit-text-fill-color` 恢复文字色,
 > 亮色/暗色/品牌主题下均自动正确,业务无需处理。
+>
+> **键盘导航**:清空按钮 (clearable) 设有 `tabindex="-1"`,不参与 Tab 焦点循环,
+> 但仍可鼠标或触屏点击。这样 Tab 导航会直接从输入框跳到下一个可交互元素,改善表单填写体验。
 
 ## 基础用法
 
@@ -73,6 +76,30 @@ const value = ref('')
 |------|------|
 | `prefix` | 输入框头部内容 |
 | `suffix` | 输入框尾部内容 |
+
+### Expose (Template Ref)
+
+| 方法 | 说明 |
+|------|------|
+| `focus()` | 聚焦输入框(返回 Promise,确保 DOM 更新后生效) |
+
+**示例**:
+
+```vue
+<script setup>
+import { ref } from 'vue'
+const inputRef = ref(null)
+
+const focusInput = async () => {
+  await inputRef.value?.focus()
+}
+</script>
+
+<template>
+  <ax-input ref="inputRef" placeholder="点击按钮聚焦" />
+  <button @click="focusInput">聚焦输入框</button>
+</template>
+```
 
 ### 组件 Token
 
