@@ -15,7 +15,7 @@ const props = withDefaults(
 const slots = useSlots()
 const descriptions = inject(descriptionsKey, null)
 
-const contentNodes = computed(() => slots.default?.() ?? [])
+const contentNodes = computed(() => slots.default?.({}) ?? [])
 const hasContent = computed(() => contentNodes.value.length > 0)
 
 const style = computed(() => ({

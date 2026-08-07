@@ -94,3 +94,5 @@ app.use(AxisUI)
 | `dist/axis-ui.js` | ESM 产物(`module` / `exports.import`) |
 | `dist/axis-ui.umd.cjs` | UMD 产物(`main` / `exports.require`) |
 | `dist/axis-ui.css` | 全量样式(含三层 Token) |
+| `dist/index.d.ts` | TypeScript 声明入口(`types` / `exports.types`) |
+| `dist/components/**` | 各组件的 TypeScript 声明文件 |

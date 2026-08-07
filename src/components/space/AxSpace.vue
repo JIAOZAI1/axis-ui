@@ -1,5 +1,5 @@
 <script lang="ts">
-import { computed, defineComponent, h } from 'vue'
+import { computed, defineComponent, h, Text } from 'vue'
 import type { PropType, VNodeChild } from 'vue'
 
 type SpaceSize = 'xs' | 'sm' | 'md' | 'lg'
@@ -65,7 +65,9 @@ export default defineComponent({
 
     return () => {
       const children = (slots.default?.() ?? []).filter((child) => {
-        if (typeof child === 'string') return child.trim().length > 0
+        if (child.type === Text && typeof child.children === 'string') {
+          return child.children.trim().length > 0
+        }
         return true
       })
       const split = slots.split?.() ?? props.split

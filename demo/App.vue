@@ -1176,7 +1176,7 @@ function hideLoading() {
         <span class="demo-block-label">AxMarkdown(正文走 Markdown 排版,代码块独立高亮 + 复制)</span>
         <ax-markdown
           :content="markdownDemo"
-          @copy="({ language }) => AxMessage.success(`已复制 ${language} 代码`)"
+          @copy="({ language }: { language: string }) => AxMessage.success(`已复制 ${language} 代码`)"
         />
       </div>
     </ax-card>

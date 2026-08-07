@@ -32,7 +32,7 @@ const emit = defineEmits<{
 }>()
 
 const focused = ref(false)
-const inputEl = ref<HTMLInputElement>(null)
+const inputEl = ref<HTMLInputElement | null>(null)
 
 /* 位于 AxFormItem 内时联动:校验失败自动进入 error 态 */
 const formItem = inject(formItemKey, null)

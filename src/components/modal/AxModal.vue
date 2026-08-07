@@ -38,7 +38,8 @@ const emit = defineEmits<{
 
 function close(reason: 'confirm' | 'cancel') {
   emit('update:modelValue', false)
-  emit(reason)
+  if (reason === 'confirm') emit('confirm')
+  else emit('cancel')
 }
 
 function onMaskClick() {

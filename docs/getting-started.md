@@ -98,7 +98,8 @@ toggleTheme()       // 切换并返回当前模式
 
 ## TypeScript
 
-组件均以 `<script setup lang="ts">` 编写,并导出常用类型:
+包内置 TypeScript 声明文件,严格 TypeScript 工程无需额外安装 `@types` 包。组件均以
+`<script setup lang="ts">` 编写,并导出常用类型:
 
 ```ts
 import type { SelectOption, TableColumn, ThemeMode } from 'axis-ui'
