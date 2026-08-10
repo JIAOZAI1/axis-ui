@@ -139,7 +139,9 @@
   --axis-space-12: 48px;
   --axis-space-16: 64px;
 
-  /* ---- 圆角 ---- */
+  /* ---- 描边与圆角 ---- */
+  --axis-border-width: 1px;
+  --axis-focus-ring-width: 2px;
   --axis-radius-sm: 4px;
   --axis-radius-md: 6px;
   --axis-radius-lg: 8px;

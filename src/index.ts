@@ -34,6 +34,8 @@ import AxAlert from './components/alert/AxAlert.vue'
 import AxCard from './components/card/AxCard.vue'
 import AxTabs from './components/tabs/AxTabs.vue'
 import AxTabPane from './components/tabs/AxTabPane.vue'
+import AxCollapse from './components/collapse/AxCollapse.vue'
+import AxCollapseItem from './components/collapse/AxCollapseItem.vue'
 import AxRow from './components/grid/AxRow.vue'
 import AxCol from './components/grid/AxCol.vue'
 import AxTable from './components/table/AxTable.vue'
@@ -90,6 +92,12 @@ export type {
   DescriptionsLayout,
   DescriptionsSize
 } from './components/descriptions/context'
+export type {
+  CollapseExpose,
+  CollapseModelValue,
+  CollapseName,
+  CollapseType
+} from './components/collapse/context'
 
 export {
   AxIcon,
@@ -111,6 +119,8 @@ export {
   AxCard,
   AxTabs,
   AxTabPane,
+  AxCollapse,
+  AxCollapseItem,
   AxRow,
   AxCol,
   AxTable,
@@ -157,6 +167,8 @@ const components = [
   AxCard,
   AxTabs,
   AxTabPane,
+  AxCollapse,
+  AxCollapseItem,
   AxRow,
   AxCol,
   AxTable,

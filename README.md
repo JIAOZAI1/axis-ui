@@ -10,7 +10,7 @@
 - 🌙 **暗色模式** — 一行 `setTheme('dark')` 全局切换,基于语义 Token 重映射(海拔分层背景、品牌色降饱和、阴影弱化),组件零改动
 - 🏷 **品牌主题定制** — `applyBrandTheme()` 运行时覆盖语义 Token,即刻全站换肤
 - ♿ **无障碍** — 遵循 WCAG AA 对比度要求;所有动效响应 `prefers-reduced-motion` 自动降级;组件带 ARIA 角色
-- 📦 **41 个核心组件** — 覆盖通用、表单(含 Form 校验)、布局、数据展示、反馈五大类
+- 📦 **43 个核心组件** — 覆盖通用、表单(含 Form 校验)、布局、数据展示、反馈五大类
 - 🔌 **全量 / 按需两种引入方式**,支持 ESM 与 UMD
 
 ## 快速开始
@@ -51,6 +51,7 @@ import 'axis-ui/dist/axis-ui.css'
 ```bash
 npm install
 npm run dev         # 启动 Demo 演示站(全组件展示 + 暗色/品牌主题切换)
+npm test            # 运行组件单测、库构建与类型消费测试
 npm run build:lib   # 构建组件库产物到 dist/
 npm run build       # 构建 Demo 静态站到 dist-demo/
 ```
@@ -80,6 +81,7 @@ npm run build       # 构建 Demo 静态站到 dist-demo/
 | 展示 | Badge 徽标 | [docs/components/badge.md](./docs/components/badge.md) |
 | 展示 | Table 表格 | [docs/components/table.md](./docs/components/table.md) |
 | 展示 | Tabs 标签页 | [docs/components/tabs.md](./docs/components/tabs.md) |
+| 展示 | Collapse 折叠面板(含 Item) | [docs/components/collapse.md](./docs/components/collapse.md) |
 | 展示 | Steps 步骤条 | [docs/components/steps.md](./docs/components/steps.md) |
 | 展示 | Markdown 混合渲染(代码高亮) | [docs/components/markdown.md](./docs/components/markdown.md) |
 | 导航 | Menu 菜单(含 SubMenu / MenuItem) | [docs/components/menu.md](./docs/components/menu.md) |

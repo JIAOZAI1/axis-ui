@@ -220,6 +220,10 @@ function removeTag(tag: string) {
 /* ---- Tabs ---- */
 const activeTab = ref<string | number>('spec')
 
+/* ---- Collapse ---- */
+const collapseActive = ref<(string | number)[]>(['overview'])
+const collapseAccordion = ref<(string | number)[]>(['security'])
+
 /* ---- Menu ---- */
 const menuActive = ref<string | number>('dashboard')
 const menuCollapsed = ref(false)
@@ -887,6 +891,52 @@ function hideLoading() {
           <strong>borderless</strong> 无描边纯阴影;
           <code style="font-family: var(--axis-font-family-code)">bodyPadding</code>
           覆盖内容区内边距。
+        </ax-card>
+      </ax-col>
+    </ax-row>
+
+    <!-- ============ Collapse ============ -->
+    <h2 class="demo-section-title">Collapse 折叠面板</h2>
+    <ax-card title="辅助信息展开 / 收起">
+      <template #extra>
+        <ax-space size="sm">
+          <ax-button size="sm" @click="collapseActive = ['overview', 'runtime']">展开全部</ax-button>
+          <ax-button size="sm" @click="collapseActive = []">全部收起</ax-button>
+        </ax-space>
+      </template>
+      <ax-collapse v-model="collapseActive">
+        <ax-collapse-item name="overview" title="任务概要">
+          当前任务由调度中心触发,最近一次运行成功,耗时 2.4 秒。
+          <template #extra><ax-tag type="success">正常</ax-tag></template>
+        </ax-collapse-item>
+        <ax-collapse-item name="runtime">
+          <template #title="{ expanded }">运行参数{{ expanded ? '(已展开)' : '' }}</template>
+          环境:production;重试:3 次;超时:30 秒。
+          <template #extra><ax-text code size="sm">job_20260811001</ax-text></template>
+        </ax-collapse-item>
+        <ax-collapse-item name="archived" title="已归档的诊断信息" disabled>
+          禁用项不可通过鼠标或键盘展开。
+        </ax-collapse-item>
+      </ax-collapse>
+    </ax-card>
+
+    <ax-row :gutter="24">
+      <ax-col :span="12">
+        <ax-card title="borderless + 手风琴">
+          <ax-collapse v-model="collapseAccordion" type="borderless" accordion>
+            <ax-collapse-item name="security" title="安全策略">密码轮换周期为 90 天。</ax-collapse-item>
+            <ax-collapse-item name="audit" title="审计策略">操作日志保留 180 天。</ax-collapse-item>
+          </ax-collapse>
+        </ax-card>
+      </ax-col>
+      <ax-col :span="12">
+        <ax-card title="simple + 默认展开">
+          <ax-collapse type="simple" :default-active-names="['guide']">
+            <ax-collapse-item name="guide" title="使用说明">
+              按 Enter 或 Space 切换,按上下方向键、Home 或 End 在标题间移动焦点。
+            </ax-collapse-item>
+            <ax-collapse-item name="tips" title="更多提示">支持亮色、暗色和品牌主题。</ax-collapse-item>
+          </ax-collapse>
         </ax-card>
       </ax-col>
     </ax-row>

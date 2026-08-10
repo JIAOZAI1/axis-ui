@@ -93,10 +93,12 @@ axis-ui 的所有视觉值均以 CSS Custom Properties 形式提供,前缀 `--ax
 
 ---
 
-## 圆角与控件高度
+## 描边、圆角与控件高度
 
 | Token | 值 | 用途 |
 |-------|-----|------|
+| `--axis-border-width` | 1px | 默认描边宽度 |
+| `--axis-focus-ring-width` | 2px | 键盘焦点环宽度 |
 | `--axis-radius-sm` | 4px | 小组件(Tag、Checkbox) |
 | `--axis-radius-md` | 6px | 常规控件(Button、Input、Select) |
 | `--axis-radius-lg` | 8px | 容器(Card、Modal、Popover) |
