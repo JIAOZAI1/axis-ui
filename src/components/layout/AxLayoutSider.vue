@@ -50,7 +50,8 @@ const widthValue = computed(() => {
 <style>
 .ax-layout-sider {
   flex-shrink: 0;
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
   background: var(--axis-color-bg-container);
   transition: width var(--axis-motion-duration-mid) var(--axis-motion-ease-in-out);
 }

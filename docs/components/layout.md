@@ -77,5 +77,6 @@
 ### 说明
 
 - `AxLayoutHeader` 高度固定取 `--axis-layout-header-height`(56px),无可配置 props;
+- `AxLayoutSider` 默认仅在内容纵向溢出时滚动,横向溢出会被裁切,避免导航侧栏因轻微宽度偏差出现横向滚动条;
 - 三个区域组件均为纯展示容器,不处理响应式折叠逻辑,折叠状态由业务通过 `collapsed` 传入(参考 [Menu 折叠图标栏](./menu.md));
 - 需要"点击展开的浮层面板"而非"常驻布局区域"时,使用 [Drawer 抽屉](./drawer.md)。
