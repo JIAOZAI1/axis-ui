@@ -2,6 +2,15 @@
  * axis-ui 基础样式:字体继承、动效降级
  */
 
+/* 向浏览器声明当前主题,使原生滚动条与表单控件同步明暗外观。 */
+:root {
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+}
+
 .axis-ui,
 [class^="ax-"],
 [class*=" ax-"] {

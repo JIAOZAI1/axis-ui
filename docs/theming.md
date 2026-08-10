@@ -28,6 +28,8 @@ const next = toggleTheme() // 切换并返回切换后的模式
 }
 ```
 
+基础样式也会同步设置 `color-scheme: dark`,使浏览器原生滚动条、表单控件等 UI 与组件主题保持一致;切回亮色时恢复为 `color-scheme: light`。
+
 ### 暗色映射的设计要点
 
 暗色不是简单反色,而是按规范重建一套映射:
