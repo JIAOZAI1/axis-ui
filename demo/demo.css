@@ -158,6 +158,73 @@ body {
   font-size: var(--axis-font-size-xs);
 }
 
+/* 项目列表:操作按钮鼠标移入或键盘聚焦时同样可见 */
+.demo-project-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--axis-space-1);
+}
+
+.demo-project-item {
+  display: flex;
+  align-items: center;
+  gap: var(--axis-space-3);
+  min-height: var(--axis-control-height-lg);
+  padding: var(--axis-space-2) var(--axis-space-3);
+  border-radius: var(--axis-radius-md);
+  outline: none;
+  transition:
+    background-color var(--axis-motion-duration-fast) var(--axis-motion-ease-in-out),
+    box-shadow var(--axis-motion-duration-fast) var(--axis-motion-ease-in-out);
+}
+
+.demo-project-item:hover,
+.demo-project-item:focus-within {
+  background: var(--axis-color-fill-hover);
+}
+
+.demo-project-item:focus-visible {
+  box-shadow: inset 0 0 0 var(--axis-focus-ring-width) var(--axis-color-primary-border);
+}
+
+.demo-project-item__content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.demo-project-item__content strong {
+  color: var(--axis-color-text-primary);
+  font-weight: var(--axis-font-weight-medium);
+}
+
+.demo-project-item__content span {
+  color: var(--axis-color-text-tertiary);
+  font-size: var(--axis-font-size-xs);
+  line-height: var(--axis-line-height-xs);
+}
+
+.demo-project-item__actions {
+  flex-shrink: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--axis-motion-duration-fast) var(--axis-motion-ease-in-out);
+}
+
+.demo-project-item:hover .demo-project-item__actions,
+.demo-project-item:focus-within .demo-project-item__actions {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (hover: none) {
+  .demo-project-item__actions {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
 .demo-swatches {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));

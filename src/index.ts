@@ -36,6 +36,10 @@ import AxTabs from './components/tabs/AxTabs.vue'
 import AxTabPane from './components/tabs/AxTabPane.vue'
 import AxCollapse from './components/collapse/AxCollapse.vue'
 import AxCollapseItem from './components/collapse/AxCollapseItem.vue'
+import AxDropdown from './components/dropdown/AxDropdown.vue'
+import AxDropdownMenu from './components/dropdown/AxDropdownMenu.vue'
+import AxDropdownItem from './components/dropdown/AxDropdownItem.vue'
+import AxDropdownDivider from './components/dropdown/AxDropdownDivider.vue'
 import AxRow from './components/grid/AxRow.vue'
 import AxCol from './components/grid/AxCol.vue'
 import AxTable from './components/table/AxTable.vue'
@@ -98,6 +102,11 @@ export type {
   CollapseName,
   CollapseType
 } from './components/collapse/context'
+export type {
+  DropdownPlacement,
+  DropdownTrigger,
+  DropdownValue
+} from './components/dropdown/context'
 
 export {
   AxIcon,
@@ -121,6 +130,10 @@ export {
   AxTabPane,
   AxCollapse,
   AxCollapseItem,
+  AxDropdown,
+  AxDropdownMenu,
+  AxDropdownItem,
+  AxDropdownDivider,
   AxRow,
   AxCol,
   AxTable,
@@ -169,6 +182,10 @@ const components = [
   AxTabPane,
   AxCollapse,
   AxCollapseItem,
+  AxDropdown,
+  AxDropdownMenu,
+  AxDropdownItem,
+  AxDropdownDivider,
   AxRow,
   AxCol,
   AxTable,

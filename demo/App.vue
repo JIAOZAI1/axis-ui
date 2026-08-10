@@ -229,6 +229,20 @@ const menuActive = ref<string | number>('dashboard')
 const menuCollapsed = ref(false)
 const topMenuActive = ref<string | number>('home')
 
+/* ---- Dropdown 项目操作 ---- */
+const demoProjects = reactive([
+  { id: 'axis-admin', name: 'Axis Admin', description: '中后台管理端', menuOpen: false },
+  { id: 'token-platform', name: 'Token Platform', description: '设计 Token 治理平台', menuOpen: false },
+  { id: 'component-docs', name: 'Component Docs', description: '组件文档站', menuOpen: false }
+])
+function handleProjectAction(action: string | number, projectName: string) {
+  if (action === 'delete') {
+    AxMessage.warning(`准备删除项目「${projectName}」`)
+    return
+  }
+  AxMessage.info(`${action === 'edit' ? '编辑' : '复制'}项目「${projectName}」`)
+}
+
 /* ---- 多页签工作区(Menu + Tabs 联动) ---- */
 const wsPages: Record<string, { label: string; desc: string }> = {
   home: { label: '工作台', desc: '固定首页,不可关闭。左侧菜单打开的页面会以页签形式聚合在这里。' },
@@ -1031,6 +1045,69 @@ function hideLoading() {
         <ax-descriptions-item label="审计策略">保留 180 天</ax-descriptions-item>
       </ax-descriptions>
     </ax-card>
+
+    <!-- ============ Dropdown ============ -->
+    <h2 class="demo-section-title">Dropdown 项目操作菜单</h2>
+    <ax-row :gutter="24">
+      <ax-col :span="16">
+        <ax-card title="项目列表(hover / focus-within 显示三点按钮)">
+          <div class="demo-project-list" role="list">
+            <div
+              v-for="project in demoProjects"
+              :key="project.id"
+              class="demo-project-item"
+              role="listitem"
+              tabindex="0"
+            >
+              <span class="demo-project-item__content">
+                <strong>{{ project.name }}</strong>
+                <span>{{ project.description }}</span>
+              </span>
+              <ax-dropdown
+                v-model:open="project.menuOpen"
+                class="demo-project-item__actions"
+                placement="bottom-end"
+                :aria-label="`${project.name} 项目操作`"
+                @select="handleProjectAction($event, project.name)"
+              >
+                <template #trigger><ax-icon name="more" /></template>
+                <ax-dropdown-menu>
+                  <ax-dropdown-item value="edit">
+                    <template #icon><ax-icon name="edit" size="sm" /></template>
+                    编辑项目
+                  </ax-dropdown-item>
+                  <ax-dropdown-item value="copy" :disabled="project.id === 'component-docs'">
+                    <template #icon><ax-icon name="copy" size="sm" /></template>
+                    复制项目
+                  </ax-dropdown-item>
+                  <ax-dropdown-divider />
+                  <ax-dropdown-item value="delete" danger>
+                    <template #icon><ax-icon name="delete" size="sm" /></template>
+                    删除项目
+                  </ax-dropdown-item>
+                </ax-dropdown-menu>
+              </ax-dropdown>
+            </div>
+          </div>
+        </ax-card>
+      </ax-col>
+      <ax-col :span="8">
+        <ax-card title="hover 触发 / top-start">
+          <ax-dropdown trigger="hover" placement="top-start" aria-label="更多快捷操作">
+            <template #trigger>
+              <ax-space size="sm"><ax-icon name="more" />更多操作</ax-space>
+            </template>
+            <ax-dropdown-menu>
+              <ax-dropdown-item value="refresh"><template #icon><ax-icon name="refresh" size="sm" /></template>刷新状态</ax-dropdown-item>
+              <ax-dropdown-item value="download"><template #icon><ax-icon name="download" size="sm" /></template>导出数据</ax-dropdown-item>
+            </ax-dropdown-menu>
+          </ax-dropdown>
+          <p style="margin-bottom: 0; color: var(--axis-color-text-tertiary)">
+            移入或聚焦触发器时展开;弹层会按视口空间自动翻转。
+          </p>
+        </ax-card>
+      </ax-col>
+    </ax-row>
 
     <!-- ============ Menu ============ -->
     <h2 class="demo-section-title">Menu 菜单</h2>
