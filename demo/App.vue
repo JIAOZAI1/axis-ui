@@ -150,6 +150,8 @@ const fontSizes = [
 const inputValue = ref('')
 const inputCount = ref('')
 const inputSized = ref('')
+const textareaValue = ref('')
+const textareaAutosize = ref('输入更多内容时,文本框会自动增高。')
 const switchOn = ref(true)
 const switchSm = ref(false)
 const checks = ref<(string | number)[]>(['read'])
@@ -170,6 +172,7 @@ const formLabelPos = ref<string | number>('left')
 const formModel = reactive({
   name: '',
   email: '',
+  description: '',
   city: undefined as string | number | undefined,
   agree: [] as (string | number)[]
 })
@@ -177,6 +180,10 @@ const formRules: FormRules = {
   name: [
     { required: true, message: '请输入姓名' },
     { min: 2, max: 10, message: '长度 2–10 个字符' }
+  ],
+  description: [
+    { required: true, message: '请输入申请说明' },
+    { min: 10, max: 200, message: '说明长度为 10–200 个字符' }
   ],
   email: [
     { required: true, message: '请输入邮箱' },
@@ -670,6 +677,31 @@ function hideLoading() {
           </div>
         </ax-col>
       </ax-row>
+      <ax-row :gutter="24">
+        <ax-col :span="12">
+          <div class="demo-block">
+            <span class="demo-block-label">Textarea 多行文本 / 字数统计</span>
+            <ax-textarea
+              v-model="textareaValue"
+              :rows="4"
+              :maxlength="120"
+              show-count
+              placeholder="请输入详细说明"
+            />
+          </div>
+        </ax-col>
+        <ax-col :span="12">
+          <div class="demo-block">
+            <span class="demo-block-label">自动高度(2–6 行) / 状态</span>
+            <ax-textarea
+              v-model="textareaAutosize"
+              :autosize="{ minRows: 2, maxRows: 6 }"
+              placeholder="输入内容观察高度变化"
+            />
+            <ax-textarea model-value="需要检查的多行内容" status="warning" resize="none" />
+          </div>
+        </ax-col>
+      </ax-row>
       <div class="demo-block">
         <span class="demo-block-label">Checkbox 多选(组 / 禁用项 / 半选)</span>
         <ax-checkbox-group v-model="checks">
@@ -718,6 +750,15 @@ function hideLoading() {
             <ax-form-item label="通知接收邮箱地址(工作日生效)" prop="email">
               <ax-input v-model="formModel.email" placeholder="name@example.com" clearable />
             </ax-form-item>
+            <ax-form-item label="申请说明" prop="description">
+              <ax-textarea
+                v-model="formModel.description"
+                :maxlength="200"
+                show-count
+                :autosize="{ minRows: 3, maxRows: 6 }"
+                placeholder="请输入 10–200 个字符"
+              />
+            </ax-form-item>
             <ax-form-item label="城市" prop="city">
               <ax-select v-model="formModel.city" :options="cityOptions" clearable placeholder="请选择城市" />
             </ax-form-item>
@@ -738,7 +779,7 @@ function hideLoading() {
         <ax-col :span="10">
           <p style="color: var(--axis-color-text-secondary); margin-top: 0">
             失焦即校验;字段校验过一次后,输入时即时重校验(改对了错误立即消失);
-            Input/Select 校验失败自动进入红色错误态,必填星号取
+            Input/Textarea/Select 校验失败自动进入红色错误态,必填星号取
             <code style="font-family: var(--axis-font-family-code)">color-error</code>。
           </p>
           <p style="color: var(--axis-color-text-secondary)">

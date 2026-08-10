@@ -19,6 +19,7 @@ import AxIcon from './components/icon/AxIcon.vue'
 import AxButton from './components/button/AxButton.vue'
 import AxLink from './components/link/AxLink.vue'
 import AxInput from './components/input/AxInput.vue'
+import AxTextarea from './components/textarea/AxTextarea.vue'
 import AxForm from './components/form/AxForm.vue'
 import AxFormItem from './components/form/AxFormItem.vue'
 import AxSwitch from './components/switch/AxSwitch.vue'
@@ -72,6 +73,11 @@ export {
 export type { Breakpoint } from './tokens'
 export type { SelectOption, SelectValue } from './components/select/AxSelect.vue'
 export type {
+  TextareaAutosize,
+  TextareaAutosizeOptions,
+  TextareaResize
+} from './components/textarea/AxTextarea.vue'
+export type {
   TableColumn,
   TableSortChangePayload,
   TableSortOrder
@@ -90,6 +96,7 @@ export {
   AxButton,
   AxLink,
   AxInput,
+  AxTextarea,
   AxForm,
   AxFormItem,
   AxSwitch,
@@ -135,6 +142,7 @@ const components = [
   AxButton,
   AxLink,
   AxInput,
+  AxTextarea,
   AxForm,
   AxFormItem,
   AxSwitch,
