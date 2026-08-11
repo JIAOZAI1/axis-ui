@@ -132,6 +132,10 @@ const panelWidthDemos: { token: keyof typeof panelWidths; label: string }[] = [
   { token: 'lg', label: '宽面板 / 详情抽屉' }
 ]
 
+/* ---- Splitter ---- */
+const splitterSize = ref(264)
+const verticalSplitterSizes = ref([112, 152])
+
 /* ---- Drawer ---- */
 const drawerOpen = ref(false)
 const drawerLeftOpen = ref(false)
@@ -494,6 +498,51 @@ function hideLoading() {
         </ax-layout-content>
       </ax-layout>
     </ax-card>
+
+    <h2 class="demo-section-title">Splitter 可拖动分栏</h2>
+    <ax-row :gutter="24">
+      <ax-col :span="16">
+        <ax-card title="水平分栏:v-model:size">
+          <template #extra>项目列表 {{ Math.round(splitterSize) }}px</template>
+          <ax-splitter v-model:size="splitterSize" class="demo-splitter-shell">
+            <ax-splitter-panel :default-size="264" :min-size="192" :max-size="400">
+              <div class="demo-splitter-panel demo-splitter-panel--list">
+                <strong>项目列表</strong>
+                <button type="button" class="demo-splitter-project is-active">Axis Admin</button>
+                <button type="button" class="demo-splitter-project">Token Platform</button>
+                <button type="button" class="demo-splitter-project">Component Docs</button>
+              </div>
+            </ax-splitter-panel>
+            <ax-splitter-panel :min-size="240">
+              <div class="demo-splitter-panel demo-splitter-panel--discussion">
+                <strong>Axis Admin · 讨论区</strong>
+                <p>拖动中间分隔条调整列表宽度,也可聚焦后使用左右方向键。</p>
+                <div class="demo-splitter-message">面板尺寸变化会通过 v-model 输出,是否持久化由业务端决定。</div>
+              </div>
+            </ax-splitter-panel>
+          </ax-splitter>
+        </ax-card>
+      </ax-col>
+      <ax-col :span="8">
+        <ax-card title="垂直分栏:v-model:sizes">
+          <ax-splitter
+            v-model:sizes="verticalSplitterSizes"
+            direction="vertical"
+            class="demo-splitter-shell"
+          >
+            <ax-splitter-panel :min-size="64" :max-size="184">
+              <div class="demo-splitter-panel">
+                <strong>编辑区</strong>
+                <p>sizes: {{ verticalSplitterSizes.map(Math.round).join(' / ') }}px</p>
+              </div>
+            </ax-splitter-panel>
+            <ax-splitter-panel :min-size="80">
+              <div class="demo-splitter-panel demo-splitter-panel--console">控制台输出</div>
+            </ax-splitter-panel>
+          </ax-splitter>
+        </ax-card>
+      </ax-col>
+    </ax-row>
 
     <ax-card title="AxDrawer:侧边抽屉(交互同 Modal,方向不同)">
       <div class="demo-block">

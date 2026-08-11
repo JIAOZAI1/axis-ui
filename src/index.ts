@@ -62,6 +62,8 @@ import AxLayoutSider from './components/layout/AxLayoutSider.vue'
 import AxLayoutHeader from './components/layout/AxLayoutHeader.vue'
 import AxLayoutContent from './components/layout/AxLayoutContent.vue'
 import AxDrawer from './components/drawer/AxDrawer.vue'
+import AxSplitter from './components/splitter/AxSplitter.vue'
+import AxSplitterPanel from './components/splitter/AxSplitterPanel.vue'
 
 export { AxMessage } from './components/message/message'
 export { setTheme, getTheme, toggleTheme, applyBrandTheme } from './theme'
@@ -107,6 +109,11 @@ export type {
   DropdownTrigger,
   DropdownValue
 } from './components/dropdown/context'
+export type {
+  SplitterDirection,
+  SplitterResizeEvent,
+  SplitterResizeTrigger
+} from './components/splitter/context'
 
 export {
   AxIcon,
@@ -157,7 +164,9 @@ export {
   AxLayoutSider,
   AxLayoutHeader,
   AxLayoutContent,
-  AxDrawer
+  AxDrawer,
+  AxSplitter,
+  AxSplitterPanel
 }
 
 const components = [
@@ -207,7 +216,9 @@ const components = [
   AxLayoutSider,
   AxLayoutHeader,
   AxLayoutContent,
-  AxDrawer
+  AxDrawer,
+  AxSplitter,
+  AxSplitterPanel
 ]
 
 const AxisUI: Plugin = {

@@ -6,6 +6,8 @@ import AxisUI, {
   AxDropdownDivider,
   AxDropdownItem,
   AxDropdownMenu,
+  AxSplitter,
+  AxSplitterPanel,
   AxTable,
   AxTextarea,
   setTheme
@@ -17,6 +19,9 @@ import type {
   DropdownTrigger,
   DropdownValue,
   SelectOption,
+  SplitterDirection,
+  SplitterResizeEvent,
+  SplitterResizeTrigger,
   TableColumn,
   TextareaAutosize,
   ThemeMode
@@ -31,6 +36,15 @@ const collapseType: CollapseType = 'simple'
 const dropdownPlacement: DropdownPlacement = 'bottom-end'
 const dropdownTrigger: DropdownTrigger = 'click'
 const dropdownValue: DropdownValue = 'edit'
+const splitterDirection: SplitterDirection = 'horizontal'
+const splitterTrigger: SplitterResizeTrigger = 'keyboard'
+const splitterEvent: SplitterResizeEvent = {
+  index: 0,
+  size: 280,
+  sizes: [280, 720],
+  direction: splitterDirection,
+  trigger: splitterTrigger
+}
 
 setTheme(theme)
 
@@ -43,6 +57,8 @@ void [
   AxDropdownDivider,
   AxDropdownItem,
   AxDropdownMenu,
+  AxSplitter,
+  AxSplitterPanel,
   AxTable,
   AxTextarea,
   option,
@@ -52,5 +68,8 @@ void [
   collapseType,
   dropdownPlacement,
   dropdownTrigger,
-  dropdownValue
+  dropdownValue,
+  splitterDirection,
+  splitterTrigger,
+  splitterEvent
 ]

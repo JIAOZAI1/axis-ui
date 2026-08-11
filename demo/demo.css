@@ -150,6 +150,74 @@ body {
   color: var(--axis-color-text-tertiary);
 }
 
+/* Splitter 工作区示例 */
+.demo-splitter-shell {
+  height: calc(var(--axis-space-16) * 5);
+  border: var(--axis-border-width) solid var(--axis-color-border-split);
+  border-radius: var(--axis-radius-lg);
+  background: var(--axis-color-bg-container);
+}
+
+.demo-splitter-panel {
+  height: 100%;
+  padding: var(--axis-space-4);
+  color: var(--axis-color-text-primary);
+}
+
+.demo-splitter-panel p {
+  margin: var(--axis-space-2) 0 0;
+  color: var(--axis-color-text-secondary);
+}
+
+.demo-splitter-panel--list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--axis-space-2);
+  background: var(--axis-color-fill-hover);
+}
+
+.demo-splitter-project {
+  width: 100%;
+  padding: var(--axis-space-2) var(--axis-space-3);
+  border: 0;
+  border-radius: var(--axis-radius-md);
+  background: var(--axis-color-bg-container);
+  color: var(--axis-color-text-secondary);
+  font: inherit;
+  text-align: left;
+}
+
+.demo-splitter-project:hover,
+.demo-splitter-project:focus-visible,
+.demo-splitter-project.is-active {
+  background: var(--axis-color-primary-bg);
+  color: var(--axis-color-primary);
+  outline: none;
+  box-shadow: inset 0 0 0 var(--axis-focus-ring-width) var(--axis-color-primary-border);
+}
+
+.demo-splitter-panel--discussion {
+  display: flex;
+  flex-direction: column;
+}
+
+.demo-splitter-message {
+  align-self: flex-end;
+  max-width: calc(100% - var(--axis-space-8));
+  margin-top: var(--axis-space-6);
+  padding: var(--axis-space-3) var(--axis-space-4);
+  border-radius: var(--axis-radius-lg);
+  background: var(--axis-color-primary-bg);
+  color: var(--axis-color-primary);
+}
+
+.demo-splitter-panel--console {
+  background: var(--axis-color-fill-hover);
+  color: var(--axis-color-text-secondary);
+  font-family: var(--axis-font-family-code);
+  font-size: var(--axis-font-size-xs);
+}
+
 .demo-shadow-box {
   padding: var(--axis-space-3) var(--axis-space-4);
   background: var(--axis-color-bg-container);
