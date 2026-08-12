@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import { computed, toRef } from 'vue'
-import { descriptionsKey, type DescriptionsLayout, type DescriptionsSize } from './context'
+import {
+  descriptionsKey,
+  type DescriptionsLabelAlign,
+  type DescriptionsLayout,
+  type DescriptionsSize
+} from './context'
 import { provide } from 'vue'
 
 defineOptions({ name: 'AxDescriptions' })
@@ -12,6 +17,8 @@ const props = withDefaults(
     bordered?: boolean
     size?: DescriptionsSize
     layout?: DescriptionsLayout
+    /** 横向布局中标签的垂直对齐方式 */
+    labelAlign?: DescriptionsLabelAlign
     labelWidth?: string | number
     emptyText?: string
   }>(),
@@ -20,6 +27,7 @@ const props = withDefaults(
     bordered: false,
     size: 'md',
     layout: 'horizontal',
+    labelAlign: 'start',
     emptyText: '-'
   }
 )
@@ -36,6 +44,7 @@ const classes = computed(() => [
 
 const style = computed(() => ({
   '--ax-descriptions-requested-columns': String(Math.min(6, Math.max(1, props.column))),
+  '--ax-descriptions-label-align': props.labelAlign,
   '--ax-descriptions-label-width':
     typeof props.labelWidth === 'number' ? `${props.labelWidth}px` : props.labelWidth
 }))
@@ -73,6 +82,7 @@ provide(descriptionsKey, {
   --ax-descriptions-gap-y: var(--axis-space-3);
   --ax-descriptions-padding-y: var(--axis-space-3);
   --ax-descriptions-padding-x: var(--axis-space-4);
+  --ax-descriptions-label-align: start;
   --ax-descriptions-label-width: calc(var(--axis-space-12) * 2);
   --ax-descriptions-font-size: var(--axis-font-size-base);
   --ax-descriptions-line-height: var(--axis-line-height-base);

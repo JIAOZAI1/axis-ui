@@ -112,6 +112,7 @@ applyBrandTheme({
 | Table | `--ax-table-header-bg` / `--ax-table-cell-padding` |
 | Switch | `--ax-switch-height` / `--ax-switch-min-width` / `--ax-switch-handle` |
 | Tabs | `--ax-tabs-tab-height` / `--ax-tabs-card-tab-height` / `--ax-tabs-tab-font-size` / `--ax-tabs-nav-gap` / `--ax-tabs-card-padding-x` / `--ax-tabs-close-icon-size` |
+| Descriptions | `--ax-descriptions-label-align` / `--ax-descriptions-label-width` / `--ax-descriptions-font-size` / `--ax-descriptions-line-height` |
 
 ## 无障碍要求
 

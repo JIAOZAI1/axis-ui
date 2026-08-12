@@ -1058,7 +1058,7 @@ function hideLoading() {
     </ax-card>
 
     <ax-card title="详情页信息展示">
-      <ax-descriptions title="作业信息" :column="4" size="sm" label-width="88px">
+      <ax-descriptions title="作业信息" :column="4" size="sm" label-align="center" label-width="88px">
         <template #extra>
           <ax-space size="sm">
             <ax-button size="sm">编辑</ax-button>

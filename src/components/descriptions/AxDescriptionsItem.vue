@@ -62,6 +62,10 @@ const style = computed(() => ({
   text-overflow: ellipsis;
 }
 
+.ax-descriptions--horizontal .ax-descriptions-item__label {
+  align-self: var(--ax-descriptions-label-align);
+}
+
 .ax-descriptions--vertical .ax-descriptions-item__label {
   flex: none;
   max-width: none;

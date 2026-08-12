@@ -95,6 +95,7 @@ export type { StepItem } from './components/steps/AxSteps.vue'
 export { icons, iconNames } from './components/icon/icons'
 export type { IconName } from './components/icon/icons'
 export type {
+  DescriptionsLabelAlign,
   DescriptionsLayout,
   DescriptionsSize
 } from './components/descriptions/context'

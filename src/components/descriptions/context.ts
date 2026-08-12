@@ -2,6 +2,7 @@ import type { InjectionKey, Ref } from 'vue'
 
 export type DescriptionsSize = 'sm' | 'md' | 'lg'
 export type DescriptionsLayout = 'horizontal' | 'vertical'
+export type DescriptionsLabelAlign = 'start' | 'center' | 'end'
 
 export interface DescriptionsContext {
   emptyText: Ref<string>

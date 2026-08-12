@@ -48,6 +48,20 @@
 </ax-descriptions>
 ```
 
+## 标签垂直对齐
+
+横向布局中标签默认与内容顶部对齐。内容可能换行或包含多行组件时,可通过 `label-align="center"` 仅将标签在当前描述项内垂直居中,内容自身仍保持原有布局:
+
+```vue
+<ax-descriptions bordered :column="1" label-align="center">
+  <ax-descriptions-item label="项目描述">
+    支持多行的项目描述内容…
+  </ax-descriptions-item>
+</ax-descriptions>
+```
+
+`label-align` 也支持 `end`;该属性只作用于 `layout="horizontal"`,纵向布局保持标签位于内容上方。
+
 ## API
 
 ### Descriptions Props
@@ -59,6 +73,7 @@
 | `bordered` | 显示边框表格样式 | `boolean` | `false` |
 | `size` | 尺寸 | `'sm' \| 'md' \| 'lg'` | `'md'` |
 | `layout` | label 布局 | `'horizontal' \| 'vertical'` | `'horizontal'` |
+| `labelAlign` | 横向 label 的垂直对齐 | `'start' \| 'center' \| 'end'` | `'start'` |
 | `labelWidth` | 横向 label 宽度 | `string \| number` | `96px` |
 | `emptyText` | 空值展示 | `string` | `'-'` |
 
@@ -78,3 +93,9 @@
 | `AxDescriptions` | `extra` | 右侧操作区 |
 | `AxDescriptionsItem` | `default` | 内容,可放 `AxTag`、`AxLink`、`AxText` 等组件 |
 | `AxDescriptionsItem` | `label` | 自定义标签 |
+
+### 组件 Token
+
+| Token | 默认值 | 说明 |
+|------|------|------|
+| `--ax-descriptions-label-align` | `start` | 横向 label 的垂直对齐方式,由 `labelAlign` 映射 |

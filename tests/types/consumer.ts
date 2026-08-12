@@ -15,6 +15,7 @@ import AxisUI, {
 import type {
   CollapseModelValue,
   CollapseType,
+  DescriptionsLabelAlign,
   DropdownPlacement,
   DropdownTrigger,
   DropdownValue,
@@ -33,6 +34,7 @@ const theme: ThemeMode = 'dark'
 const autosize: TextareaAutosize = { minRows: 2, maxRows: 6 }
 const collapseValue: CollapseModelValue = ['details', 2]
 const collapseType: CollapseType = 'simple'
+const descriptionsLabelAlign: DescriptionsLabelAlign = 'center'
 const dropdownPlacement: DropdownPlacement = 'bottom-end'
 const dropdownTrigger: DropdownTrigger = 'click'
 const dropdownValue: DropdownValue = 'edit'
@@ -66,6 +68,7 @@ void [
   autosize,
   collapseValue,
   collapseType,
+  descriptionsLabelAlign,
   dropdownPlacement,
   dropdownTrigger,
   dropdownValue,
