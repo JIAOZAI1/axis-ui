@@ -111,6 +111,7 @@ applyBrandTheme({
 | Select | `--ax-select-height` / `--ax-select-font-size` |
 | Table | `--ax-table-header-bg` / `--ax-table-cell-padding` |
 | Switch | `--ax-switch-height` / `--ax-switch-min-width` / `--ax-switch-handle` |
+| Tabs | `--ax-tabs-tab-height` / `--ax-tabs-card-tab-height` / `--ax-tabs-tab-font-size` / `--ax-tabs-nav-gap` / `--ax-tabs-card-padding-x` / `--ax-tabs-close-icon-size` |
 
 ## 无障碍要求
 

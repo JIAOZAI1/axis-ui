@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, provide, shallowReactive } from 'vue'
+import AxIcon from '../icon/AxIcon.vue'
 import { tabsKey, type TabsPane } from './context'
 
 defineOptions({ name: 'AxTabs' })
@@ -11,10 +12,12 @@ const props = withDefaults(
     closable?: boolean
     /** 页签风格:line 下划线 / card 卡片(多页签工作区推荐) */
     type?: 'line' | 'card'
+    /** 页签尺寸:sm 紧凑 / md 默认 */
+    size?: 'sm' | 'md'
     /** Ctrl/Cmd+W 关闭当前激活页签(容器需获得焦点)。默认关闭:该组合在部分浏览器是保留快捷键,不能保证 preventDefault 生效,需业务显式确认后开启 */
     keyboardClosable?: boolean
   }>(),
-  { closable: false, type: 'line', keyboardClosable: false }
+  { closable: false, type: 'line', size: 'md', keyboardClosable: false }
 )
 
 const emit = defineEmits<{
@@ -77,7 +80,7 @@ function handleKeydown(event: KeyboardEvent) {
 
 <template>
   <div
-    :class="['ax-tabs', `ax-tabs--${type}`]"
+    :class="['ax-tabs', `ax-tabs--${type}`, `ax-tabs--${size}`]"
     :tabindex="keyboardClosable ? -1 : undefined"
     @keydown="handleKeydown"
   >
@@ -99,7 +102,9 @@ function handleKeydown(event: KeyboardEvent) {
           role="button"
           aria-label="关闭页签"
           @click.stop="close(name)"
-        >✕</span>
+        >
+          <AxIcon class="ax-tabs__close-icon" name="close" size="sm" />
+        </span>
       </button>
     </div>
     <div class="ax-tabs__content">
@@ -109,9 +114,27 @@ function handleKeydown(event: KeyboardEvent) {
 </template>
 
 <style>
+.ax-tabs {
+  --ax-tabs-tab-height: var(--axis-control-height-lg);
+  --ax-tabs-card-tab-height: var(--axis-control-height-md);
+  --ax-tabs-tab-font-size: var(--axis-font-size-base);
+  --ax-tabs-nav-gap: var(--axis-space-8);
+  --ax-tabs-card-padding-x: var(--axis-space-4);
+  --ax-tabs-close-icon-size: var(--axis-icon-size-sm);
+}
+
+.ax-tabs--sm {
+  --ax-tabs-tab-height: var(--axis-control-height-md);
+  --ax-tabs-card-tab-height: var(--axis-control-height-sm);
+  --ax-tabs-tab-font-size: var(--axis-font-size-sm);
+  --ax-tabs-nav-gap: var(--axis-space-4);
+  --ax-tabs-card-padding-x: var(--axis-space-3);
+  --ax-tabs-close-icon-size: var(--axis-space-3);
+}
+
 .ax-tabs__nav {
   display: flex;
-  gap: var(--axis-space-8);
+  gap: var(--ax-tabs-nav-gap);
   border-bottom: 1px solid var(--axis-color-border-split);
 }
 
@@ -120,10 +143,11 @@ function handleKeydown(event: KeyboardEvent) {
   display: inline-flex;
   align-items: center;
   gap: var(--axis-space-1);
-  padding: var(--axis-space-3) 0;
+  height: var(--ax-tabs-tab-height);
+  padding: 0;
   border: none;
   background: transparent;
-  font-size: var(--axis-font-size-base);
+  font-size: var(--ax-tabs-tab-font-size);
   color: var(--axis-color-text-secondary);
   cursor: pointer;
   transition: color var(--axis-motion-duration-mid) var(--axis-motion-ease-in-out);
@@ -150,16 +174,18 @@ function handleKeydown(event: KeyboardEvent) {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 16px;
-  height: 16px;
-  margin-right: -4px;
+  width: var(--axis-icon-size-sm);
+  height: var(--axis-icon-size-sm);
+  margin-right: calc(var(--axis-space-1) * -1);
   border-radius: var(--axis-radius-sm);
   color: var(--axis-color-text-tertiary);
-  font-size: 10px;
-  line-height: 1;
   transition:
     color var(--axis-motion-duration-fast) var(--axis-motion-ease-in-out),
     background-color var(--axis-motion-duration-fast) var(--axis-motion-ease-in-out);
+}
+.ax-tabs__close-icon {
+  width: var(--ax-tabs-close-icon-size);
+  height: var(--ax-tabs-close-icon-size);
 }
 .ax-tabs__close:hover {
   color: var(--axis-color-text-primary);
@@ -178,7 +204,8 @@ function handleKeydown(event: KeyboardEvent) {
   gap: var(--axis-space-1);
 }
 .ax-tabs--card .ax-tabs__tab {
-  padding: var(--axis-space-2) var(--axis-space-4);
+  height: var(--ax-tabs-card-tab-height);
+  padding: 0 var(--ax-tabs-card-padding-x);
   background: var(--axis-color-fill-hover);
   border: 1px solid var(--axis-color-border-split);
   border-bottom: none;

@@ -1260,7 +1260,7 @@ function hideLoading() {
           <p style="margin: 0 0 var(--axis-space-2); color: var(--axis-color-text-tertiary); font-size: var(--axis-font-size-xs)">
             点击任意页签后可按 Ctrl/Cmd+W 关闭当前页签(keyboard-closable)
           </p>
-          <ax-tabs v-model="wsActive" type="card" closable keyboard-closable @close="wsClosePage">
+          <ax-tabs v-model="wsActive" type="card" size="sm" closable keyboard-closable @close="wsClosePage">
             <ax-tab-pane
               v-for="name in wsOpen"
               :key="name"

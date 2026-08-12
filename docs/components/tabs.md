@@ -31,6 +31,16 @@ const active = ref('spec')
 
 样式全部取语义 Token(`fill-hover` 灰底 / `bg-container` 激活底 / `border-split` 描边),暗色与品牌主题自动适配。
 
+## 紧凑尺寸(size="sm")
+
+需要在有限宽度内展示更多页签时使用 `size="sm"`。紧凑尺寸会统一缩小页签字号与高度、导航间距、卡片式页签的横向内边距和关闭图标,内容面板的字号不受影响:
+
+```vue
+<ax-tabs v-model="active" type="card" size="sm" closable @close="onClose">
+  <ax-tab-pane v-for="t in tabs" :key="t.name" :name="t.name" :label="t.label" />
+</ax-tabs>
+```
+
 ## 可关闭页签
 
 `closable` 开启后页签带 ✕ 按钮。**组件只发出 `close` 事件、不自己删数据**(与 AxTag 的 close 语义一致),由业务从数组中移除对应面板;若关闭的是激活页签,Tabs 自动切换到相邻页签(先右后左):
@@ -135,6 +145,7 @@ function closePage(name: string | number) {
 |------|------|------|--------|
 | `modelValue` (v-model) | 当前激活页签的 `name` | `string \| number` | — |
 | `type` | 页签风格:`line` 下划线 / `card` 卡片 | `'line' \| 'card'` | `'line'` |
+| `size` | 页签尺寸:`sm` 紧凑 / `md` 默认 | `'sm' \| 'md'` | `'md'` |
 | `closable` | 页签可关闭(可被 TabPane 覆盖) | `boolean` | `false` |
 | `keyboardClosable` | 焦点在容器内时 `Ctrl/Cmd+W` 关闭当前激活页签 | `boolean` | `false` |
 
@@ -158,3 +169,14 @@ function closePage(name: string | number) {
 - 页签导航由 `AxTabPane` 挂载时自动注册生成,`AxTabPane` 动态增删时导航同步更新;
 - 关闭激活页签时自动切换到相邻页签:优先右侧,右侧没有则左侧;
 - 非激活面板不渲染(`v-if`),适合含重组件的内容。
+
+### 组件 Token
+
+| Token | `md` 默认值 | `sm` 默认值 |
+|------|------|------|
+| `--ax-tabs-tab-height` | `--axis-control-height-lg` | `--axis-control-height-md` |
+| `--ax-tabs-card-tab-height` | `--axis-control-height-md` | `--axis-control-height-sm` |
+| `--ax-tabs-tab-font-size` | `--axis-font-size-base` | `--axis-font-size-sm` |
+| `--ax-tabs-nav-gap` | `--axis-space-8` | `--axis-space-4` |
+| `--ax-tabs-card-padding-x` | `--axis-space-4` | `--axis-space-3` |
+| `--ax-tabs-close-icon-size` | `--axis-icon-size-sm` | `--axis-space-3` |
